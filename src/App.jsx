@@ -9,6 +9,7 @@ function App() {
   const [selectedLevel, setSelectedLevel] = useState('A1');
   const [selectedCategory, setSelectedCategory] = useState('Basics');
   const [selectedMode, setSelectedMode] = useState('vocabulary');
+  const [languageDirection, setLanguageDirection] = useState('pl-to-en'); // 'pl-to-en' or 'en-to-pl'
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cards, setCards] = useState(vocabulary.A1.Basics.vocabulary);
 
@@ -80,13 +81,15 @@ function App() {
 
       {cards.length > 0 && (
         <>
-          <Flashcard word={cards[currentIndex]} />
+          <Flashcard word={cards[currentIndex]} languageDirection={languageDirection} />
           <FlashcardControls
             onPrevious={handlePrevious}
             onNext={handleNext}
             onShuffle={handleShuffle}
             currentIndex={currentIndex}
             totalCards={cards.length}
+            languageDirection={languageDirection}
+            onToggleLanguage={() => setLanguageDirection(languageDirection === 'pl-to-en' ? 'en-to-pl' : 'pl-to-en')}
           />
         </>
       )}
