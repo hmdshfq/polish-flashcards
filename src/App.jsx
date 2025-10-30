@@ -7,12 +7,29 @@ import { vocabulary } from './data/vocabulary';
 
 function App() {
   const [selectedLevel, setSelectedLevel] = useState('A1');
+  const [selectedCategory, setSelectedCategory] = useState('Basics');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cards, setCards] = useState(vocabulary.A1);
+  const [cards, setCards] = useState(vocabulary.A1.Basics);
 
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
-    setCards(vocabulary[level]);
+    // Check if the level has categories (like A1) or is a flat array
+    if (typeof vocabulary[level] === 'object' && !Array.isArray(vocabulary[level])) {
+      // Level has categories, select the first one
+      const firstCategory = Object.keys(vocabulary[level])[0];
+      setSelectedCategory(firstCategory);
+      setCards(vocabulary[level][firstCategory]);
+    } else {
+      // Level is a flat array (A2, B1)
+      setSelectedCategory(null);
+      setCards(vocabulary[level]);
+    }
+    setCurrentIndex(0);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setCards(vocabulary[selectedLevel][category]);
     setCurrentIndex(0);
   };
 
@@ -41,7 +58,13 @@ function App() {
         <p>Learn Polish vocabulary at your own pace</p>
       </header>
 
-      <CategorySelector selectedLevel={selectedLevel} onSelectLevel={handleLevelSelect} />
+      <CategorySelector
+        selectedLevel={selectedLevel}
+        selectedCategory={selectedCategory}
+        onSelectLevel={handleLevelSelect}
+        onSelectCategory={handleCategorySelect}
+        vocabulary={vocabulary}
+      />
 
       {cards.length > 0 && (
         <>

@@ -49,3 +49,41 @@
   font-size: 0.9rem;
   opacity: 0.8;
 }
+
+.category-selector h3 {
+  color: #dc143c;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.category-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.category-button {
+  padding: 0.8rem 1.5rem;
+  background: white;
+  border: 2px solid #dc143c;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.category-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.2);
+}
+
+.category-button.active {
+  background: #dc143c;
+  color: white;
+}
