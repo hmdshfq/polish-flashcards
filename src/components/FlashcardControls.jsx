@@ -1,6 +1,7 @@
 import './FlashcardControls.css';
+import AudioControls from './AudioControls';
 
-function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage }) {
+function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, isMuted, onToggleMute, speechRate, onSpeechRateChange }) {
   return (
     <div className="flashcard-controls">
       <div className="language-toggle-container">
@@ -16,6 +17,12 @@ function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalC
           </span>
         </div>
       </div>
+      <AudioControls
+        isMuted={isMuted}
+        onToggleMute={onToggleMute}
+        speechRate={speechRate}
+        onSpeechRateChange={onSpeechRateChange}
+      />
       <div className="progress-indicator">
         {currentIndex + 1} / {totalCards}
       </div>

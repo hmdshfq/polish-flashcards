@@ -12,6 +12,8 @@ function App() {
   const [languageDirection, setLanguageDirection] = useState('pl-to-en'); // 'pl-to-en' or 'en-to-pl'
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cards, setCards] = useState(vocabulary.A1.Basics.vocabulary);
+  const [isMuted, setIsMuted] = useState(false);
+  const [speechRate, setSpeechRate] = useState(1.0);
 
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
@@ -81,7 +83,12 @@ function App() {
 
       {cards.length > 0 && (
         <>
-          <Flashcard word={cards[currentIndex]} languageDirection={languageDirection} />
+          <Flashcard
+            word={cards[currentIndex]}
+            languageDirection={languageDirection}
+            isMuted={isMuted}
+            speechRate={speechRate}
+          />
           <FlashcardControls
             onPrevious={handlePrevious}
             onNext={handleNext}
@@ -90,6 +97,10 @@ function App() {
             totalCards={cards.length}
             languageDirection={languageDirection}
             onToggleLanguage={() => setLanguageDirection(languageDirection === 'pl-to-en' ? 'en-to-pl' : 'pl-to-en')}
+            isMuted={isMuted}
+            onToggleMute={() => setIsMuted(!isMuted)}
+            speechRate={speechRate}
+            onSpeechRateChange={setSpeechRate}
           />
         </>
       )}
