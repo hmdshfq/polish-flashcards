@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1>🇵🇱 Polish Flashcards</h1>
+        <h1>🇵🇱 Flashy Polish</h1>
         <p>Learn Polish vocabulary at your own pace</p>
       </header>
 
