@@ -44,7 +44,6 @@ export const vocabulary = {
       { polish: 'Różowy', english: 'Pink' },
       { polish: 'Pomarańczowy', english: 'Orange' },
       { polish: 'Fioletowy', english: 'Purple' },
-      { polish: 'Srebrny', english: 'Silver' },
     ],
     Countries: [
       { polish: 'Polska', english: 'Poland' },
@@ -53,7 +52,7 @@ export const vocabulary = {
       { polish: 'Włochy', english: 'Italy' },
       { polish: 'Hiszpania', english: 'Spain' },
       { polish: 'Anglia', english: 'England' },
-      { polish: 'Stany Zjednoczone', english: 'United States' },
+      { polish: 'USA', english: 'United States' },
       { polish: 'Kanada', english: 'Canada' },
       { polish: 'Rosja', english: 'Russia' },
       { polish: 'Ukraina', english: 'Ukraine' },
