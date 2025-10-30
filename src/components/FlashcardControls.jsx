@@ -4,6 +4,20 @@ import AudioControls from './AudioControls';
 function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, isMuted, onToggleMute, speechRate, onSpeechRateChange }) {
   return (
     <div className="flashcard-controls">
+      <div className="progress-indicator">
+        {currentIndex + 1} / {totalCards}
+      </div>
+      <div className="control-buttons">
+        <button className="control-btn" onClick={onPrevious} disabled={currentIndex === 0}>
+          ← Previous
+        </button>
+        <button className="control-btn shuffle-btn" onClick={onShuffle}>
+          🔀 Shuffle
+        </button>
+        <button className="control-btn" onClick={onNext} disabled={currentIndex === totalCards - 1}>
+          Next →
+        </button>
+      </div>
       <div className="language-toggle-container">
         <div className="language-toggle">
           <span className={`toggle-label ${languageDirection === 'pl-to-en' ? 'active' : ''}`}>
@@ -23,20 +37,6 @@ function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalC
         speechRate={speechRate}
         onSpeechRateChange={onSpeechRateChange}
       />
-      <div className="progress-indicator">
-        {currentIndex + 1} / {totalCards}
-      </div>
-      <div className="control-buttons">
-        <button className="control-btn" onClick={onPrevious} disabled={currentIndex === 0}>
-          ← Previous
-        </button>
-        <button className="control-btn shuffle-btn" onClick={onShuffle}>
-          🔀 Shuffle
-        </button>
-        <button className="control-btn" onClick={onNext} disabled={currentIndex === totalCards - 1}>
-          Next →
-        </button>
-      </div>
     </div>
   );
 }
