@@ -8,8 +8,9 @@ import { vocabulary } from './data/vocabulary';
 function App() {
   const [selectedLevel, setSelectedLevel] = useState('A1');
   const [selectedCategory, setSelectedCategory] = useState('Basics');
+  const [selectedMode, setSelectedMode] = useState('vocabulary');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cards, setCards] = useState(vocabulary.A1.Basics);
+  const [cards, setCards] = useState(vocabulary.A1.Basics.vocabulary);
 
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
@@ -18,10 +19,12 @@ function App() {
       // Level has categories, select the first one
       const firstCategory = Object.keys(vocabulary[level])[0];
       setSelectedCategory(firstCategory);
-      setCards(vocabulary[level][firstCategory]);
+      setSelectedMode('vocabulary'); // Reset to vocabulary mode
+      setCards(vocabulary[level][firstCategory].vocabulary);
     } else {
       // Level is a flat array (A2, B1)
       setSelectedCategory(null);
+      setSelectedMode(null);
       setCards(vocabulary[level]);
     }
     setCurrentIndex(0);
@@ -29,7 +32,14 @@ function App() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setCards(vocabulary[selectedLevel][category]);
+    setSelectedMode('vocabulary'); // Reset to vocabulary mode when changing category
+    setCards(vocabulary[selectedLevel][category].vocabulary);
+    setCurrentIndex(0);
+  };
+
+  const handleModeSelect = (mode) => {
+    setSelectedMode(mode);
+    setCards(vocabulary[selectedLevel][selectedCategory][mode]);
     setCurrentIndex(0);
   };
 
@@ -61,8 +71,10 @@ function App() {
       <CategorySelector
         selectedLevel={selectedLevel}
         selectedCategory={selectedCategory}
+        selectedMode={selectedMode}
         onSelectLevel={handleLevelSelect}
         onSelectCategory={handleCategorySelect}
+        onSelectMode={handleModeSelect}
         vocabulary={vocabulary}
       />
 

@@ -1,6 +1,6 @@
 import './CategorySelector.css';
 
-function CategorySelector({ selectedLevel, selectedCategory, onSelectLevel, onSelectCategory, vocabulary }) {
+function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSelectLevel, onSelectCategory, onSelectMode, vocabulary }) {
   const levels = [
     { id: 'A1', name: 'A1', description: 'Beginner' },
     { id: 'A2', name: 'A2', description: 'Elementary' },
@@ -10,6 +10,9 @@ function CategorySelector({ selectedLevel, selectedCategory, onSelectLevel, onSe
   // Check if the selected level has categories
   const hasCategories = typeof vocabulary[selectedLevel] === 'object' && !Array.isArray(vocabulary[selectedLevel]);
   const categories = hasCategories ? Object.keys(vocabulary[selectedLevel]) : [];
+
+  // Check if the selected category has modes (vocabulary/grammar)
+  const hasModes = hasCategories && selectedCategory && typeof vocabulary[selectedLevel][selectedCategory] === 'object' && vocabulary[selectedLevel][selectedCategory].vocabulary;
 
   return (
     <div className="category-selector">
@@ -40,6 +43,30 @@ function CategorySelector({ selectedLevel, selectedCategory, onSelectLevel, onSe
                 {category}
               </button>
             ))}
+          </div>
+        </>
+      )}
+
+      {hasModes && (
+        <>
+          <h3>Choose Practice Mode</h3>
+          <div className="mode-buttons">
+            <button
+              className={`mode-button ${selectedMode === 'vocabulary' ? 'active' : ''}`}
+              onClick={() => onSelectMode('vocabulary')}
+            >
+              <span className="mode-icon">📚</span>
+              <span className="mode-label">Vocabulary</span>
+              <span className="mode-desc">Practice individual words</span>
+            </button>
+            <button
+              className={`mode-button ${selectedMode === 'grammar' ? 'active' : ''}`}
+              onClick={() => onSelectMode('grammar')}
+            >
+              <span className="mode-icon">✍️</span>
+              <span className="mode-label">Grammar</span>
+              <span className="mode-desc">Practice phrases & sentences</span>
+            </button>
           </div>
         </>
       )}
