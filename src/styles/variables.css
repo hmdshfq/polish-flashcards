@@ -1,0 +1,188 @@
+/**
+ * Design System Variables
+ * Polish Flashcards Application
+ */
+
+:root {
+  /* ============================================
+     PRIMARY COLORS
+     ============================================ */
+  --color-primary: #dc143c;
+  --color-primary-hover: #b91034;
+  --color-primary-light: rgba(220, 20, 60, 0.1);
+  --color-primary-shadow: rgba(220, 20, 60, 0.15);
+
+  /* ============================================
+     TEXT COLORS (WCAG AA Compliant)
+     ============================================ */
+  --color-text-primary: #333333;      /* 12.6:1 contrast ratio */
+  --color-text-secondary: #666666;    /* 5.74:1 contrast ratio */
+  --color-text-tertiary: #767676;     /* 4.54:1 contrast ratio (updated from #999) */
+  --color-text-disabled: #999999;
+  --color-text-inverse: #ffffff;
+
+  /* ============================================
+     BACKGROUND COLORS
+     ============================================ */
+  --color-bg-page: #f8f9fa;
+  --color-bg-card: #ffffff;
+  --color-bg-hover: #fafafa;
+  --color-bg-badge: #f0f0f0;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ============================================
+     BORDER COLORS
+     ============================================ */
+  --color-border-default: #e0e0e0;
+  --color-border-hover: #dc143c;
+  --color-border-focus: #dc143c;
+
+  /* ============================================
+     STATE COLORS
+     ============================================ */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-error: #dc3545;
+  --color-info: #17a2b8;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 6px 16px rgba(220, 20, 60, 0.15);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-focus: 0 4px 12px rgba(220, 20, 60, 0.2);
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  /* Font Family */
+  --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.75rem;    /* 28px */
+  --font-size-4xl: 2rem;       /* 32px */
+  --font-size-5xl: 2.5rem;     /* 40px */
+  --font-size-6xl: 3rem;       /* 48px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ============================================
+     SPACING SCALE
+     ============================================ */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 2.5rem;    /* 40px */
+  --space-3xl: 3rem;      /* 48px */
+  --space-4xl: 4rem;      /* 64px */
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     TRANSITIONS
+     ============================================ */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* ============================================
+     Z-INDEX SCALE
+     ============================================ */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 1000;
+  --z-modal: 1100;
+  --z-popover: 1200;
+  --z-tooltip: 1300;
+
+  /* ============================================
+     LAYOUT
+     ============================================ */
+  --max-width-content: 600px;
+  --max-width-content-md: 650px;
+  --max-width-content-lg: 700px;
+  --max-width-category-grid: 800px;
+  --max-width-category-grid-md: 850px;
+  --max-width-category-grid-lg: 900px;
+
+  /* ============================================
+     BREAKPOINTS (for reference in JS)
+     ============================================ */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* ============================================
+     COMPONENT-SPECIFIC
+     ============================================ */
+  /* Cards */
+  --card-border-width: 2px;
+  --card-padding: var(--space-xl);
+  --card-padding-sm: var(--space-lg);
+  --card-gap: 1.25rem;
+
+  /* Buttons */
+  --button-padding-x: var(--space-lg);
+  --button-padding-y: 0.75rem;
+  --button-min-width: 44px;
+  --button-min-height: 44px;
+
+  /* Focus */
+  --focus-outline-width: 3px;
+  --focus-outline-offset: 2px;
+  --focus-outline-color: var(--color-primary);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible utility */
+.focus-visible-primary:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+  outline-offset: var(--focus-outline-offset);
+}

@@ -72,38 +72,46 @@ function App() {
   return (
     <div className="app">
       {currentStage === 'level-selection' && (
-        <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
+        <div key="level-selection" className="stage-transition">
+          <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
+        </div>
       )}
 
       {currentStage === 'category-selection' && (
-        <CategorySelectionScreen
-          selectedLevel={selectedLevel}
-          onSelectCategory={handleCategorySelect}
-          onBack={handleBackToLevelSelection}
-          vocabulary={vocabulary}
-        />
+        <div key="category-selection" className="stage-transition">
+          <CategorySelectionScreen
+            selectedLevel={selectedLevel}
+            onSelectCategory={handleCategorySelect}
+            onBack={handleBackToLevelSelection}
+            vocabulary={vocabulary}
+          />
+        </div>
       )}
 
       {currentStage === 'mode-selection' && (
-        <ModeSelectionScreen
-          selectedLevel={selectedLevel}
-          selectedCategory={selectedCategory}
-          onSelectMode={handleModeSelect}
-          onBack={handleBackToCategorySelection}
-          vocabulary={vocabulary}
-        />
+        <div key="mode-selection" className="stage-transition">
+          <ModeSelectionScreen
+            selectedLevel={selectedLevel}
+            selectedCategory={selectedCategory}
+            onSelectMode={handleModeSelect}
+            onBack={handleBackToCategorySelection}
+            vocabulary={vocabulary}
+          />
+        </div>
       )}
 
       {currentStage === 'practice' && (
-        <PracticeScreen
-          selectedLevel={selectedLevel}
-          selectedCategory={selectedCategory}
-          selectedMode={selectedMode}
-          cards={cards}
-          onBackToLevelSelection={handleBackToLevelSelection}
-          onBackToCategorySelection={handleBackToCategorySelection}
-          onBackToModeSelection={handleBackToModeSelection}
-        />
+        <div key="practice" className="stage-transition">
+          <PracticeScreen
+            selectedLevel={selectedLevel}
+            selectedCategory={selectedCategory}
+            selectedMode={selectedMode}
+            cards={cards}
+            onBackToLevelSelection={handleBackToLevelSelection}
+            onBackToCategorySelection={handleBackToCategorySelection}
+            onBackToModeSelection={handleBackToModeSelection}
+          />
+        </div>
       )}
     </div>
   );

@@ -1,3 +1,6 @@
+/* Import design system variables */
+@import './styles/variables.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -5,12 +8,12 @@
 }
 
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-  font-weight: 400;
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-normal);
 
-  color: #333;
-  background-color: #f8f9fa;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -33,6 +36,6 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid #dc143c;
-  outline-offset: 2px;
+  outline: var(--focus-outline-width) solid var(--focus-outline-color);
+  outline-offset: var(--focus-outline-offset);
 }
