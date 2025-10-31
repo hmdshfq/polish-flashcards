@@ -1,0 +1,119 @@
+.category-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.category-card:hover {
+  border-color: #dc143c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
+}
+
+/* Active/pressed effect */
+.category-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Focus state for keyboard navigation */
+.category-card:focus {
+  outline: none;
+}
+
+.category-card:focus-visible {
+  outline: 3px solid #dc143c;
+  outline-offset: 2px;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.2);
+}
+
+/* Card content */
+.category-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover .category-card__icon {
+  transform: scale(1.1);
+}
+
+.category-card__name {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.category-card__count {
+  font-size: 0.85rem;
+  color: #767676;
+  font-weight: 500;
+}
+
+/* Subtle background gradient on hover */
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .category-card {
+    padding: 1rem;
+  }
+
+  .category-card__icon {
+    font-size: 2rem;
+  }
+
+  .category-card__name {
+    font-size: 1rem;
+  }
+
+  .category-card__count {
+    font-size: 0.8rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .category-card,
+  .category-card__icon,
+  .category-card::before {
+    transition: none;
+  }
+
+  .category-card:hover {
+    transform: none;
+  }
+
+  .category-card:hover .category-card__icon {
+    transform: none;
+  }
+}

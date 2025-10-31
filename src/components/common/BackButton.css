@@ -1,0 +1,51 @@
+.back-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.back-button:hover {
+  color: #dc143c;
+}
+
+.back-button:focus {
+  outline: none;
+}
+
+.back-button:focus-visible {
+  outline: 2px solid #dc143c;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.back-button:active {
+  transform: translateX(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .back-button {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .back-button {
+    transition: none;
+  }
+
+  .back-button:active {
+    transform: none;
+  }
+}

@@ -3,31 +3,31 @@
   padding: 2rem 1rem;
   max-width: 800px;
   margin: 0 auto;
+  animation: fadeIn 0.3s ease;
 }
 
-.back-button {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  margin-bottom: 1.5rem;
-  transition: color 0.3s ease;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.back-button:hover {
-  color: #dc143c;
+.category-selection-content {
+  animation: slideUp 0.4s ease;
 }
 
-.level-badge {
-  background: #f0f0f0;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 2rem;
-  display: inline-block;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .category-selection-content h2 {
@@ -35,6 +35,8 @@
   color: #333;
   margin-bottom: 2rem;
   text-align: center;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .category-grid {
@@ -43,55 +45,65 @@
   gap: 1rem;
 }
 
-.category-card {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 1.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+/* Staggered animation for category cards */
+.category-grid > :nth-child(1) { animation: slideUp 0.4s ease 0.1s both; }
+.category-grid > :nth-child(2) { animation: slideUp 0.4s ease 0.15s both; }
+.category-grid > :nth-child(3) { animation: slideUp 0.4s ease 0.2s both; }
+.category-grid > :nth-child(4) { animation: slideUp 0.4s ease 0.25s both; }
+.category-grid > :nth-child(5) { animation: slideUp 0.4s ease 0.3s both; }
+.category-grid > :nth-child(6) { animation: slideUp 0.4s ease 0.35s both; }
+.category-grid > :nth-child(7) { animation: slideUp 0.4s ease 0.4s both; }
+.category-grid > :nth-child(8) { animation: slideUp 0.4s ease 0.45s both; }
 
-.category-card:hover {
-  border-color: #dc143c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
-}
-
-.category-card:focus-visible {
-  outline: 3px solid #dc143c;
-  outline-offset: 2px;
-}
-
-.category-card__icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.category-card__name {
-  font-weight: 600;
-  color: #333;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.category-card__count {
-  font-size: 0.85rem;
-  color: #999;
-}
-
+/* Responsive adjustments */
 @media (max-width: 600px) {
+  .category-selection-screen {
+    padding: 1.5rem 1rem;
+  }
+
+  .category-selection-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .category-card {
-    padding: 1rem;
+/* Tablet adjustments */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .category-selection-screen {
+    max-width: 850px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+/* Large desktop adjustments */
+@media (min-width: 1025px) {
+  .category-selection-screen {
+    max-width: 900px;
+  }
+
+  .category-selection-content h2 {
+    font-size: 2rem;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .category-selection-screen,
+  .category-selection-content,
+  .category-grid > * {
+    animation: none;
   }
 }

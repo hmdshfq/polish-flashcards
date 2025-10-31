@@ -1,0 +1,134 @@
+.mode-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.mode-card:hover {
+  border-color: #dc143c;
+  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Active/pressed effect */
+.mode-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Focus state for keyboard navigation */
+.mode-card:focus {
+  outline: none;
+}
+
+.mode-card:focus-visible {
+  outline: 3px solid #dc143c;
+  outline-offset: 2px;
+  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.2);
+}
+
+/* Card content */
+.mode-card__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.mode-card:hover .mode-card__icon {
+  transform: scale(1.1);
+}
+
+.mode-card__label {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #dc143c;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.mode-card__description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.mode-card__count {
+  font-size: 0.9rem;
+  color: #767676;
+  font-weight: 500;
+}
+
+/* Subtle background gradient on hover */
+.mode-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mode-card:hover::before {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .mode-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .mode-card__icon {
+    font-size: 2.5rem;
+  }
+
+  .mode-card__label {
+    font-size: 1.5rem;
+  }
+
+  .mode-card__description {
+    font-size: 0.95rem;
+  }
+
+  .mode-card__count {
+    font-size: 0.85rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .mode-card {
+    max-width: 450px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mode-card,
+  .mode-card__icon,
+  .mode-card::before {
+    transition: none;
+  }
+
+  .mode-card:hover {
+    transform: none;
+  }
+
+  .mode-card:hover .mode-card__icon {
+    transform: none;
+  }
+}

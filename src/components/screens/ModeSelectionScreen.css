@@ -1,18 +1,36 @@
 .mode-selection-screen {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 2rem 1rem;
   max-width: 600px;
   margin: 0 auto;
+  animation: fadeIn 0.3s ease;
 }
 
-.breadcrumb {
-  background: #f0f0f0;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 2rem;
-  display: inline-block;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mode-selection-content {
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mode-selection-content h2 {
@@ -20,6 +38,8 @@
   color: #333;
   margin-bottom: 2rem;
   text-align: center;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .mode-cards {
@@ -29,55 +49,58 @@
   align-items: center;
 }
 
-.mode-card {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
+/* Staggered animation for mode cards */
+.mode-cards > :nth-child(1) {
+  animation: slideUp 0.4s ease 0.15s both;
 }
 
-.mode-card:hover {
-  border-color: #dc143c;
-  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.15);
-  transform: translateY(-2px);
+.mode-cards > :nth-child(2) {
+  animation: slideUp 0.4s ease 0.3s both;
 }
 
-.mode-card:focus-visible {
-  outline: 3px solid #dc143c;
-  outline-offset: 2px;
-}
-
-.mode-card__icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.mode-card__label {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #dc143c;
-  margin-bottom: 1rem;
-}
-
-.mode-card__description {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 1rem;
-}
-
-.mode-card__count {
-  font-size: 0.9rem;
-  color: #999;
-  font-weight: 500;
-}
-
+/* Responsive adjustments */
 @media (max-width: 600px) {
-  .mode-card {
-    padding: 2rem 1.5rem;
+  .mode-selection-screen {
+    padding: 1.5rem 1rem;
+  }
+
+  .mode-selection-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mode-cards {
+    gap: 1.25rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .mode-selection-screen {
+    max-width: 650px;
+  }
+}
+
+/* Large desktop adjustments */
+@media (min-width: 1025px) {
+  .mode-selection-screen {
+    max-width: 700px;
+  }
+
+  .mode-selection-content h2 {
+    font-size: 2rem;
+  }
+
+  .mode-cards {
+    gap: 2rem;
+  }
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mode-selection-screen,
+  .mode-selection-content,
+  .mode-cards > * {
+    animation: none;
   }
 }

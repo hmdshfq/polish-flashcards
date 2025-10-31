@@ -1,3 +1,6 @@
+import BackButton from '../common/BackButton';
+import Breadcrumb from '../common/Breadcrumb';
+import CategoryCard from '../common/CategoryCard';
 import './CategorySelectionScreen.css';
 
 function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, vocabulary }) {
@@ -24,30 +27,33 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
     return 0;
   };
 
+  // Get level description
+  const getLevelDescription = (level) => {
+    const descriptions = {
+      'A1': 'Beginner',
+      'A2': 'Elementary',
+      'B1': 'Intermediate'
+    };
+    return descriptions[level] || '';
+  };
+
   return (
     <div className="category-selection-screen">
-      <button className="back-button" onClick={onBack} aria-label="Go back to level selection">
-        ← Back to Levels
-      </button>
+      <BackButton onClick={onBack} label="Back to Levels" ariaLabel="Go back to level selection" />
 
-      <div className="level-badge">
-        Level: {selectedLevel} ({selectedLevel === 'A1' ? 'Beginner' : selectedLevel === 'A2' ? 'Elementary' : 'Intermediate'})
-      </div>
+      <Breadcrumb items={[`Level: ${selectedLevel} (${getLevelDescription(selectedLevel)})`]} />
 
       <section className="category-selection-content">
         <h2>Choose a Category</h2>
         <div className="category-grid">
           {categories.map((category) => (
-            <button
+            <CategoryCard
               key={category}
-              className="category-card"
-              onClick={() => onSelectCategory(category)}
-              aria-label={`Select ${category} category with ${getCategoryWordCount(category)} words`}
-            >
-              <div className="category-card__icon">{categoryIcons[category] || '📚'}</div>
-              <div className="category-card__name">{category}</div>
-              <div className="category-card__count">{getCategoryWordCount(category)} words</div>
-            </button>
+              name={category}
+              icon={categoryIcons[category] || '📚'}
+              wordCount={getCategoryWordCount(category)}
+              onClick={onSelectCategory}
+            />
           ))}
         </div>
       </section>

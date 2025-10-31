@@ -1,3 +1,6 @@
+import BackButton from '../common/BackButton';
+import Breadcrumb from '../common/Breadcrumb';
+import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
 function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, vocabulary }) {
@@ -21,31 +24,38 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
     }
   ];
 
+  // Get level description
+  const getLevelDescription = (level) => {
+    const descriptions = {
+      'A1': 'Beginner',
+      'A2': 'Elementary',
+      'B1': 'Intermediate'
+    };
+    return descriptions[level] || '';
+  };
+
   return (
     <div className="mode-selection-screen">
-      <button className="back-button" onClick={onBack} aria-label="Go back to category selection">
-        ← Back to Categories
-      </button>
+      <BackButton onClick={onBack} label="Back to Categories" ariaLabel="Go back to category selection" />
 
-      <div className="breadcrumb">
-        Level: {selectedLevel} ({selectedLevel === 'A1' ? 'Beginner' : selectedLevel === 'A2' ? 'Elementary' : 'Intermediate'}) › {selectedCategory}
-      </div>
+      <Breadcrumb items={[
+        `Level: ${selectedLevel} (${getLevelDescription(selectedLevel)})`,
+        selectedCategory
+      ]} />
 
       <section className="mode-selection-content">
         <h2>Choose Practice Mode</h2>
         <div className="mode-cards">
           {modes.map((mode) => (
-            <button
+            <ModeCard
               key={mode.id}
-              className="mode-card"
-              onClick={() => onSelectMode(mode.id)}
-              aria-label={`Select ${mode.label} mode with ${mode.count} flashcards`}
-            >
-              <div className="mode-card__icon">{mode.icon}</div>
-              <div className="mode-card__label">{mode.label}</div>
-              <div className="mode-card__description">{mode.description}</div>
-              <div className="mode-card__count">{mode.count} flashcards</div>
-            </button>
+              mode={mode.id}
+              icon={mode.icon}
+              label={mode.label}
+              description={mode.description}
+              count={mode.count}
+              onClick={onSelectMode}
+            />
           ))}
         </div>
       </section>

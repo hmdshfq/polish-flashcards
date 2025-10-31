@@ -1,0 +1,32 @@
+.breadcrumb {
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.breadcrumb__item {
+  display: inline;
+}
+
+.breadcrumb__separator {
+  color: #999;
+  margin: 0 0.25rem;
+}
+
+.breadcrumb__text {
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .breadcrumb {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+}
