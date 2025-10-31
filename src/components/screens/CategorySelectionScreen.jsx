@@ -1,4 +1,3 @@
-import BackButton from '../common/BackButton';
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
 import './CategorySelectionScreen.css';
@@ -39,9 +38,13 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
 
   return (
     <div className="category-selection-screen">
-      <BackButton onClick={onBack} label="Back to Levels" ariaLabel="Go back to level selection" />
-
-      <Breadcrumb items={[`Level: ${selectedLevel} (${getLevelDescription(selectedLevel)})`]} />
+      <Breadcrumb items={[
+        {
+          label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
+          abbreviation: selectedLevel,
+          onClick: onBack
+        }
+      ]} />
 
       <section className="category-selection-content">
         <h2>Choose a Category</h2>

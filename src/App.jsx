@@ -89,6 +89,7 @@ function App() {
             selectedCategory={selectedCategory}
             onSelectMode={handleModeSelect}
             onBack={handleBackToCategorySelection}
+            onBackToLevelSelection={handleBackToLevelSelection}
             vocabulary={vocabulary}
           />
         </div>

@@ -1,9 +1,8 @@
-import BackButton from '../common/BackButton';
 import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
-function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, vocabulary }) {
+function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, vocabulary }) {
   // Get the category data
   const categoryData = vocabulary[selectedLevel]?.[selectedCategory] || {};
 
@@ -36,11 +35,17 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
 
   return (
     <div className="mode-selection-screen">
-      <BackButton onClick={onBack} label="Back to Categories" ariaLabel="Go back to category selection" />
-
       <Breadcrumb items={[
-        `Level: ${selectedLevel} (${getLevelDescription(selectedLevel)})`,
-        selectedCategory
+        {
+          label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
+          abbreviation: selectedLevel,
+          onClick: onBackToLevelSelection
+        },
+        {
+          label: selectedCategory,
+          abbreviation: selectedCategory,
+          onClick: onBack
+        }
       ]} />
 
       <section className="mode-selection-content">
