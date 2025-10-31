@@ -146,6 +146,10 @@ function PracticeScreen({
         isOpen={showSettings}
         onClose={handleCloseSettings}
         onRestart={handleRestart}
+        isMuted={isMuted}
+        onToggleMute={() => setIsMuted(!isMuted)}
+        speechRate={speechRate}
+        onSpeechRateChange={setSpeechRate}
       />
 
       {cards.length > 0 && (
@@ -164,10 +168,6 @@ function PracticeScreen({
             totalCards={cards.length}
             languageDirection={languageDirection}
             onToggleLanguage={() => setLanguageDirection(languageDirection === 'pl-to-en' ? 'en-to-pl' : 'pl-to-en')}
-            isMuted={isMuted}
-            onToggleMute={() => setIsMuted(!isMuted)}
-            speechRate={speechRate}
-            onSpeechRateChange={setSpeechRate}
           />
         </div>
       )}

@@ -4,7 +4,11 @@ import './SettingsMenu.css';
 function SettingsMenu({
   isOpen,
   onClose,
-  onRestart
+  onRestart,
+  isMuted,
+  onToggleMute,
+  speechRate,
+  onSpeechRateChange
 }) {
   const menuRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -87,7 +91,36 @@ function SettingsMenu({
 
           <div className="settings-section">
             <h4 className="settings-section__title">Audio Settings</h4>
-            <p className="settings-section__placeholder">Audio controls coming soon...</p>
+
+            <button className="settings-option" onClick={onToggleMute}>
+              <span className="settings-option__icon">{isMuted ? '🔇' : '🔊'}</span>
+              <span className="settings-option__label">
+                {isMuted ? 'Unmute Audio' : 'Mute Audio'}
+                <span className="settings-option__subtitle">
+                  {isMuted ? 'Enable pronunciation' : 'Disable pronunciation'}
+                </span>
+              </span>
+            </button>
+
+            <div className="settings-control">
+              <label htmlFor="speech-rate" className="settings-control__label">
+                <span className="settings-control__icon">⚡</span>
+                Speech Rate
+              </label>
+              <select
+                id="speech-rate"
+                className="settings-control__select"
+                value={speechRate}
+                onChange={(e) => onSpeechRateChange(parseFloat(e.target.value))}
+              >
+                <option value="0.5">0.5x (Slow)</option>
+                <option value="0.75">0.75x</option>
+                <option value="1">1x (Normal)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x (Fast)</option>
+                <option value="2">2x (Very Fast)</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
