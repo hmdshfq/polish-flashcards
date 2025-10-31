@@ -40,9 +40,14 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
     <div className="category-selection-screen">
       <Breadcrumb items={[
         {
+          label: 'Levels',
+          abbreviation: 'Levels',
+          onClick: onBack
+        },
+        {
           label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
           abbreviation: selectedLevel,
-          onClick: onBack
+          onClick: null
         }
       ]} />
 

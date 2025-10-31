@@ -21,13 +21,14 @@
   gap: var(--space-md);
   padding: 1rem;
   max-width: 600px;
-  margin: 0 auto 1rem;
+  margin-inline: auto;
 }
 
 .practice-header-controls {
   display: flex;
   align-items: center;
   gap: var(--space-md);
+  margin-block-end: var(--space-xl);
 }
 
 .settings-button {

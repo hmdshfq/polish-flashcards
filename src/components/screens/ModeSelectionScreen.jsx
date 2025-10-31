@@ -37,14 +37,19 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
     <div className="mode-selection-screen">
       <Breadcrumb items={[
         {
+          label: 'Levels',
+          abbreviation: 'Levels',
+          onClick: onBackToLevelSelection
+        },
+        {
           label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
           abbreviation: selectedLevel,
-          onClick: onBackToLevelSelection
+          onClick: onBack
         },
         {
           label: selectedCategory,
           abbreviation: selectedCategory,
-          onClick: onBack
+          onClick: null
         }
       ]} />
 

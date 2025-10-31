@@ -11,7 +11,8 @@ function PracticeScreen({
   selectedMode,
   cards: initialCards,
   onBackToLevelSelection,
-  onBackToCategorySelection
+  onBackToCategorySelection,
+  onBackToModeSelection
 }) {
   const [cards, setCards] = useState(initialCards);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,26 +58,53 @@ function PracticeScreen({
   const buildBreadcrumbItems = () => {
     const items = [];
 
-    // Add level
     const levelLabels = {
       A1: { full: 'A1 (Beginner)', abbr: 'A1' },
       A2: { full: 'A2 (Elementary)', abbr: 'A2' },
       B1: { full: 'B1 (Intermediate)', abbr: 'B1' }
     };
 
+    // Add "Levels" as first item (always clickable)
     items.push({
-      label: levelLabels[selectedLevel].full,
-      abbreviation: levelLabels[selectedLevel].abbr,
+      label: 'Levels',
+      abbreviation: 'Levels',
       onClick: onBackToLevelSelection
     });
 
-    // Add category if exists (A1 only)
+    // Add level
     if (selectedCategory) {
+      // For A1: level is clickable (goes to category selection)
       items.push({
-        label: selectedCategory,
-        abbreviation: selectedCategory,
+        label: levelLabels[selectedLevel].full,
+        abbreviation: levelLabels[selectedLevel].abbr,
         onClick: onBackToCategorySelection
       });
+    } else {
+      // For A2/B1: level is not clickable (current context)
+      items.push({
+        label: levelLabels[selectedLevel].full,
+        abbreviation: levelLabels[selectedLevel].abbr,
+        onClick: null
+      });
+    }
+
+    // Add category if exists (A1 only)
+    if (selectedCategory) {
+      if (selectedMode) {
+        // Category is clickable (goes to mode selection)
+        items.push({
+          label: selectedCategory,
+          abbreviation: selectedCategory,
+          onClick: onBackToModeSelection
+        });
+      } else {
+        // Category is not clickable (current context, shouldn't happen in practice screen)
+        items.push({
+          label: selectedCategory,
+          abbreviation: selectedCategory,
+          onClick: null
+        });
+      }
     }
 
     // Add mode if exists (A1 only)

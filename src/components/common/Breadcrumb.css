@@ -5,6 +5,7 @@
   color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xl);
 }
 
 .breadcrumb__list {
