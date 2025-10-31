@@ -72,13 +72,13 @@ function App() {
   return (
     <div className="app">
       {currentStage === 'level-selection' && (
-        <div key="level-selection" className="stage-transition">
+        <div key="level-selection">
           <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
         </div>
       )}
 
       {currentStage === 'category-selection' && (
-        <div key="category-selection" className="stage-transition">
+        <div key="category-selection">
           <CategorySelectionScreen
             selectedLevel={selectedLevel}
             onSelectCategory={handleCategorySelect}
@@ -89,7 +89,7 @@ function App() {
       )}
 
       {currentStage === 'mode-selection' && (
-        <div key="mode-selection" className="stage-transition">
+        <div key="mode-selection">
           <ModeSelectionScreen
             selectedLevel={selectedLevel}
             selectedCategory={selectedCategory}
@@ -101,7 +101,7 @@ function App() {
       )}
 
       {currentStage === 'practice' && (
-        <div key="practice" className="stage-transition">
+        <div key="practice">
           <PracticeScreen
             selectedLevel={selectedLevel}
             selectedCategory={selectedCategory}
