@@ -1,108 +1,109 @@
 import { useState } from 'react';
 import './App.css';
-import CategorySelector from './components/CategorySelector';
-import Flashcard from './components/Flashcard';
-import FlashcardControls from './components/FlashcardControls';
+import LevelSelectionScreen from './components/screens/LevelSelectionScreen';
+import CategorySelectionScreen from './components/screens/CategorySelectionScreen';
+import ModeSelectionScreen from './components/screens/ModeSelectionScreen';
+import PracticeScreen from './components/screens/PracticeScreen';
 import { vocabulary } from './data/vocabulary';
 
 function App() {
-  const [selectedLevel, setSelectedLevel] = useState('A1');
-  const [selectedCategory, setSelectedCategory] = useState('Basics');
-  const [selectedMode, setSelectedMode] = useState('vocabulary');
-  const [languageDirection, setLanguageDirection] = useState('pl-to-en'); // 'pl-to-en' or 'en-to-pl'
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cards, setCards] = useState(vocabulary.A1.Basics.vocabulary);
-  const [isMuted, setIsMuted] = useState(false);
-  const [speechRate, setSpeechRate] = useState(1.0);
+  // Stage management
+  const [currentStage, setCurrentStage] = useState('level-selection');
 
+  // Selection state
+  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedMode, setSelectedMode] = useState(null);
+
+  // Flashcard data
+  const [cards, setCards] = useState([]);
+
+  // Navigation handlers
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
-    // Check if the level has categories (like A1) or is a flat array
-    if (typeof vocabulary[level] === 'object' && !Array.isArray(vocabulary[level])) {
-      // Level has categories, select the first one
-      const firstCategory = Object.keys(vocabulary[level])[0];
-      setSelectedCategory(firstCategory);
-      setSelectedMode('vocabulary'); // Reset to vocabulary mode
-      setCards(vocabulary[level][firstCategory].vocabulary);
+
+    // Check if level has categories
+    const hasCategories = typeof vocabulary[level] === 'object' && !Array.isArray(vocabulary[level]);
+
+    if (hasCategories) {
+      // A1 - go to category selection
+      setCurrentStage('category-selection');
     } else {
-      // Level is a flat array (A2, B1)
+      // A2 or B1 - go straight to practice
+      setCards(vocabulary[level]);
       setSelectedCategory(null);
       setSelectedMode(null);
-      setCards(vocabulary[level]);
+      setCurrentStage('practice');
     }
-    setCurrentIndex(0);
   };
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSelectedMode('vocabulary'); // Reset to vocabulary mode when changing category
-    setCards(vocabulary[selectedLevel][category].vocabulary);
-    setCurrentIndex(0);
+    setCurrentStage('mode-selection');
   };
 
   const handleModeSelect = (mode) => {
     setSelectedMode(mode);
     setCards(vocabulary[selectedLevel][selectedCategory][mode]);
-    setCurrentIndex(0);
+    setCurrentStage('practice');
   };
 
-  const handleNext = () => {
-    if (currentIndex < cards.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+  const handleBackToLevelSelection = () => {
+    setCurrentStage('level-selection');
+    setSelectedLevel(null);
+    setSelectedCategory(null);
+    setSelectedMode(null);
+    setCards([]);
   };
 
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
+  const handleBackToCategorySelection = () => {
+    setCurrentStage('category-selection');
+    setSelectedCategory(null);
+    setSelectedMode(null);
+    setCards([]);
   };
 
-  const handleShuffle = () => {
-    const shuffled = [...cards].sort(() => Math.random() - 0.5);
-    setCards(shuffled);
-    setCurrentIndex(0);
+  const handleBackToModeSelection = () => {
+    setCurrentStage('mode-selection');
+    setSelectedMode(null);
+    setCards([]);
   };
 
   return (
     <div className="app">
-      <header>
-        <h1>🇵🇱 Flashy Polish</h1>
-        <p>Learn Polish vocabulary at your own pace</p>
-      </header>
+      {currentStage === 'level-selection' && (
+        <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
+      )}
 
-      <CategorySelector
-        selectedLevel={selectedLevel}
-        selectedCategory={selectedCategory}
-        selectedMode={selectedMode}
-        onSelectLevel={handleLevelSelect}
-        onSelectCategory={handleCategorySelect}
-        onSelectMode={handleModeSelect}
-        vocabulary={vocabulary}
-      />
+      {currentStage === 'category-selection' && (
+        <CategorySelectionScreen
+          selectedLevel={selectedLevel}
+          onSelectCategory={handleCategorySelect}
+          onBack={handleBackToLevelSelection}
+          vocabulary={vocabulary}
+        />
+      )}
 
-      {cards.length > 0 && (
-        <>
-          <Flashcard
-            word={cards[currentIndex]}
-            languageDirection={languageDirection}
-            isMuted={isMuted}
-            speechRate={speechRate}
-          />
-          <FlashcardControls
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            onShuffle={handleShuffle}
-            currentIndex={currentIndex}
-            totalCards={cards.length}
-            languageDirection={languageDirection}
-            onToggleLanguage={() => setLanguageDirection(languageDirection === 'pl-to-en' ? 'en-to-pl' : 'pl-to-en')}
-            isMuted={isMuted}
-            onToggleMute={() => setIsMuted(!isMuted)}
-            speechRate={speechRate}
-            onSpeechRateChange={setSpeechRate}
-          />
-        </>
+      {currentStage === 'mode-selection' && (
+        <ModeSelectionScreen
+          selectedLevel={selectedLevel}
+          selectedCategory={selectedCategory}
+          onSelectMode={handleModeSelect}
+          onBack={handleBackToCategorySelection}
+          vocabulary={vocabulary}
+        />
+      )}
+
+      {currentStage === 'practice' && (
+        <PracticeScreen
+          selectedLevel={selectedLevel}
+          selectedCategory={selectedCategory}
+          selectedMode={selectedMode}
+          cards={cards}
+          onBackToLevelSelection={handleBackToLevelSelection}
+          onBackToCategorySelection={handleBackToCategorySelection}
+          onBackToModeSelection={handleBackToModeSelection}
+        />
       )}
     </div>
   );

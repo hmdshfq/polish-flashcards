@@ -1,0 +1,83 @@
+.mode-selection-screen {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.mode-selection-content h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.mode-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.mode-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.mode-card:hover {
+  border-color: #dc143c;
+  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+.mode-card:focus-visible {
+  outline: 3px solid #dc143c;
+  outline-offset: 2px;
+}
+
+.mode-card__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.mode-card__label {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #dc143c;
+  margin-bottom: 1rem;
+}
+
+.mode-card__description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.mode-card__count {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .mode-card {
+    padding: 2rem 1.5rem;
+  }
+}

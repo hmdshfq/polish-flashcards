@@ -1,0 +1,93 @@
+.level-selection-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.level-selection-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.level-selection-header h1 {
+  font-size: 2.5rem;
+  color: #dc143c;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.level-selection-header p {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.level-selection-content {
+  width: 100%;
+  max-width: 600px;
+}
+
+.level-selection-content h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.level-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.level-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.level-card:hover {
+  border-color: #dc143c;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+.level-card:focus-visible {
+  outline: 3px solid #dc143c;
+  outline-offset: 2px;
+}
+
+.level-card__name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #dc143c;
+  margin-bottom: 0.5rem;
+}
+
+.level-card__description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.level-card__helper {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+@media (max-width: 600px) {
+  .level-selection-header h1 {
+    font-size: 2rem;
+  }
+
+  .level-card {
+    padding: 1.5rem;
+  }
+}

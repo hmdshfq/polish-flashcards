@@ -1,0 +1,172 @@
+.practice-screen {
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.settings-button:hover {
+  color: #dc143c;
+}
+
+.progress-indicator-header {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.practice-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Settings Overlay */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-menu {
+  background: white;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.settings-menu__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.settings-menu__header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.settings-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.settings-close:hover {
+  color: #dc143c;
+}
+
+.settings-menu__content {
+  padding: 1.5rem;
+}
+
+.settings-option {
+  width: 100%;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  color: #333;
+}
+
+.settings-option:hover {
+  border-color: #dc143c;
+  background: #fafafa;
+}
+
+.settings-option__subtitle {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
+
+.current-selection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.empty-state__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.empty-state button {
+  background: #dc143c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.empty-state button:hover {
+  background: #b91034;
+}
+
+@media (max-width: 600px) {
+  .settings-menu {
+    width: 95%;
+  }
+}
