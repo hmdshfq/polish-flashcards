@@ -1,0 +1,115 @@
+.level-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.level-card:hover {
+  border-color: #dc143c;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Active/pressed effect */
+.level-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Focus state for keyboard navigation */
+.level-card:focus {
+  outline: none;
+}
+
+.level-card:focus-visible {
+  outline: 3px solid #dc143c;
+  outline-offset: 2px;
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.2);
+}
+
+/* Selected state */
+.level-card--selected {
+  border-color: #dc143c;
+  background: rgba(220, 20, 60, 0.02);
+}
+
+/* Card content */
+.level-card__name {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #dc143c;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.level-card__description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.level-card__helper {
+  font-size: 0.9rem;
+  color: #767676; /* Updated from #999 for WCAG AA compliance (4.54:1 contrast ratio) */
+  line-height: 1.4;
+}
+
+/* Subtle background gradient on hover */
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.level-card:hover::before {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .level-card {
+    padding: 1.5rem;
+  }
+
+  .level-card__name {
+    font-size: 1.75rem;
+  }
+
+  .level-card__description {
+    font-size: 0.95rem;
+  }
+
+  .level-card__helper {
+    font-size: 0.85rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .level-card {
+    transition: none;
+  }
+
+  .level-card:hover {
+    transform: none;
+  }
+
+  .level-card::before {
+    transition: none;
+  }
+}

@@ -1,3 +1,4 @@
+import LevelCard from '../common/LevelCard';
 import './LevelSelectionScreen.css';
 
 function LevelSelectionScreen({ onSelectLevel }) {
@@ -33,16 +34,14 @@ function LevelSelectionScreen({ onSelectLevel }) {
         <h2>Choose Your Learning Level</h2>
         <div className="level-cards">
           {levels.map((level) => (
-            <button
+            <LevelCard
               key={level.id}
-              className="level-card"
-              onClick={() => onSelectLevel(level.id)}
-              aria-label={`Select ${level.name} ${level.description} level. ${level.helperText}`}
-            >
-              <div className="level-card__name">{level.name}</div>
-              <div className="level-card__description">{level.description}</div>
-              <div className="level-card__helper">{level.helperText}</div>
-            </button>
+              id={level.id}
+              name={level.name}
+              description={level.description}
+              helperText={level.helperText}
+              onClick={onSelectLevel}
+            />
           ))}
         </div>
       </section>
