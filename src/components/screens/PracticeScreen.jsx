@@ -1,22 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
+import SettingsMenu from '../common/SettingsMenu';
 import './PracticeScreen.css';
 
 function PracticeScreen({
   selectedLevel,
   selectedCategory,
   selectedMode,
-  cards,
+  cards: initialCards,
   onBackToLevelSelection,
   onBackToCategorySelection,
   onBackToModeSelection
 }) {
+  const [cards, setCards] = useState(initialCards);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [languageDirection, setLanguageDirection] = useState('pl-to-en');
   const [isMuted, setIsMuted] = useState(false);
   const [speechRate, setSpeechRate] = useState(1.0);
   const [showSettings, setShowSettings] = useState(false);
+
+  // Update cards when initialCards changes
+  useEffect(() => {
+    setCards(initialCards);
+    setCurrentIndex(0);
+  }, [initialCards]);
 
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
@@ -32,10 +40,17 @@ function PracticeScreen({
 
   const handleShuffle = () => {
     const shuffled = [...cards].sort(() => Math.random() - 0.5);
-    // Note: We can't update the cards directly here since it's a prop
-    // For now, just reset to first card
-    // In Phase 4, we'll implement this properly with state management
+    setCards(shuffled);
     setCurrentIndex(0);
+  };
+
+  const handleRestart = () => {
+    setCurrentIndex(0);
+    setShowSettings(false);
+  };
+
+  const handleCloseSettings = () => {
+    setShowSettings(false);
   };
 
   return (
@@ -43,65 +58,28 @@ function PracticeScreen({
       <div className="practice-header">
         <button
           className="settings-button"
-          onClick={() => setShowSettings(!showSettings)}
+          onClick={() => setShowSettings(true)}
           aria-label="Open settings menu"
         >
-          ⚙️ Settings
+          ⚙️
+          <span className="settings-button__text">Settings</span>
         </button>
         <div className="progress-indicator-header">
           {currentIndex + 1} / {cards.length}
         </div>
       </div>
 
-      {showSettings && (
-        <div className="settings-overlay" onClick={() => setShowSettings(false)}>
-          <div className="settings-menu" onClick={(e) => e.stopPropagation()}>
-            <div className="settings-menu__header">
-              <h3>Settings</h3>
-              <button
-                className="settings-close"
-                onClick={() => setShowSettings(false)}
-                aria-label="Close settings"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="settings-menu__content">
-              <button className="settings-option" onClick={() => setCurrentIndex(0)}>
-                🔄 Restart Current
-              </button>
-
-              {selectedMode && (
-                <button className="settings-option" onClick={onBackToModeSelection}>
-                  ← Change Mode
-                  <span className="settings-option__subtitle">(Vocabulary/Grammar)</span>
-                </button>
-              )}
-
-              {selectedCategory && (
-                <button className="settings-option" onClick={onBackToCategorySelection}>
-                  ← Change Category
-                  <span className="settings-option__subtitle">(Basics, Colors...)</span>
-                </button>
-              )}
-
-              <button className="settings-option" onClick={onBackToLevelSelection}>
-                ← Change Level
-                <span className="settings-option__subtitle">(A1, A2, B1)</span>
-              </button>
-
-              <div className="current-selection">
-                <strong>Current Selection:</strong>
-                <br />
-                {selectedLevel}
-                {selectedCategory && ` › ${selectedCategory}`}
-                {selectedMode && ` › ${selectedMode.charAt(0).toUpperCase() + selectedMode.slice(1)}`}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <SettingsMenu
+        isOpen={showSettings}
+        onClose={handleCloseSettings}
+        selectedLevel={selectedLevel}
+        selectedCategory={selectedCategory}
+        selectedMode={selectedMode}
+        onRestart={handleRestart}
+        onBackToModeSelection={selectedMode ? onBackToModeSelection : undefined}
+        onBackToCategorySelection={selectedCategory ? onBackToCategorySelection : undefined}
+        onBackToLevelSelection={onBackToLevelSelection}
+      />
 
       {cards.length > 0 && (
         <div className="practice-content">
@@ -132,7 +110,7 @@ function PracticeScreen({
           <div className="empty-state__icon">📭</div>
           <h3>No flashcards available</h3>
           <p>This selection doesn't have any content yet.</p>
-          <button onClick={onBackToLevelSelection}>
+          <button className="empty-state__button" onClick={onBackToLevelSelection}>
             Go back to level selection
           </button>
         </div>
