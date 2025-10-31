@@ -4,6 +4,7 @@ import LevelSelectionScreen from './components/screens/LevelSelectionScreen';
 import CategorySelectionScreen from './components/screens/CategorySelectionScreen';
 import ModeSelectionScreen from './components/screens/ModeSelectionScreen';
 import PracticeScreen from './components/screens/PracticeScreen';
+import Footer from './components/common/Footer';
 import { vocabulary } from './data/vocabulary';
 
 function App() {
@@ -71,49 +72,52 @@ function App() {
 
   return (
     <div className="app">
-      {currentStage === 'level-selection' && (
-        <div key="level-selection">
-          <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
-        </div>
-      )}
+      <main className="app-content">
+        {currentStage === 'level-selection' && (
+          <div key="level-selection">
+            <LevelSelectionScreen onSelectLevel={handleLevelSelect} />
+          </div>
+        )}
 
-      {currentStage === 'category-selection' && (
-        <div key="category-selection">
-          <CategorySelectionScreen
-            selectedLevel={selectedLevel}
-            onSelectCategory={handleCategorySelect}
-            onBack={handleBackToLevelSelection}
-            vocabulary={vocabulary}
-          />
-        </div>
-      )}
+        {currentStage === 'category-selection' && (
+          <div key="category-selection">
+            <CategorySelectionScreen
+              selectedLevel={selectedLevel}
+              onSelectCategory={handleCategorySelect}
+              onBack={handleBackToLevelSelection}
+              vocabulary={vocabulary}
+            />
+          </div>
+        )}
 
-      {currentStage === 'mode-selection' && (
-        <div key="mode-selection">
-          <ModeSelectionScreen
-            selectedLevel={selectedLevel}
-            selectedCategory={selectedCategory}
-            onSelectMode={handleModeSelect}
-            onBack={handleBackToCategorySelection}
-            onBackToLevelSelection={handleBackToLevelSelection}
-            vocabulary={vocabulary}
-          />
-        </div>
-      )}
+        {currentStage === 'mode-selection' && (
+          <div key="mode-selection">
+            <ModeSelectionScreen
+              selectedLevel={selectedLevel}
+              selectedCategory={selectedCategory}
+              onSelectMode={handleModeSelect}
+              onBack={handleBackToCategorySelection}
+              onBackToLevelSelection={handleBackToLevelSelection}
+              vocabulary={vocabulary}
+            />
+          </div>
+        )}
 
-      {currentStage === 'practice' && (
-        <div key="practice">
-          <PracticeScreen
-            selectedLevel={selectedLevel}
-            selectedCategory={selectedCategory}
-            selectedMode={selectedMode}
-            cards={cards}
-            onBackToLevelSelection={handleBackToLevelSelection}
-            onBackToCategorySelection={handleBackToCategorySelection}
-            onBackToModeSelection={handleBackToModeSelection}
-          />
-        </div>
-      )}
+        {currentStage === 'practice' && (
+          <div key="practice">
+            <PracticeScreen
+              selectedLevel={selectedLevel}
+              selectedCategory={selectedCategory}
+              selectedMode={selectedMode}
+              cards={cards}
+              onBackToLevelSelection={handleBackToLevelSelection}
+              onBackToCategorySelection={handleBackToCategorySelection}
+              onBackToModeSelection={handleBackToModeSelection}
+            />
+          </div>
+        )}
+      </main>
+      <Footer />
     </div>
   );
 }
