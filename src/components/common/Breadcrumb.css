@@ -4,13 +4,21 @@
   padding: var(--space-sm) var(--space-md);
   color: var(--color-text-secondary);
   font-size: 0.95rem;
-  margin-bottom: var(--space-xl);
-  display: inline-block;
   line-height: var(--line-height-normal);
 }
 
+.breadcrumb__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .breadcrumb__item {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
 }
 
 .breadcrumb__separator {
@@ -18,15 +26,71 @@
   margin: 0 var(--space-xs);
 }
 
-.breadcrumb__text {
+.breadcrumb__link {
+  background: none;
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  margin: calc(-1 * var(--space-xs)) calc(-1 * var(--space-sm));
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: inherit;
   font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+  display: inline-block;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+.breadcrumb__link:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.breadcrumb__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.breadcrumb__link:active {
+  background: var(--color-bg-active);
+}
+
+.breadcrumb__current {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.breadcrumb__text {
+  font-weight: inherit;
+}
+
+/* Show full text by default, hide abbreviation */
+.breadcrumb__text--full {
+  display: inline;
+}
+
+.breadcrumb__text--abbr {
+  display: none;
+}
+
+/* Mobile responsive: show abbreviations, hide full text */
+@media (max-width: 640px) {
   .breadcrumb {
     font-size: var(--font-size-sm);
-    padding: 0.4rem 0.85rem;
-    margin-bottom: var(--space-lg);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .breadcrumb__text--full {
+    display: none;
+  }
+
+  .breadcrumb__text--abbr {
+    display: inline;
+  }
+
+  .breadcrumb__link {
+    padding: var(--space-2xs) var(--space-xs);
+    margin: calc(-1 * var(--space-2xs)) calc(-1 * var(--space-xs));
   }
 }

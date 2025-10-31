@@ -63,12 +63,6 @@ function App() {
     setCards([]);
   };
 
-  const handleBackToModeSelection = () => {
-    setCurrentStage('mode-selection');
-    setSelectedMode(null);
-    setCards([]);
-  };
-
   return (
     <div className="app">
       {currentStage === 'level-selection' && (
@@ -109,7 +103,6 @@ function App() {
             cards={cards}
             onBackToLevelSelection={handleBackToLevelSelection}
             onBackToCategorySelection={handleBackToCategorySelection}
-            onBackToModeSelection={handleBackToModeSelection}
           />
         </div>
       )}

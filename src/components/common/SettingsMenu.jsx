@@ -1,17 +1,10 @@
 import { useEffect, useRef } from 'react';
-import Breadcrumb from './Breadcrumb';
 import './SettingsMenu.css';
 
 function SettingsMenu({
   isOpen,
   onClose,
-  selectedLevel,
-  selectedCategory,
-  selectedMode,
-  onRestart,
-  onBackToModeSelection,
-  onBackToCategorySelection,
-  onBackToLevelSelection
+  onRestart
 }) {
   const menuRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -70,21 +63,11 @@ function SettingsMenu({
 
   if (!isOpen) return null;
 
-  // Build breadcrumb
-  const getLevelDescription = (level) => {
-    const descriptions = { 'A1': 'Beginner', 'A2': 'Elementary', 'B1': 'Intermediate' };
-    return descriptions[level] || '';
-  };
-
-  const breadcrumbItems = [`Level: ${selectedLevel} (${getLevelDescription(selectedLevel)})`];
-  if (selectedCategory) breadcrumbItems.push(selectedCategory);
-  if (selectedMode) breadcrumbItems.push(selectedMode.charAt(0).toUpperCase() + selectedMode.slice(1));
-
   return (
     <div className="settings-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="settings-title">
       <div className="settings-menu" onClick={(e) => e.stopPropagation()} ref={menuRef}>
         <div className="settings-menu__header">
-          <h3 id="settings-title">Settings</h3>
+          <h3 id="settings-title">Practice Settings</h3>
           <button
             ref={closeButtonRef}
             className="settings-close"
@@ -99,35 +82,12 @@ function SettingsMenu({
           <button className="settings-option" onClick={onRestart}>
             <span className="settings-option__icon">🔄</span>
             <span className="settings-option__label">Restart Current</span>
+            <span className="settings-option__subtitle">Go back to the first card</span>
           </button>
 
-          {selectedMode && onBackToModeSelection && (
-            <button className="settings-option" onClick={onBackToModeSelection}>
-              <span className="settings-option__icon">←</span>
-              <span className="settings-option__label">Change Mode</span>
-              <span className="settings-option__subtitle">(Vocabulary/Grammar)</span>
-            </button>
-          )}
-
-          {selectedCategory && onBackToCategorySelection && (
-            <button className="settings-option" onClick={onBackToCategorySelection}>
-              <span className="settings-option__icon">←</span>
-              <span className="settings-option__label">Change Category</span>
-              <span className="settings-option__subtitle">(Basics, Colors...)</span>
-            </button>
-          )}
-
-          <button className="settings-option" onClick={onBackToLevelSelection}>
-            <span className="settings-option__icon">←</span>
-            <span className="settings-option__label">Change Level</span>
-            <span className="settings-option__subtitle">(A1, A2, B1)</span>
-          </button>
-
-          <div className="current-selection">
-            <strong>Current Selection:</strong>
-            <div className="current-selection__breadcrumb">
-              <Breadcrumb items={breadcrumbItems} />
-            </div>
+          <div className="settings-section">
+            <h4 className="settings-section__title">Audio Settings</h4>
+            <p className="settings-section__placeholder">Audio controls coming soon...</p>
           </div>
         </div>
       </div>

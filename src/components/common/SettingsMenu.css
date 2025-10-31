@@ -136,32 +136,40 @@
 .settings-option__label {
   font-weight: 600;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .settings-option__subtitle {
-  display: block;
   font-size: 0.85rem;
   color: #767676;
-  margin-top: 0.25rem;
   font-weight: 400;
 }
 
-.current-selection {
+/* Settings Section */
+.settings-section {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e0e0e0;
-  font-size: 0.9rem;
-  color: #666;
 }
 
-.current-selection strong {
-  display: block;
-  margin-bottom: 0.75rem;
+.settings-section__title {
+  font-size: 1rem;
+  font-weight: 600;
   color: #333;
+  margin: 0 0 0.75rem 0;
 }
 
-.current-selection__breadcrumb {
-  margin-top: 0.5rem;
+.settings-section__placeholder {
+  font-size: 0.9rem;
+  color: #767676;
+  margin: 0;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px dashed #e0e0e0;
+  text-align: center;
 }
 
 /* Mobile adjustments */

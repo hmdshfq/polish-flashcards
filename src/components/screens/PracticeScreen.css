@@ -15,11 +15,19 @@
 
 .practice-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-md);
   padding: 1rem;
   max-width: 600px;
   margin: 0 auto 1rem;
+}
+
+.practice-header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
 }
 
 .settings-button {
@@ -27,7 +35,7 @@
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   color: #666;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 0.5rem 0.75rem;
   transition: all 0.3s ease;
@@ -35,6 +43,7 @@
   align-items: center;
   gap: 0.5rem;
   font-family: inherit;
+  line-height: 1;
 }
 
 .settings-button:hover {
@@ -144,19 +153,27 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .practice-screen {
     padding: 0.75rem;
   }
 
   .practice-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
     padding: 0.75rem 0.5rem;
     margin-bottom: 0.75rem;
   }
 
+  .practice-header-controls {
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
   .settings-button {
     padding: 0.4rem 0.65rem;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
   }
 
   .settings-button__text {

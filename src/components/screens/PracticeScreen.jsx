@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
 import SettingsMenu from '../common/SettingsMenu';
+import Breadcrumb from '../common/Breadcrumb';
 import './PracticeScreen.css';
 
 function PracticeScreen({
@@ -10,8 +11,7 @@ function PracticeScreen({
   selectedMode,
   cards: initialCards,
   onBackToLevelSelection,
-  onBackToCategorySelection,
-  onBackToModeSelection
+  onBackToCategorySelection
 }) {
   const [cards, setCards] = useState(initialCards);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,32 +53,71 @@ function PracticeScreen({
     setShowSettings(false);
   };
 
+  // Build breadcrumb items
+  const buildBreadcrumbItems = () => {
+    const items = [];
+
+    // Add level
+    const levelLabels = {
+      A1: { full: 'A1 (Beginner)', abbr: 'A1' },
+      A2: { full: 'A2 (Elementary)', abbr: 'A2' },
+      B1: { full: 'B1 (Intermediate)', abbr: 'B1' }
+    };
+
+    items.push({
+      label: levelLabels[selectedLevel].full,
+      abbreviation: levelLabels[selectedLevel].abbr,
+      onClick: onBackToLevelSelection
+    });
+
+    // Add category if exists (A1 only)
+    if (selectedCategory) {
+      items.push({
+        label: selectedCategory,
+        abbreviation: selectedCategory,
+        onClick: onBackToCategorySelection
+      });
+    }
+
+    // Add mode if exists (A1 only)
+    if (selectedMode) {
+      const modeLabels = {
+        vocabulary: { full: 'Vocabulary', abbr: 'Vocab' },
+        grammar: { full: 'Grammar', abbr: 'Grammar' }
+      };
+
+      items.push({
+        label: modeLabels[selectedMode].full,
+        abbreviation: modeLabels[selectedMode].abbr,
+        onClick: null // Last item, not clickable
+      });
+    }
+
+    return items;
+  };
+
   return (
     <div className="practice-screen">
       <div className="practice-header">
-        <button
-          className="settings-button"
-          onClick={() => setShowSettings(true)}
-          aria-label="Open settings menu"
-        >
-          ⚙️
-          <span className="settings-button__text">Settings</span>
-        </button>
-        <div className="progress-indicator-header">
-          {currentIndex + 1} / {cards.length}
+        <Breadcrumb items={buildBreadcrumbItems()} />
+        <div className="practice-header-controls">
+          <button
+            className="settings-button"
+            onClick={() => setShowSettings(true)}
+            aria-label="Open settings menu"
+          >
+            ⚙️
+          </button>
+          <div className="progress-indicator-header">
+            {currentIndex + 1} / {cards.length}
+          </div>
         </div>
       </div>
 
       <SettingsMenu
         isOpen={showSettings}
         onClose={handleCloseSettings}
-        selectedLevel={selectedLevel}
-        selectedCategory={selectedCategory}
-        selectedMode={selectedMode}
         onRestart={handleRestart}
-        onBackToModeSelection={selectedMode ? onBackToModeSelection : undefined}
-        onBackToCategorySelection={selectedCategory ? onBackToCategorySelection : undefined}
-        onBackToLevelSelection={onBackToLevelSelection}
       />
 
       {cards.length > 0 && (
