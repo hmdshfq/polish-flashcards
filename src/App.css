@@ -4,6 +4,16 @@
   flex-direction: column;
 }
 
+.app-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-xs);
+}
+
 .app-content {
   flex: 1 0 auto;
 }

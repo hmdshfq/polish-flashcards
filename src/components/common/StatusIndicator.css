@@ -1,0 +1,298 @@
+.status-indicator {
+  position: relative;
+  z-index: 100;
+}
+
+.status-indicator__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.status-indicator__button:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+}
+
+.status-indicator__button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.status-indicator__button--offline {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.status-indicator__button--offline:hover {
+  background: rgba(220, 53, 69, 0.05);
+}
+
+.status-indicator__button--syncing {
+  color: var(--color-info);
+  border-color: var(--color-info);
+}
+
+.status-indicator__button--syncing:hover {
+  background: rgba(23, 162, 184, 0.05);
+}
+
+.status-indicator__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.status-indicator__button--syncing .status-indicator__icon {
+  animation: rotate var(--transition-slow) linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status-indicator__text {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .status-indicator__text {
+    display: inline;
+  }
+}
+
+/* Details Panel */
+.status-indicator__panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-sm);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 320px;
+  z-index: 1000;
+  animation: slideDown var(--transition-base) ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-indicator__panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.status-indicator__panel-header h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.status-indicator__close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-base);
+}
+
+.status-indicator__close:hover {
+  background: var(--color-bg-hover);
+}
+
+.status-indicator__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.status-indicator__details {
+  padding: var(--space-md);
+}
+
+.status-indicator__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  font-size: var(--font-size-sm);
+}
+
+.status-indicator__label {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-indicator__value {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.status-indicator__value--offline {
+  color: var(--color-error);
+}
+
+.status-indicator__value--syncing {
+  color: var(--color-info);
+}
+
+/* Features List */
+.status-indicator__features {
+  margin: var(--space-md) 0;
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.status-indicator__feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.status-indicator__feature-icon {
+  font-size: var(--font-size-lg);
+}
+
+.status-indicator__feature-text {
+  flex: 1;
+}
+
+/* Notices */
+.status-indicator__notice {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.status-indicator__notice strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.status-indicator__notice p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.status-indicator__notice--offline {
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  color: var(--color-error);
+}
+
+.status-indicator__notice--offline strong {
+  color: var(--color-error);
+}
+
+.status-indicator__notice--syncing {
+  background: rgba(23, 162, 184, 0.1);
+  border: 1px solid rgba(23, 162, 184, 0.2);
+  color: var(--color-info);
+}
+
+.status-indicator__notice--syncing strong {
+  color: var(--color-info);
+}
+
+/* Backdrop */
+.status-indicator__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .status-indicator__panel {
+    position: fixed;
+    top: auto;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    left: var(--space-md);
+    min-width: auto;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .status-indicator__panel-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .status-indicator__button {
+    transition: none;
+  }
+
+  .status-indicator__button--syncing .status-indicator__icon {
+    animation: none;
+  }
+
+  .status-indicator__panel {
+    animation: none;
+  }
+
+  .status-indicator__backdrop {
+    animation: none;
+  }
+}

@@ -3,6 +3,9 @@ import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
 import SettingsMenu from '../common/SettingsMenu';
 import Breadcrumb from '../common/Breadcrumb';
+import ProgressStats from '../common/ProgressStats';
+import { useUserProgress } from '../../hooks/useUserProgress';
+import { getCurrentUser } from '../../services/supabase';
 import './PracticeScreen.css';
 
 function PracticeScreen({
@@ -20,6 +23,10 @@ function PracticeScreen({
   const [isMuted, setIsMuted] = useState(false);
   const [speechRate, setSpeechRate] = useState(1.0);
   const [showSettings, setShowSettings] = useState(false);
+
+  // Get current user for progress tracking
+  const userId = getCurrentUser()?.id;
+  const { progress, loading: progressLoading } = useUserProgress(userId);
 
   // Update cards when initialCards changes
   useEffect(() => {
@@ -154,6 +161,11 @@ function PracticeScreen({
 
       {cards.length > 0 && (
         <div className="practice-content">
+          <ProgressStats
+            cards={cards}
+            progress={progress}
+            loading={progressLoading}
+          />
           <Flashcard
             word={cards[currentIndex]}
             languageDirection={languageDirection}
