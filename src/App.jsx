@@ -78,18 +78,10 @@ function App() {
   };
 
   const handleCategorySelect = (category) => {
-    // A1 has mode selection, A2 goes straight to practice
-    const levelData = levels?.find(l => l.id === selectedLevel);
-    if (levelData?.id === 'A1') {
-      navigateToStage('mode-selection', {
-        category
-      });
-    } else {
-      // A2 - skip mode selection and go to practice
-      navigateToStage('practice', {
-        category
-      });
-    }
+    // Both A1 and A2 have vocabulary and sentences modes for each category
+    navigateToStage('mode-selection', {
+      category
+    });
   };
 
   const handleModeSelect = (mode) => {
