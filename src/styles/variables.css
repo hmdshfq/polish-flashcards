@@ -135,6 +135,10 @@
   --max-width-category-grid-md: 850px;
   --max-width-category-grid-lg: 900px;
 
+  /* Header and Footer Heights */
+  --header-height: 90px;
+  --footer-height: 60px;
+
   /* ============================================
      BREAKPOINTS (for reference in JS)
      ============================================ */
