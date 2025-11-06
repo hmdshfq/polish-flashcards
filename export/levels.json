@@ -2,22 +2,22 @@
   {
     "id": "A1",
     "name": "A1",
-    "display_order": 1,
+    "display_order": 0,
     "has_categories": true,
-    "created_at": "2025-11-05T23:38:07.339586+00:00"
+    "created_at": "2025-11-06T22:58:19.753Z"
   },
   {
     "id": "A2",
     "name": "A2",
-    "display_order": 2,
+    "display_order": 1,
     "has_categories": true,
-    "created_at": "2025-11-05T23:38:07.339586+00:00"
+    "created_at": "2025-11-06T22:58:19.755Z"
   },
   {
     "id": "B1",
     "name": "B1",
-    "display_order": 3,
+    "display_order": 2,
     "has_categories": false,
-    "created_at": "2025-11-05T23:38:07.339586+00:00"
+    "created_at": "2025-11-06T22:58:19.755Z"
   }
 ]

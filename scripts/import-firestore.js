@@ -80,7 +80,7 @@ async function importData() {
         description: level.description || '',
         display_order: level.display_order,
         has_categories: level.has_categories || false
-      });
+      }, { merge: true });
       levelCount++;
     }
     console.log(`    ✓ Imported ${levelCount} levels`);
@@ -95,7 +95,7 @@ async function importData() {
         slug: category.slug || slugify(category.name),
         description: category.description || '',
         display_order: category.display_order
-      });
+      }, { merge: true });
       categoryCount++;
     }
     console.log(`    ✓ Imported ${categoryCount} categories`);
@@ -113,7 +113,7 @@ async function importData() {
         polish: flashcard.polish,
         english: flashcard.english,
         display_order: flashcard.display_order
-      });
+      }, { merge: true });
       flashcardCount++;
     }
     console.log(`    ✓ Imported ${flashcardCount} flashcards`);

@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "migrate": "node scripts/migrate-grammar-to-sentences.js"
+    "migrate": "node scripts/migrate-grammar-to-sentences.js",
+    "export": "node scripts/export-vocabulary.js",
+    "import": "node scripts/import-firestore.js",
+    "sync": "pnpm export && pnpm import"
   },
   "dependencies": {
     "firebase": "^12.5.0",
@@ -28,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.4.22",
     "firebase-admin": "^13.6.0",
     "globals": "^16.4.0",
+    "uuid": "^13.0.0",
     "vite": "npm:rolldown-vite@7.1.14",
     "workbox-cli": "^7.3.0",
     "workbox-precaching": "^7.3.0",
