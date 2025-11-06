@@ -5,6 +5,8 @@ import './StatusIndicator.css';
  * StatusIndicator Component
  * Displays online/offline status and sync state
  * Shows connection status, sync progress, and last sync time
+ *
+ * Firestore handles sync automatically, so we mainly show online/offline status
  */
 function StatusIndicator() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -16,27 +18,15 @@ function StatusIndicator() {
 
   useEffect(() => {
     // Handle online/offline events
-    const handleOnline = () => setIsOnline(true);
+    const handleOnline = () => {
+      setIsOnline(true);
+      // Update last sync time when coming back online
+      setLastSyncTime(new Date());
+    };
     const handleOffline = () => setIsOnline(false);
 
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-
-    // Listen for sync events from service worker
-    const handleServiceWorkerMessage = (event) => {
-      if (event.data.type === 'sync-start') {
-        setIsSyncing(true);
-      } else if (event.data.type === 'sync-complete') {
-        setIsSyncing(false);
-        setLastSyncTime(new Date());
-      } else if (event.data.type === 'sync-error') {
-        setIsSyncing(false);
-      }
-    };
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
-    }
 
     // Set initial sync time from localStorage
     const savedSyncTime = localStorage.getItem('lastSyncTime');
@@ -47,9 +37,6 @@ function StatusIndicator() {
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
-      }
     };
   }, []);
 
@@ -186,15 +173,15 @@ function StatusIndicator() {
             <div className="status-indicator__features">
               <div className="status-indicator__feature">
                 <span className="status-indicator__feature-icon">💾</span>
-                <span className="status-indicator__feature-text">Offline storage: Enabled</span>
+                <span className="status-indicator__feature-text">Offline storage: Firestore cache</span>
               </div>
               <div className="status-indicator__feature">
-                <span className="status-indicator__feature-icon">⚙️</span>
-                <span className="status-indicator__feature-text">Service Worker: Active</span>
-              </div>
-              <div className="status-indicator__feature">
-                <span className="status-indicator__feature-icon">📊</span>
+                <span className="status-indicator__feature-icon">🔄</span>
                 <span className="status-indicator__feature-text">Auto-sync: Enabled</span>
+              </div>
+              <div className="status-indicator__feature">
+                <span className="status-indicator__feature-icon">📡</span>
+                <span className="status-indicator__feature-text">Real-time updates: Active</span>
               </div>
             </div>
 

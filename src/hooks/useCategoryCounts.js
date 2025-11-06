@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
-import { getCachedFlashcardsByLevel } from '../services/indexedDB';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
 /**
  * Fetch flashcard counts per category for a given level
  * Returns a map of category names to vocabulary word counts
+ * Firestore SDK automatically caches the results
  *
  * @param {string} levelId - Level ID (A1, A2, B1)
  * @param {Array} categories - Array of category objects
@@ -29,34 +30,17 @@ export function useCategoryCounts(levelId, categories) {
         setLoading(true);
         setError(null);
 
-        // Try to get from cache first
-        const cachedFlashcards = await getCachedFlashcardsByLevel(levelId);
+        // Fetch all flashcards for this level from Firestore
+        // (Firestore SDK automatically uses cache when offline)
+        const q = query(
+          collection(db, 'flashcards'),
+          where('level_id', '==', levelId)
+        );
 
-        if (cachedFlashcards && cachedFlashcards.length > 0) {
-          // Count from cache
-          const categoryCountMap = {};
+        const snapshot = await getDocs(q);
+        const flashcards = snapshot.docs.map(doc => doc.data());
 
-          for (const category of categories) {
-            const vocabularyCount = cachedFlashcards.filter(
-              card => card.category_id === category.id && card.mode === 'vocabulary'
-            ).length;
-            categoryCountMap[category.name] = vocabularyCount;
-          }
-
-          if (isMounted) {
-            setCounts(categoryCountMap);
-            setLoading(false);
-          }
-          return;
-        }
-
-        // Fetch from Supabase if cache is empty
-        const { data: flashcards, error: fetchError } = await supabase
-          .from('flashcards')
-          .select('category_id, mode')
-          .eq('level_id', levelId);
-
-        if (fetchError) throw fetchError;
+        console.log(`[useCategoryCounts] Fetched ${flashcards.length} flashcards for level ${levelId}`);
 
         // Count vocabulary flashcards per category
         const categoryCountMap = {};

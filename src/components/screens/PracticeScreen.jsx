@@ -5,7 +5,7 @@ import SettingsMenu from '../common/SettingsMenu';
 import ProgressModal from '../common/ProgressModal';
 import Breadcrumb from '../common/Breadcrumb';
 import { useUserProgress } from '../../hooks/useUserProgress';
-import { getCurrentUser } from '../../services/supabase';
+import { getCurrentUser } from '../../services/firebase';
 import './PracticeScreen.css';
 
 function PracticeScreen({
@@ -26,7 +26,7 @@ function PracticeScreen({
   const [showProgress, setShowProgress] = useState(false);
 
   // Get current user for progress tracking
-  const userId = getCurrentUser()?.id;
+  const userId = getCurrentUser()?.uid;
   const { progress, loading: progressLoading } = useUserProgress(userId);
 
   // Update cards when initialCards changes

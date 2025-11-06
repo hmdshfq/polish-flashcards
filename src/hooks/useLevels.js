@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
-import {
-  cacheLevels,
-  getCachedLevels,
-  getCacheMetadata,
-  setCacheMetadata,
-  isCacheValid
-} from '../services/indexedDB';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
 /**
- * Fetch all available levels with caching
+ * Fetch all available levels with automatic Firestore caching
+ * The Firestore SDK automatically caches results in IndexedDB
  *
  * @returns {object} { data, loading, error }
  */
@@ -26,33 +21,24 @@ export function useLevels() {
         setLoading(true);
         setError(null);
 
-        const cacheKey = 'levels';
-        const metadata = await getCacheMetadata(cacheKey);
+        // Query levels from Firestore (SDK automatically uses cache when offline)
+        const q = query(collection(db, 'levels'));
 
-        // Check cache first
-        if (isCacheValid(metadata)) {
-          const cached = await getCachedLevels();
-          if (cached && cached.length > 0) {
-            if (isMounted) {
-              setData(cached);
-              setLoading(false);
-            }
-            return;
-          }
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+          throw new Error('No levels found');
         }
 
-        // Fetch from Supabase
-        const { data: levels, error: fetchError } = await supabase
-          .from('levels')
-          .select('*')
-          .order('display_order');
+        // Sort by display_order
+        const levels = snapshot.docs
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }))
+          .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
 
-        if (fetchError) throw fetchError;
-        if (!levels || levels.length === 0) throw new Error('No levels found');
-
-        // Cache the results
-        await cacheLevels(levels);
-        await setCacheMetadata(cacheKey, { timestamp: Date.now() });
+        console.log(`[useLevels] Fetched ${levels.length} levels:`, levels.map(l => l.id));
 
         if (isMounted) {
           setData(levels);
@@ -62,17 +48,6 @@ export function useLevels() {
         if (isMounted) {
           setError(err.message || 'Failed to fetch levels');
           setLoading(false);
-
-          // Try stale cache as fallback
-          try {
-            const cached = await getCachedLevels();
-            if (cached && cached.length > 0) {
-              setData(cached);
-              setError(null);
-            }
-          } catch (cacheErr) {
-            console.error('No cache available:', cacheErr);
-          }
         }
       }
     }

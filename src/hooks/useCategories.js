@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
-import {
-  cacheCategories,
-  getCachedCategoriesByLevel,
-  getCacheMetadata,
-  setCacheMetadata,
-  isCacheValid
-} from '../services/indexedDB';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
 /**
- * Fetch categories for a specific level with caching
+ * Fetch categories for a specific level with automatic Firestore caching
+ * The Firestore SDK automatically caches results in IndexedDB
  *
  * @param {string} levelId - Level ID (A1, A2, B1)
  * @returns {object} { data, loading, error }
@@ -33,64 +28,32 @@ export function useCategories(levelId) {
         setLoading(true);
         setError(null);
 
-        const cacheKey = `categories:${levelId}`;
-        const metadata = await getCacheMetadata(cacheKey);
+        // Query categories for the specified level
+        // Note: Firestore may need a composite index for where + orderBy
+        // If this fails, categories will be sorted in the component
+        const q = query(
+          collection(db, 'categories'),
+          where('level_id', '==', levelId)
+        );
 
-        // Check cache first
-        if (isCacheValid(metadata)) {
-          const cached = await getCachedCategoriesByLevel(levelId);
-          if (cached && cached.length > 0) {
-            if (isMounted) {
-              setData(cached);
-              setLoading(false);
-            }
-            return;
-          }
-        }
+        const snapshot = await getDocs(q);
 
-        // Fetch from Supabase
-        const { data: categories, error: fetchError } = await supabase
-          .from('categories')
-          .select('*')
-          .eq('level_id', levelId)
-          .order('display_order');
+        console.log(`[useCategories] Fetched ${snapshot.docs.length} categories for level ${levelId}`);
 
-        if (fetchError) throw fetchError;
-
-        // It's ok if there are no categories (A2, B1 levels)
-        if (!categories) {
-          if (isMounted) {
-            setData([]);
-            setLoading(false);
-          }
-          return;
-        }
-
-        // Cache the results
-        if (categories.length > 0) {
-          await cacheCategories(categories);
-          await setCacheMetadata(cacheKey, { timestamp: Date.now() });
-        }
+        const categories = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
         if (isMounted) {
           setData(categories);
           setLoading(false);
         }
       } catch (err) {
+        console.error(`[useCategories] Error fetching categories for ${levelId}:`, err);
         if (isMounted) {
           setError(err.message || 'Failed to fetch categories');
           setLoading(false);
-
-          // Try stale cache as fallback
-          try {
-            const cached = await getCachedCategoriesByLevel(levelId);
-            if (cached && cached.length > 0) {
-              setData(cached);
-              setError(null);
-            }
-          } catch (cacheErr) {
-            console.error('No cache available:', cacheErr);
-          }
         }
       }
     }

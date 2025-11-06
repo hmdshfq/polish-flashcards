@@ -1,23 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '../services/supabase';
 import {
-  cacheUserProgress,
-  getCachedUserProgress,
-  queueProgressUpdate,
-  getPendingSyncQueue,
-  markSyncedInQueue,
-  getCacheMetadata,
-  setCacheMetadata,
-  isCacheValid
-} from '../services/indexedDB';
+  collection,
+  doc,
+  setDoc,
+  onSnapshot,
+  Timestamp
+} from 'firebase/firestore';
+import { db } from '../services/firebase';
 import { calculateNextReview } from '../utils/spacedRepetition';
 
 /**
- * Hook for managing user progress with offline support
- * Handles spaced repetition scheduling and progress tracking
+ * Hook for managing user progress with real-time sync
+ * Automatically syncs progress across tabs and devices
+ * Firestore SDK handles offline queueing automatically
  *
  * @param {string} userId - The user ID
- * @returns {object} { progress, loading, error, updateProgress, syncProgress }
+ * @returns {object} { progress, loading, error, updateProgress, isSyncing }
  */
 export function useUserProgress(userId) {
   const [progress, setProgress] = useState({});
@@ -25,7 +23,7 @@ export function useUserProgress(userId) {
   const [error, setError] = useState(null);
   const [isSyncing, setIsSyncing] = useState(false);
 
-  // Fetch user progress
+  // Subscribe to real-time progress updates
   useEffect(() => {
     if (!userId) {
       setProgress({});
@@ -33,93 +31,51 @@ export function useUserProgress(userId) {
       return;
     }
 
-    let isMounted = true;
+    setLoading(true);
 
-    async function fetchProgress() {
-      try {
-        setLoading(true);
+    // Subscribe to user's progress subcollection with metadata
+    // This enables real-time updates and tracks pending writes
+    const unsubscribe = onSnapshot(
+      collection(db, 'user_progress', userId, 'cards'),
+      { includeMetadataChanges: true },
+      (snapshot) => {
+        // Detect if sync is in progress based on metadata
+        const hasPendingWrites = snapshot.metadata.hasPendingWrites;
+        const fromCache = snapshot.metadata.fromCache;
+        setIsSyncing(hasPendingWrites || (fromCache && navigator.onLine));
+
+        // Build progress map from snapshot
+        const progressMap = {};
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          progressMap[doc.id] = {
+            flashcard_id: doc.id,
+            ease_factor: data.ease_factor,
+            review_count: data.review_count,
+            // Convert Firestore Timestamps to ISO strings
+            last_reviewed_at: data.last_reviewed_at?.toDate?.()?.toISOString(),
+            next_review_at: data.next_review_at?.toDate?.()?.toISOString()
+          };
+        });
+
+        setProgress(progressMap);
+        setLoading(false);
         setError(null);
-
-        const cacheKey = `progress:${userId}`;
-        const metadata = await getCacheMetadata(cacheKey);
-
-        // Check cache first
-        if (isCacheValid(metadata)) {
-          const cached = await getCachedUserProgress(userId);
-          if (cached && cached.length > 0) {
-            const progressMap = {};
-            for (const item of cached) {
-              progressMap[item.flashcard_id] = item;
-            }
-            if (isMounted) {
-              setProgress(progressMap);
-              setLoading(false);
-            }
-            return;
-          }
-        }
-
-        // Fetch from Supabase (only if online)
-        if (navigator.onLine) {
-          const { data: userProgress, error: fetchError } = await supabase
-            .from('user_progress')
-            .select('*')
-            .eq('user_id', userId);
-
-          if (fetchError) throw fetchError;
-
-          // Cache the results
-          if (userProgress && userProgress.length > 0) {
-            await cacheUserProgress(userProgress);
-            await setCacheMetadata(cacheKey, { timestamp: Date.now() });
-
-            const progressMap = {};
-            for (const item of userProgress) {
-              progressMap[item.flashcard_id] = item;
-            }
-
-            if (isMounted) {
-              setProgress(progressMap);
-            }
-          }
-        }
-
-        if (isMounted) {
-          setLoading(false);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(err.message || 'Failed to fetch progress');
-          setLoading(false);
-
-          // Try stale cache as fallback
-          try {
-            const cached = await getCachedUserProgress(userId);
-            if (cached && cached.length > 0) {
-              const progressMap = {};
-              for (const item of cached) {
-                progressMap[item.flashcard_id] = item;
-              }
-              setProgress(progressMap);
-              setError(null);
-            }
-          } catch (cacheErr) {
-            console.error('No cache available:', cacheErr);
-          }
-        }
+      },
+      (err) => {
+        console.error('Failed to fetch progress:', err);
+        setError(err.message);
+        setLoading(false);
       }
-    }
+    );
 
-    fetchProgress();
-
-    return () => {
-      isMounted = false;
-    };
+    return () => unsubscribe();
   }, [userId]);
 
   /**
    * Update progress for a flashcard
    * Implements SM-2 spaced repetition algorithm
+   * Firestore SDK automatically queues writes when offline
    */
   const updateProgress = useCallback(
     async (flashcardId, quality) => {
@@ -134,76 +90,41 @@ export function useUserProgress(userId) {
 
         let newProgress;
         if (existingProgress) {
-          // Update existing progress
+          // Update existing progress using SM-2 algorithm
+          const newEaseFactor = Math.max(
+            1.3,
+            existingProgress.ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
+          );
+
+          const newReviewCount = (existingProgress.review_count || 1) + 1;
+
           newProgress = {
-            ...existingProgress,
-            review_count: (existingProgress.review_count || 1) + 1,
-            last_reviewed_at: now.toISOString(),
-            ease_factor: Math.max(
-              1.3,
-              existingProgress.ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
-            ),
-            next_review_at: calculateNextReview(
-              existingProgress.ease_factor,
-              existingProgress.review_count + 1
-            ),
-            updated_at: now.toISOString()
+            ease_factor: newEaseFactor,
+            review_count: newReviewCount,
+            last_reviewed_at: Timestamp.fromDate(now),
+            next_review_at: Timestamp.fromDate(
+              new Date(calculateNextReview(newEaseFactor, newReviewCount))
+            )
           };
         } else {
           // Create new progress entry
           newProgress = {
-            user_id: userId,
-            flashcard_id: flashcardId,
-            review_count: 1,
-            last_reviewed_at: now.toISOString(),
             ease_factor: 2.5,
-            next_review_at: calculateNextReview(2.5, 1),
-            created_at: now.toISOString(),
-            updated_at: now.toISOString()
+            review_count: 1,
+            last_reviewed_at: Timestamp.fromDate(now),
+            next_review_at: Timestamp.fromDate(
+              new Date(calculateNextReview(2.5, 1))
+            )
           };
         }
 
-        // If online, sync immediately
-        if (navigator.onLine) {
-          const { data, error: upsertError } = await supabase
-            .from('user_progress')
-            .upsert(newProgress, { onConflict: 'user_id,flashcard_id' })
-            .select()
-            .single();
+        // Write to Firestore
+        // The SDK automatically queues this write if offline and syncs when back online
+        const docRef = doc(db, 'user_progress', userId, 'cards', flashcardId);
+        await setDoc(docRef, newProgress, { merge: true });
 
-          if (upsertError) throw upsertError;
-
-          // Update local cache
-          setProgress(prev => ({
-            ...prev,
-            [flashcardId]: data
-          }));
-
-          // Update IndexedDB cache
-          await cacheUserProgress([data]);
-          const cacheKey = `progress:${userId}`;
-          await setCacheMetadata(cacheKey, { timestamp: Date.now() });
-
-          return data;
-        } else {
-          // Queue for later sync
-          const queueId = await queueProgressUpdate({
-            user_id: userId,
-            flashcard_id: flashcardId,
-            ...newProgress
-          });
-
-          // Update local state optimistically
-          setProgress(prev => ({
-            ...prev,
-            [flashcardId]: newProgress
-          }));
-
-          // Update IndexedDB cache
-          await cacheUserProgress([newProgress]);
-
-          return { ...newProgress, _queueId: queueId };
-        }
+        // onSnapshot listener will update state automatically
+        return newProgress;
       } catch (err) {
         console.error('Failed to update progress:', err);
         throw err;
@@ -212,70 +133,5 @@ export function useUserProgress(userId) {
     [userId, progress]
   );
 
-  /**
-   * Sync offline progress updates with Supabase
-   */
-  const syncProgress = useCallback(async () => {
-    if (!navigator.onLine) {
-      console.warn('Cannot sync: offline');
-      return;
-    }
-
-    if (!userId) {
-      console.error('User ID required to sync progress');
-      return;
-    }
-
-    try {
-      setIsSyncing(true);
-      const pendingUpdates = await getPendingSyncQueue();
-
-      if (pendingUpdates.length === 0) {
-        setIsSyncing(false);
-        return;
-      }
-
-      for (const update of pendingUpdates) {
-        const { _queueId, ...progressData } = update;
-
-        try {
-          const { error } = await supabase
-            .from('user_progress')
-            .upsert(progressData, { onConflict: 'user_id,flashcard_id' });
-
-          if (error) throw error;
-
-          // Mark as synced in queue
-          await markSyncedInQueue(_queueId);
-        } catch (err) {
-          console.error(`Failed to sync update ${_queueId}:`, err);
-        }
-      }
-
-      // Refresh progress from server
-      const { data: userProgress, error: fetchError } = await supabase
-        .from('user_progress')
-        .select('*')
-        .eq('user_id', userId);
-
-      if (fetchError) throw fetchError;
-
-      if (userProgress) {
-        await cacheUserProgress(userProgress);
-        const progressMap = {};
-        for (const item of userProgress) {
-          progressMap[item.flashcard_id] = item;
-        }
-        setProgress(progressMap);
-      }
-
-      setIsSyncing(false);
-    } catch (err) {
-      console.error('Sync failed:', err);
-      setIsSyncing(false);
-      throw err;
-    }
-  }, [userId]);
-
-  return { progress, loading, error, updateProgress, syncProgress, isSyncing };
+  return { progress, loading, error, updateProgress, isSyncing };
 }

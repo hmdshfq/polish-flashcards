@@ -9,8 +9,12 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
   const { data: categoriesData } = useCategories(selectedLevel);
   const { counts } = useCategoryCounts(selectedLevel, categoriesData);
 
-  // Get category names from the data
-  const categories = categoriesData?.map(cat => cat.name) || [];
+  // Get category names from the data, sorted by display_order
+  const categories = categoriesData
+    ? categoriesData
+        .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+        .map(cat => cat.name)
+    : [];
 
   // Category icons mapping
   const categoryIcons = {
