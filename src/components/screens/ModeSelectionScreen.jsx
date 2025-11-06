@@ -2,10 +2,11 @@ import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
-function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, vocabulary, cards = [] }) {
-  // Calculate counts from actual cards data
-  const vocabularyCount = cards.filter(card => card.mode === 'vocabulary').length;
-  const grammarCount = cards.filter(card => card.mode === 'grammar').length;
+function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, vocabulary, cards }) {
+  // Calculate counts from actual cards data (handle null/undefined)
+  const safeCards = cards || [];
+  const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
+  const grammarCount = safeCards.filter(card => card.mode === 'grammar').length;
 
   const modes = [
     {
