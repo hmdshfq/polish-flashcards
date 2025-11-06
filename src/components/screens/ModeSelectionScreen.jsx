@@ -2,7 +2,7 @@ import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
-function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, vocabulary, cards }) {
+function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, cards }) {
   // Calculate counts from actual cards data (handle null/undefined)
   const safeCards = cards || [];
   const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
