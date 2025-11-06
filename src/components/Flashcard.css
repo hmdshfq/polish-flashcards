@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 500px;
   height: 300px;
-  margin-block-end: var(--space-xl);
+  margin-block: var(--space-xl);
   margin-inline: auto;
 }
 

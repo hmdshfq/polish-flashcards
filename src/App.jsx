@@ -10,6 +10,8 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 import { useLevels } from './hooks/useLevels';
 import { useCategories } from './hooks/useCategories';
 import { useFlashcards } from './hooks/useFlashcards';
+import useUrlSync from './hooks/useUrlSync';
+import useFocusManagement from './hooks/useFocusManagement';
 
 function App() {
   // Stage management
@@ -29,54 +31,79 @@ function App() {
     selectedMode
   );
 
+  // Initialize URL synchronization and focus management
+  const { navigateToStage } = useUrlSync({
+    currentStage,
+    selectedLevel,
+    selectedCategory,
+    selectedMode,
+    setCurrentStage,
+    setSelectedLevel,
+    setSelectedCategory,
+    setSelectedMode,
+    levels,
+    categories
+  });
+
+  useFocusManagement(currentStage, selectedLevel, selectedCategory, selectedMode);
+
   // Build vocabulary object for screens that still need it
   const vocabulary = buildVocabularyObject(levels, categories, selectedLevel);
 
   // Navigation handlers
   const handleLevelSelect = (level) => {
-    setSelectedLevel(level);
-
     // Check if level has categories (A1)
     const levelData = levels?.find(l => l.id === level);
     const hasCategories = levelData?.has_categories;
 
     if (hasCategories) {
       // A1 - go to category selection
-      setCurrentStage('category-selection');
+      navigateToStage('category-selection', {
+        level,
+        category: null,
+        mode: null
+      });
     } else {
       // A2 or B1 - go straight to practice
-      setSelectedCategory(null);
-      setSelectedMode(null);
-      setCurrentStage('practice');
+      navigateToStage('practice', {
+        level,
+        category: null,
+        mode: null
+      });
     }
   };
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-    setCurrentStage('mode-selection');
+    navigateToStage('mode-selection', {
+      category
+    });
   };
 
   const handleModeSelect = (mode) => {
-    setSelectedMode(mode);
-    setCurrentStage('practice');
+    navigateToStage('practice', {
+      mode
+    });
   };
 
   const handleBackToLevelSelection = () => {
-    setCurrentStage('level-selection');
-    setSelectedLevel(null);
-    setSelectedCategory(null);
-    setSelectedMode(null);
+    navigateToStage('level-selection', {
+      level: null,
+      category: null,
+      mode: null
+    });
   };
 
   const handleBackToCategorySelection = () => {
-    setCurrentStage('category-selection');
-    setSelectedCategory(null);
-    setSelectedMode(null);
+    navigateToStage('category-selection', {
+      category: null,
+      mode: null
+    });
   };
 
   const handleBackToModeSelection = () => {
-    setCurrentStage('mode-selection');
-    setSelectedMode(null);
+    navigateToStage('mode-selection', {
+      mode: null
+    });
   };
 
   // Show error if data loading failed
@@ -97,10 +124,24 @@ function App() {
 
   return (
     <div className="app">
+      {/* Screen reader navigation announcements */}
+      <div
+        id="navigation-announcer"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      />
+
+      {/* Skip link for keyboard users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <header className="app-header">
         <StatusIndicator />
       </header>
-      <main className="app-content">
+      <main id="main-content" className="app-content">
         {currentStage === 'level-selection' && (
           <div key="level-selection">
             {levelsLoading ? (
