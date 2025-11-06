@@ -31,7 +31,8 @@
   margin-block-end: var(--space-xl);
 }
 
-.settings-button {
+.settings-button,
+.progress-button {
   background: white;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -47,13 +48,15 @@
   line-height: 1;
 }
 
-.settings-button:hover {
+.settings-button:hover,
+.progress-button:hover {
   color: #dc143c;
   border-color: #dc143c;
   background: rgba(220, 20, 60, 0.05);
 }
 
-.settings-button:focus-visible {
+.settings-button:focus-visible,
+.progress-button:focus-visible {
   outline: 2px solid #dc143c;
   outline-offset: 2px;
 }
@@ -172,7 +175,8 @@
     gap: var(--space-sm);
   }
 
-  .settings-button {
+  .settings-button,
+  .progress-button {
     padding: 0.4rem 0.65rem;
     font-size: 1.1rem;
   }
