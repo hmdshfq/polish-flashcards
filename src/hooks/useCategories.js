@@ -41,7 +41,7 @@ export function useCategories(levelId) {
         console.log(`[useCategories] Fetched ${snapshot.docs.length} categories for level ${levelId}`);
 
         const categories = snapshot.docs.map(doc => ({
-          id: doc.id,
+          id: doc.id,  // Use Firestore document ID as category ID (matches flashcard.category_id)
           ...doc.data()
         }));
 

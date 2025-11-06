@@ -77,10 +77,11 @@ function App() {
     }
   };
 
-  const handleCategorySelect = (category) => {
+  const handleCategorySelect = (categoryObj) => {
     // Both A1 and A2 have vocabulary and sentences modes for each category
+    // categoryObj is now { id, name, ... } object
     navigateToStage('mode-selection', {
-      category
+      category: categoryObj
     });
   };
 
@@ -248,7 +249,9 @@ function buildVocabularyObject(levels, categories, selectedLevel) {
       // A1 with categories
       vocab[level.id] = {};
       for (const category of categories) {
-        vocab[level.id][category.name] = {
+        // category is now an object with id, name, etc.
+        const categoryName = typeof category === 'string' ? category : category.name;
+        vocab[level.id][categoryName] = {
           vocabulary: [],
           sentences: []
         };

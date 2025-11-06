@@ -40,7 +40,7 @@ export function unslugify(slug) {
 /**
  * Build URL path from app state
  * @param {string} level - Selected level (A1/A2/B1)
- * @param {string} category - Selected category name (optional)
+ * @param {object|string} category - Selected category (object {id, name} or string name)
  * @param {string} mode - Selected mode: vocabulary|sentences (optional)
  * @returns {string} URL path
  */
@@ -50,7 +50,9 @@ export function buildUrl(level, category, mode) {
   let path = `/level/${level}`;
 
   if (category) {
-    path += `/category/${slugify(category)}`;
+    // Handle both category objects {id, name} and string names
+    const categoryName = typeof category === 'object' ? category.name : category;
+    path += `/category/${slugify(categoryName)}`;
   }
 
   if (mode) {

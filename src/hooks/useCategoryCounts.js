@@ -43,11 +43,12 @@ export function useCategoryCounts(levelId, categories) {
         console.log(`[useCategoryCounts] Fetched ${flashcards.length} flashcards for level ${levelId}`);
 
         // Count vocabulary flashcards per category
+        // Use slug-based filtering to avoid UUID mismatch issues
         const categoryCountMap = {};
 
         for (const category of categories) {
           const vocabularyCount = flashcards.filter(
-            card => card.category_id === category.id && card.mode === 'vocabulary'
+            card => card.category_slug === category.slug && card.mode === 'vocabulary'
           ).length;
           categoryCountMap[category.name] = vocabularyCount;
         }

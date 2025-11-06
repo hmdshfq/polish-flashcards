@@ -9,11 +9,9 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
   const { data: categoriesData } = useCategories(selectedLevel);
   const { counts } = useCategoryCounts(selectedLevel, categoriesData);
 
-  // Get category names from the data, sorted by display_order
+  // Get full category objects from the data, sorted by display_order
   const categories = categoriesData
-    ? categoriesData
-        .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
-        .map(cat => cat.name)
+    ? categoriesData.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
     : [];
 
   // Category icons mapping
@@ -40,8 +38,8 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
   };
 
   // Get word count from counts map
-  const getCategoryWordCount = (category) => {
-    return counts[category] || 0;
+  const getCategoryWordCount = (categoryName) => {
+    return counts[categoryName] || 0;
   };
 
   // Get level description
@@ -74,10 +72,10 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
         <div className="category-grid">
           {categories.map((category) => (
             <CategoryCard
-              key={category}
-              name={category}
-              icon={categoryIcons[category] || '📚'}
-              wordCount={getCategoryWordCount(category)}
+              key={category.id}
+              category={category}
+              icon={categoryIcons[category.name] || '📚'}
+              wordCount={getCategoryWordCount(category.name)}
               onClick={onSelectCategory}
             />
           ))}

@@ -50,9 +50,18 @@ export function useUrlSync({
     // Validate against available data
     const validated = validateUrlState(parsed, levels, categories);
 
+    // Convert category name to full category object
+    let categoryObj = null;
+    if (validated.category && categories) {
+      const categoryData = categories.find(
+        c => c.name.toLowerCase() === validated.category.toLowerCase()
+      );
+      categoryObj = categoryData || null;
+    }
+
     // Update state
     setSelectedLevel(validated.level);
-    setSelectedCategory(validated.category);
+    setSelectedCategory(categoryObj);
     setSelectedMode(validated.mode);
     setCurrentStage(validated.stage);
 

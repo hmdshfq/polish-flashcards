@@ -7,7 +7,7 @@ import { db } from '../services/firebase';
  * The Firestore SDK automatically caches results in IndexedDB
  *
  * @param {string} level - Level ID (A1, A2, B1)
- * @param {string} [category] - Category slug (A1 only)
+ * @param {object|string} [category] - Category object {id, name} or null (A1 only)
  * @param {string} [mode] - Mode (vocabulary or sentences, A1 only)
  * @returns {object} { data, loading, error, isOnline }
  */
@@ -40,14 +40,27 @@ export function useFlashcards(level, category = null, mode = null) {
         setError(null);
 
         // Build Firestore query
-        // Note: Categories in the UI are for organization only
-        // Actual flashcards are filtered by level and mode only
         let constraints = [where('level_id', '==', level)];
+
+        // Add category filter if provided (A1 only)
+        // Use slug-based filtering since category IDs are UUIDs that can change between exports
+        let categorySlug = null;
+        if (category) {
+          categorySlug = typeof category === 'object' ? category.slug : category;
+          constraints.push(where('category_slug', '==', categorySlug));
+        }
 
         // Add mode filter if provided
         if (mode) {
           constraints.push(where('mode', '==', mode));
         }
+
+        console.log('[useFlashcards] Building query with constraints:', {
+          level,
+          categorySlug,
+          mode,
+          constraintCount: constraints.length
+        });
 
         const q = query(collection(db, 'flashcards'), ...constraints);
 
@@ -67,7 +80,7 @@ export function useFlashcards(level, category = null, mode = null) {
           }))
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
 
-        console.log(`[useFlashcards] Fetched ${cards.length} flashcards for level=${level}, mode=${mode}`);
+        console.log(`[useFlashcards] Fetched ${cards.length} flashcards for level=${level}, categorySlug=${categorySlug}, mode=${mode}`);
 
         if (isMounted) {
           setData(cards);

@@ -49,8 +49,8 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
           onClick: onBack
         },
         {
-          label: selectedCategory,
-          abbreviation: selectedCategory,
+          label: selectedCategory?.name || selectedCategory,
+          abbreviation: selectedCategory?.name || selectedCategory,
           onClick: null
         }
       ]} />

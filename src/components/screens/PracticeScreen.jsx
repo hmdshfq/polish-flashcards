@@ -102,18 +102,19 @@ function PracticeScreen({
 
     // Add category if exists (A1 only)
     if (selectedCategory) {
+      const categoryName = selectedCategory?.name || selectedCategory;
       if (selectedMode) {
         // Category is clickable (goes to mode selection)
         items.push({
-          label: selectedCategory,
-          abbreviation: selectedCategory,
+          label: categoryName,
+          abbreviation: categoryName,
           onClick: onBackToModeSelection
         });
       } else {
         // Category is not clickable (current context, shouldn't happen in practice screen)
         items.push({
-          label: selectedCategory,
-          abbreviation: selectedCategory,
+          label: categoryName,
+          abbreviation: categoryName,
           onClick: null
         });
       }
