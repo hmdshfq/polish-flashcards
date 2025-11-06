@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../services/supabase';
 import { getCachedFlashcardsByLevel } from '../services/indexedDB';
 
@@ -14,6 +14,12 @@ export function useCategoryCounts(levelId, categories) {
   const [counts, setCounts] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Create a stable dependency based on category IDs to prevent unnecessary re-fetches
+  const categoryIds = useMemo(() => {
+    if (!categories || categories.length === 0) return '';
+    return categories.map(cat => cat.id).sort().join(',');
+  }, [categories]);
 
   useEffect(() => {
     if (!levelId || !categories || categories.length === 0) {
@@ -92,7 +98,7 @@ export function useCategoryCounts(levelId, categories) {
     return () => {
       isMounted = false;
     };
-  }, [levelId, categories]);
+  }, [levelId, categoryIds, categories]);
 
   return { counts, loading, error };
 }
