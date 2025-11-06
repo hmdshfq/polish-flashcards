@@ -76,11 +76,11 @@ function StatusIndicator() {
     return 'Online';
   };
 
-  // Determine status icon
-  const getStatusIcon = () => {
-    if (isSyncing) return '↻';
-    if (!isOnline) return '✗';
-    return '✓';
+  // Determine LED color class
+  const getLEDClass = () => {
+    if (isSyncing) return 'status-indicator__led--syncing';
+    if (!isOnline) return 'status-indicator__led--offline';
+    return 'status-indicator__led--online';
   };
 
   return (
@@ -91,7 +91,9 @@ function StatusIndicator() {
         aria-label={getStatusMessage()}
         aria-expanded={showDetails}
       >
-        <span className="status-indicator__icon">{getStatusIcon()}</span>
+        <span className={`status-indicator__led ${getLEDClass()}`}>
+          <span className="status-indicator__led-shine"></span>
+        </span>
         <span className="status-indicator__text">{getStatusMessage()}</span>
       </button>
 
