@@ -139,7 +139,19 @@ function App() {
       </a>
 
       <header className="app-header">
-        <div className="app-header-brand">
+        <div
+          className="app-header-brand"
+          onClick={handleBackToLevelSelection}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleBackToLevelSelection();
+            }
+          }}
+          aria-label="Go to level selection"
+        >
           <h1>🇵🇱 Flashy Polish</h1>
           <p>Learn Polish at your own pace</p>
         </div>
