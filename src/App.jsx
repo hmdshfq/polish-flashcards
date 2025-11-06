@@ -229,7 +229,7 @@ function buildVocabularyObject(levels, categories, selectedLevel) {
       for (const category of categories) {
         vocab[level.id][category.name] = {
           vocabulary: [],
-          grammar: []
+          sentences: []
         };
       }
     } else if (!level.has_categories) {

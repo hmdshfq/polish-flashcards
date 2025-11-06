@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS flashcards (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   level_id TEXT NOT NULL REFERENCES levels(id) ON DELETE CASCADE,
   category_id UUID REFERENCES categories(id) ON DELETE CASCADE,
-  mode TEXT CHECK (mode IN ('vocabulary', 'grammar')),
+  mode TEXT CHECK (mode IN ('vocabulary', 'sentences')),
   polish TEXT NOT NULL,
   english TEXT NOT NULL,
   display_order INTEGER NOT NULL,

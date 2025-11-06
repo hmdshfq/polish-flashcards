@@ -6,7 +6,7 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
   // Calculate counts from actual cards data (handle null/undefined)
   const safeCards = cards || [];
   const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
-  const grammarCount = safeCards.filter(card => card.mode === 'grammar').length;
+  const sentencesCount = safeCards.filter(card => card.mode === 'sentences').length;
 
   const modes = [
     {
@@ -17,11 +17,11 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
       count: vocabularyCount
     },
     {
-      id: 'grammar',
+      id: 'sentences',
       icon: '✍️',
-      label: 'Grammar',
+      label: 'Sentences',
       description: 'Practice phrases & sentences',
-      count: grammarCount
+      count: sentencesCount
     }
   ];
 

@@ -89,8 +89,8 @@ describe('urlHelpers', () => {
       expect(buildUrl('A1', 'Basics', 'vocabulary')).toBe(
         '/level/A1/category/basics/mode/vocabulary'
       );
-      expect(buildUrl('A1', 'Basics', 'grammar')).toBe(
-        '/level/A1/category/basics/mode/grammar'
+      expect(buildUrl('A1', 'Basics', 'sentences')).toBe(
+        '/level/A1/category/basics/mode/sentences'
       );
     });
 
@@ -148,10 +148,10 @@ describe('urlHelpers', () => {
     });
 
     it('parses slug with multiple hyphens', () => {
-      expect(parseUrl('/level/A1/category/city-landmarks/mode/grammar')).toEqual({
+      expect(parseUrl('/level/A1/category/city-landmarks/mode/sentences')).toEqual({
         level: 'A1',
         category: 'City Landmarks',
-        mode: 'grammar',
+        mode: 'sentences',
         stage: 'practice'
       });
     });
@@ -305,18 +305,18 @@ describe('urlHelpers', () => {
       expect(result.category).toBe('Basics');
     });
 
-    it('handles grammar mode', () => {
+    it('handles sentences mode', () => {
       const result = validateUrlState(
         {
           level: 'A1',
           category: 'Basics',
-          mode: 'grammar',
+          mode: 'sentences',
           stage: 'practice'
         },
         mockLevels,
         mockCategories
       );
-      expect(result.mode).toBe('grammar');
+      expect(result.mode).toBe('sentences');
       expect(result.stage).toBe('practice');
     });
   });

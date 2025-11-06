@@ -16,7 +16,7 @@ import { slugify } from '../utils/slugify';
  *
  * @param {string} level - Level ID (A1, A2, B1)
  * @param {string} [category] - Category slug (A1 only)
- * @param {string} [mode] - Mode (vocabulary or grammar, A1 only)
+ * @param {string} [mode] - Mode (vocabulary or sentences, A1 only)
  * @returns {object} { data, loading, error, isOnline }
  */
 export function useFlashcards(level, category = null, mode = null) {

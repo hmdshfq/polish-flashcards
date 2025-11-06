@@ -63,7 +63,7 @@ export const vocabulary = {
         { polish: 'Jutro', english: 'Tomorrow' },
         { polish: 'Wczoraj', english: 'Yesterday' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Cześć! Jak się masz?', english: 'Hi! How are you?' },
         { polish: 'Dziękuję, dobrze.', english: 'Thank you, good.' },
         { polish: 'Dzień dobry! Miło mi.', english: 'Good day! Nice to meet you.' },
@@ -117,7 +117,7 @@ export const vocabulary = {
         { polish: 'Srebrny', english: 'Silver' },
         { polish: 'Beżowy', english: 'Beige' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'To jest czerwone.', english: 'This is red.' },
         { polish: 'Lubię niebieski kolor.', english: 'I like the blue color.' },
         { polish: 'Mam zielone auto.', english: 'I have a green car.' },
@@ -163,7 +163,7 @@ export const vocabulary = {
         { polish: 'Belgia', english: 'Belgium' },
         { polish: 'Szwajcaria', english: 'Switzerland' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Mieszkam w Polsce.', english: 'I live in Poland.' },
         { polish: 'To są Niemcy.', english: 'This is Germany.' },
         { polish: 'Francja jest piękna.', english: 'France is beautiful.' },
@@ -224,7 +224,7 @@ export const vocabulary = {
         { polish: 'Tysiąc', english: 'One thousand' },
         { polish: 'Zero', english: 'Zero' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Mam jeden kot.', english: 'I have one cat.' },
         { polish: 'Dwa psy są tutaj.', english: 'Two dogs are here.' },
         { polish: 'Trzy jabłka są dobre.', english: 'Three apples are good.' },
@@ -285,7 +285,7 @@ export const vocabulary = {
         { polish: 'Most', english: 'Bridge' },
         { polish: 'Plac', english: 'Square' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Idę do banku.', english: 'I am going to the bank.' },
         { polish: 'Poczta jest blisko.', english: 'The post office is near.' },
         { polish: 'Szkoła jest duża.', english: 'The school is big.' },
@@ -341,7 +341,7 @@ export const vocabulary = {
         { polish: 'Muzyk', english: 'Musician' },
         { polish: 'Sekretarka', english: 'Secretary' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Jestem lekarzem.', english: 'I am a doctor.' },
         { polish: 'Lekarka pomaga ludziom.', english: 'The doctor helps people.' },
         { polish: 'Nauczyciel jest dobry.', english: 'The teacher is good.' },
@@ -412,7 +412,7 @@ export const vocabulary = {
         { polish: 'Lody', english: 'Ice cream' },
         { polish: 'Czekolada', english: 'Chocolate' },
       ],
-      grammar: [
+      sentences: [
         { polish: 'Jem chleb.', english: 'I eat bread.' },
         { polish: 'Piję mleko.', english: 'I drink milk.' },
         { polish: 'Woda jest zimna.', english: 'The water is cold.' },
