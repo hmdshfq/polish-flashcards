@@ -68,7 +68,7 @@ async function migrateData() {
     console.log('→ Inserting levels...');
     const levels = [
       { id: 'A1', name: 'A1', display_order: 1, has_categories: true },
-      { id: 'A2', name: 'A2', display_order: 2, has_categories: false },
+      { id: 'A2', name: 'A2', display_order: 2, has_categories: true },
       { id: 'B1', name: 'B1', display_order: 3, has_categories: false }
     ];
 
@@ -82,11 +82,13 @@ async function migrateData() {
       console.log('  ✓ Inserted 3 levels');
     }
 
-    // 2. Insert A1 categories
-    console.log('→ Inserting A1 categories...');
+    // 2. Insert A1 and A2 categories
+    console.log('→ Inserting categories...');
     const a1Categories = Object.keys(vocabulary.A1);
+    const a2Categories = Object.keys(vocabulary.A2);
     const categoryMap = {};
 
+    // A1 categories
     for (let idx = 0; idx < a1Categories.length; idx++) {
       const catName = a1Categories[idx];
       const { data, error } = await supabase
@@ -101,10 +103,32 @@ async function migrateData() {
         .single();
 
       if (error) {
-        console.warn(`  ⚠️  Could not insert category ${catName}:`, error.message);
+        console.warn(`  ⚠️  Could not insert A1 category ${catName}:`, error.message);
       } else {
-        categoryMap[catName] = data.id;
-        console.log(`  ✓ ${catName}`);
+        categoryMap[`A1:${catName}`] = data.id;
+        console.log(`  ✓ A1 - ${catName}`);
+      }
+    }
+
+    // A2 categories
+    for (let idx = 0; idx < a2Categories.length; idx++) {
+      const catName = a2Categories[idx];
+      const { data, error } = await supabase
+        .from('categories')
+        .insert({
+          level_id: 'A2',
+          name: catName,
+          slug: catName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
+          display_order: idx
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.warn(`  ⚠️  Could not insert A2 category ${catName}:`, error.message);
+      } else {
+        categoryMap[`A2:${catName}`] = data.id;
+        console.log(`  ✓ A2 - ${catName}`);
       }
     }
 
@@ -121,7 +145,7 @@ async function migrateData() {
           const card = cards[idx];
           flashcards.push({
             level_id: 'A1',
-            category_id: categoryMap[category],
+            category_id: categoryMap[`A1:${category}`],
             mode: mode,
             polish: card.polish,
             english: card.english,
@@ -132,18 +156,22 @@ async function migrateData() {
       }
     }
 
-    // A2 flashcards (flat, no categories)
-    for (let idx = 0; idx < vocabulary.A2.length; idx++) {
-      const card = vocabulary.A2[idx];
-      flashcards.push({
-        level_id: 'A2',
-        category_id: null,
-        mode: null,
-        polish: card.polish,
-        english: card.english,
-        display_order: idx
-      });
-      totalCards++;
+    // A2 flashcards (with categories and modes)
+    for (const [category, modes] of Object.entries(vocabulary.A2)) {
+      for (const [mode, cards] of Object.entries(modes)) {
+        for (let idx = 0; idx < cards.length; idx++) {
+          const card = cards[idx];
+          flashcards.push({
+            level_id: 'A2',
+            category_id: categoryMap[`A2:${category}`],
+            mode: mode,
+            polish: card.polish,
+            english: card.english,
+            display_order: idx
+          });
+          totalCards++;
+        }
+      }
     }
 
     // B1 flashcards (flat, no categories)
@@ -179,7 +207,7 @@ async function migrateData() {
     console.log('\n✅ Migration complete!\n');
     console.log('📊 Summary:');
     console.log(`   • Levels: 3`);
-    console.log(`   • Categories: ${Object.keys(categoryMap).length}`);
+    console.log(`   • Categories: A1 (${a1Categories.length}) + A2 (${a2Categories.length}) = ${Object.keys(categoryMap).length} total`);
     console.log(`   • Flashcards: ${totalCards}`);
     console.log('\nYour data is now in Supabase! 🎉');
 
