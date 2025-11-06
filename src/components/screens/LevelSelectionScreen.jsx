@@ -25,11 +25,6 @@ function LevelSelectionScreen({ onSelectLevel }) {
 
   return (
     <div className="level-selection-screen">
-      <header className="level-selection-header">
-        <h1>🇵🇱 Flashy Polish</h1>
-        <p>Learn Polish at your own pace</p>
-      </header>
-
       <section className="level-selection-content">
         <h2>Choose Your Learning Level</h2>
         <div className="level-cards">
