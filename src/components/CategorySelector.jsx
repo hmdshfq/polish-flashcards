@@ -11,7 +11,7 @@ function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSel
   const hasCategories = typeof vocabulary[selectedLevel] === 'object' && !Array.isArray(vocabulary[selectedLevel]);
   const categories = hasCategories ? Object.keys(vocabulary[selectedLevel]) : [];
 
-  // Check if the selected category has modes (vocabulary/grammar)
+  // Check if the selected category has modes (vocabulary/sentences)
   const hasModes = hasCategories && selectedCategory && typeof vocabulary[selectedLevel][selectedCategory] === 'object' && vocabulary[selectedLevel][selectedCategory].vocabulary;
 
   return (
@@ -60,11 +60,11 @@ function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSel
               <span className="mode-desc">Practice individual words</span>
             </button>
             <button
-              className={`mode-button ${selectedMode === 'grammar' ? 'active' : ''}`}
-              onClick={() => onSelectMode('grammar')}
+              className={`mode-button ${selectedMode === 'sentences' ? 'active' : ''}`}
+              onClick={() => onSelectMode('sentences')}
             >
               <span className="mode-icon">✍️</span>
-              <span className="mode-label">Grammar</span>
+              <span className="mode-label">Sentences</span>
               <span className="mode-desc">Practice phrases & sentences</span>
             </button>
           </div>

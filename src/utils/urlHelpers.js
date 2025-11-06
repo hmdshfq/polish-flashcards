@@ -41,7 +41,7 @@ export function unslugify(slug) {
  * Build URL path from app state
  * @param {string} level - Selected level (A1/A2/B1)
  * @param {string} category - Selected category name (optional)
- * @param {string} mode - Selected mode: vocabulary|grammar (optional)
+ * @param {string} mode - Selected mode: vocabulary|sentences (optional)
  * @returns {string} URL path
  */
 export function buildUrl(level, category, mode) {
@@ -181,7 +181,7 @@ export function validateUrlState(parsedState, levels, categories) {
 
     // Validate mode if present
     if (mode) {
-      const validModes = ['vocabulary', 'grammar'];
+      const validModes = ['vocabulary', 'sentences'];
       if (!validModes.includes(mode)) {
         // Invalid mode - go to mode selection
         return {

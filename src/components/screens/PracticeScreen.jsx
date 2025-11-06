@@ -118,7 +118,7 @@ function PracticeScreen({
     if (selectedMode) {
       const modeLabels = {
         vocabulary: { full: 'Vocabulary', abbr: 'Vocab' },
-        grammar: { full: 'Grammar', abbr: 'Grammar' }
+        sentences: { full: 'Sentences', abbr: 'Sentences' }
       };
 
       items.push({

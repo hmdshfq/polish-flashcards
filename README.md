@@ -1,6 +1,6 @@
 # Polish Flashcards
 
-A modern, interactive flashcard application for learning Polish language, built with React and Vite. This app helps learners practice Polish vocabulary and grammar at different proficiency levels.
+A modern, interactive flashcard application for learning Polish language, built with React and Vite. This app helps learners practice Polish vocabulary and sentences at different proficiency levels.
 
 ## Features
 
@@ -18,7 +18,7 @@ A modern, interactive flashcard application for learning Polish language, built 
   - Weather
 - **Dual Learning Modes**:
   - **Vocabulary Mode**: Learn individual Polish words with English translations
-  - **Grammar Mode**: Practice complete sentences and phrases
+  - **Sentences Mode**: Practice complete sentences and phrases
 - **Interactive Flashcards**:
   - Flip cards to reveal translations
   - Navigate through cards with intuitive controls
@@ -87,7 +87,7 @@ pnpm preview
 
 1. **Select Level**: Choose your proficiency level (A1, A2, or B1)
 2. **Choose Category** (A1 only): Pick a category you want to practice
-3. **Select Mode**: Choose between Vocabulary or Grammar practice
+3. **Select Mode**: Choose between Vocabulary or Sentences practice
 4. **Practice**:
    - Click cards to flip and reveal translations
    - Use navigation buttons to move between cards
@@ -117,7 +117,7 @@ polish-flashcards/
 │   │   ├── Flashcard.jsx     # Flashcard display component
 │   │   └── FlashcardControls.jsx
 │   ├── data/
-│   │   └── vocabulary.js     # Polish vocabulary and grammar data
+│   │   └── vocabulary.js     # Polish vocabulary and sentences data
 │   ├── utils/
 │   │   └── speechSynthesis.js # Text-to-speech utilities
 │   ├── App.jsx               # Main application component
@@ -133,7 +133,7 @@ polish-flashcards/
 
 ### Adding New Vocabulary
 
-To add new vocabulary or grammar content, edit `src/data/vocabulary.js`. The structure follows this format:
+To add new vocabulary or sentences content, edit `src/data/vocabulary.js`. The structure follows this format:
 
 ```javascript
 export const vocabulary = {
@@ -142,7 +142,7 @@ export const vocabulary = {
       vocabulary: [
         { polish: 'Polish word', english: 'English translation' }
       ],
-      grammar: [
+      sentences: [
         { polish: 'Polish sentence', english: 'English translation' }
       ]
     }
