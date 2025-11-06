@@ -1,6 +1,7 @@
 .practice-screen {
   min-height: calc(100dvh - var(--header-height) - var(--footer-height));
   animation: fadeIn 0.3s ease;
+  padding: var(--space-xl) var(--space-md);
 }
 
 @keyframes fadeIn {
@@ -18,8 +19,7 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--space-md);
-  padding: 1rem;
-  max-width: 600px;
+  max-width: 900px;
   margin-inline: auto;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .practice-content {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   animation: slideUp 0.4s ease;
 }
@@ -199,28 +199,6 @@
 
   .empty-state h3 {
     font-size: 1.25rem;
-  }
-}
-
-/* Tablet adjustments */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .practice-content {
-    max-width: 650px;
-  }
-
-  .practice-header {
-    max-width: 650px;
-  }
-}
-
-/* Desktop adjustments */
-@media (min-width: 1025px) {
-  .practice-content {
-    max-width: 700px;
-  }
-
-  .practice-header {
-    max-width: 700px;
   }
 }
 

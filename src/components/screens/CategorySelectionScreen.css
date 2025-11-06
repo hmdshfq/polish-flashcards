@@ -1,7 +1,7 @@
 .category-selection-screen {
   min-height: calc(100dvh - var(--header-height) - var(--footer-height));
   padding: 2rem 1rem;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   animation: fadeIn 0.3s ease;
 }
@@ -73,10 +73,6 @@
 
 /* Tablet adjustments */
 @media (min-width: 601px) and (max-width: 1024px) {
-  .category-selection-screen {
-    max-width: 850px;
-  }
-
   .category-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
@@ -85,10 +81,6 @@
 
 /* Large desktop adjustments */
 @media (min-width: 1025px) {
-  .category-selection-screen {
-    max-width: 900px;
-  }
-
   .category-selection-content h2 {
     font-size: 2rem;
   }
