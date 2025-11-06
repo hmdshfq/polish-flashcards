@@ -94,7 +94,7 @@ async function migrateData() {
       const catName = a1Categories[idx];
       const { data, error } = await supabase
         .from('categories')
-        .insert({
+        .upsert({
           level_id: 'A1',
           name: catName,
           slug: catName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
@@ -116,7 +116,7 @@ async function migrateData() {
       const catName = a2Categories[idx];
       const { data, error } = await supabase
         .from('categories')
-        .insert({
+        .upsert({
           level_id: 'A2',
           name: catName,
           slug: catName.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
