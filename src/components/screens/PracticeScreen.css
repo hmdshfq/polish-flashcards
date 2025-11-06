@@ -1,5 +1,4 @@
 .practice-screen {
-  min-height: 100vh;
   margin: 1rem;
   animation: fadeIn 0.3s ease;
 }
