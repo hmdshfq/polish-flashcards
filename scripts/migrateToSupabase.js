@@ -74,12 +74,13 @@ async function migrateData() {
 
     const { error: levelsError } = await supabase
       .from('levels')
-      .insert(levels);
+      .upsert(levels, { onConflict: 'id' });
 
     if (levelsError) {
-      console.warn('⚠️  Levels may already exist:', levelsError.message);
+      console.error('❌ Failed to upsert levels:', levelsError.message);
+      throw levelsError;
     } else {
-      console.log('  ✓ Inserted 3 levels');
+      console.log('  ✓ Inserted/Updated 3 levels');
     }
 
     // 2. Insert A1 and A2 categories

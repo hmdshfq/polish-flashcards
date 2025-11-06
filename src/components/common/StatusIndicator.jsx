@@ -11,6 +11,8 @@ function StatusIndicator() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSyncTime, setLastSyncTime] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [clearMessage, setClearMessage] = useState(null);
 
   useEffect(() => {
     // Handle online/offline events
@@ -81,6 +83,46 @@ function StatusIndicator() {
     if (isSyncing) return 'status-indicator__led--syncing';
     if (!isOnline) return 'status-indicator__led--offline';
     return 'status-indicator__led--online';
+  };
+
+  // Clear IndexedDB
+  const clearIndexedDB = async () => {
+    try {
+      const dbs = await indexedDB.databases();
+      for (const db of dbs) {
+        indexedDB.deleteDatabase(db.name);
+      }
+      setClearMessage('✓ IndexedDB cleared');
+      setTimeout(() => setClearMessage(null), 3000);
+    } catch (err) {
+      setClearMessage('✗ Failed to clear IndexedDB');
+      setTimeout(() => setClearMessage(null), 3000);
+    }
+  };
+
+  // Clear localStorage cache metadata
+  const clearLocalStorage = () => {
+    try {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key.startsWith('cache-meta:')) {
+          localStorage.removeItem(key);
+        }
+      }
+      setClearMessage('✓ Local Storage cache cleared');
+      setTimeout(() => setClearMessage(null), 3000);
+    } catch (err) {
+      setClearMessage('✗ Failed to clear Local Storage');
+      setTimeout(() => setClearMessage(null), 3000);
+    }
+  };
+
+  // Clear all cache
+  const clearAllCache = async () => {
+    await clearIndexedDB();
+    clearLocalStorage();
+    setClearMessage('✓ All cache cleared. Reload page to fetch fresh data.');
+    setTimeout(() => setClearMessage(null), 4000);
   };
 
   return (
@@ -154,6 +196,55 @@ function StatusIndicator() {
                 <span className="status-indicator__feature-icon">📊</span>
                 <span className="status-indicator__feature-text">Auto-sync: Enabled</span>
               </div>
+            </div>
+
+            {/* Advanced Settings */}
+            <div className="status-indicator__advanced-section">
+              <button
+                className="status-indicator__advanced-toggle"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                aria-label={showAdvanced ? 'Hide advanced settings' : 'Show advanced settings'}
+                aria-expanded={showAdvanced}
+              >
+                ⚙️ Advanced Settings {showAdvanced ? '▼' : '▶'}
+              </button>
+
+              {showAdvanced && (
+                <div className="status-indicator__advanced-panel">
+                  <div className="status-indicator__cache-buttons">
+                    <button
+                      className="status-indicator__cache-btn status-indicator__cache-btn--indexeddb"
+                      onClick={clearIndexedDB}
+                      disabled={isSyncing}
+                      title="Clear IndexedDB cache"
+                    >
+                      🗂️ Clear IndexedDB
+                    </button>
+                    <button
+                      className="status-indicator__cache-btn status-indicator__cache-btn--storage"
+                      onClick={clearLocalStorage}
+                      disabled={isSyncing}
+                      title="Clear Local Storage cache metadata"
+                    >
+                      📝 Clear Local Storage
+                    </button>
+                    <button
+                      className="status-indicator__cache-btn status-indicator__cache-btn--all"
+                      onClick={clearAllCache}
+                      disabled={isSyncing}
+                      title="Clear all cache and reload"
+                    >
+                      🧹 Clear All Cache
+                    </button>
+                  </div>
+
+                  {clearMessage && (
+                    <div className="status-indicator__clear-message">
+                      {clearMessage}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Offline Notice */}
