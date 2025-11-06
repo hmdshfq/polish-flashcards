@@ -17,38 +17,6 @@
   }
 }
 
-.level-selection-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  animation: slideDown 0.4s ease;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.level-selection-header h1 {
-  font-size: 2.5rem;
-  color: #dc143c;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.level-selection-header p {
-  font-size: 1.1rem;
-  color: #666;
-  margin: 0;
-  line-height: 1.5;
-}
-
 .level-selection-content {
   width: 100%;
   max-width: 600px;
@@ -100,18 +68,6 @@
     padding: 1.5rem 1rem;
   }
 
-  .level-selection-header {
-    margin-bottom: 2rem;
-  }
-
-  .level-selection-header h1 {
-    font-size: 2rem;
-  }
-
-  .level-selection-header p {
-    font-size: 1rem;
-  }
-
   .level-selection-content h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
@@ -124,10 +80,6 @@
 
 /* Tablet adjustments */
 @media (min-width: 601px) and (max-width: 1024px) {
-  .level-selection-header h1 {
-    font-size: 2.75rem;
-  }
-
   .level-selection-content {
     max-width: 650px;
   }
@@ -135,14 +87,6 @@
 
 /* Large desktop adjustments */
 @media (min-width: 1025px) {
-  .level-selection-header h1 {
-    font-size: 3rem;
-  }
-
-  .level-selection-header p {
-    font-size: 1.2rem;
-  }
-
   .level-selection-content {
     max-width: 700px;
   }
@@ -155,7 +99,6 @@
 /* Disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .level-selection-screen,
-  .level-selection-header,
   .level-selection-content,
   .level-cards > * {
     animation: none;

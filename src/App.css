@@ -40,12 +40,54 @@
 
 .app-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: var(--space-md);
   background: var(--color-bg-card);
   border-bottom: 1px solid var(--color-border-default);
   box-shadow: var(--shadow-xs);
+}
+
+.app-header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app-header-brand h1 {
+  font-size: 1.5rem;
+  color: #dc143c;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.app-header-brand p {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for header */
+@media (max-width: 600px) {
+  .app-header-brand h1 {
+    font-size: 1.25rem;
+  }
+
+  .app-header-brand p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .app-header-brand h1 {
+    font-size: 1.75rem;
+  }
+
+  .app-header-brand p {
+    font-size: 1rem;
+  }
 }
 
 .app-content {

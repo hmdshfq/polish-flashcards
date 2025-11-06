@@ -139,6 +139,10 @@ function App() {
       </a>
 
       <header className="app-header">
+        <div className="app-header-brand">
+          <h1>🇵🇱 Flashy Polish</h1>
+          <p>Learn Polish at your own pace</p>
+        </div>
         <StatusIndicator />
       </header>
       <main id="main-content" className="app-content">
