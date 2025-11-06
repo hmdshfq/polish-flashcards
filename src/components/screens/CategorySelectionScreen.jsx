@@ -14,13 +14,25 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
 
   // Category icons mapping
   const categoryIcons = {
+    // A1 categories
     'Basics': '👋',
     'Colors': '🎨',
     'Countries': '🌍',
     'Numbers': '🔢',
     'City Landmarks': '🏛️',
     'Professions': '👔',
-    'Food': '🍎'
+    'Food': '🍎',
+    // A2 categories
+    'Daily Routines & Time Management': '⏰',
+    'Travel & Transportation': '✈️',
+    'Shopping & Services': '🛍️',
+    'Relationships & Social Interactions': '👥',
+    'Food & Dining Culture': '🍽️',
+    'Health & Body': '🏥',
+    'Work & Professions': '💼',
+    'Hobbies & Leisure': '🎮',
+    'Education & Learning': '📚',
+    'Clothes & Fashion': '👗'
   };
 
   // Get word count from counts map
