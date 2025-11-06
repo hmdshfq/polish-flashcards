@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
 import SettingsMenu from '../common/SettingsMenu';
+import ProgressModal from '../common/ProgressModal';
 import Breadcrumb from '../common/Breadcrumb';
-import ProgressStats from '../common/ProgressStats';
 import { useUserProgress } from '../../hooks/useUserProgress';
 import { getCurrentUser } from '../../services/supabase';
 import './PracticeScreen.css';
@@ -23,6 +23,7 @@ function PracticeScreen({
   const [isMuted, setIsMuted] = useState(false);
   const [speechRate, setSpeechRate] = useState(1.0);
   const [showSettings, setShowSettings] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
 
   // Get current user for progress tracking
   const userId = getCurrentUser()?.id;
@@ -59,6 +60,10 @@ function PracticeScreen({
 
   const handleCloseSettings = () => {
     setShowSettings(false);
+  };
+
+  const handleCloseProgress = () => {
+    setShowProgress(false);
   };
 
   // Build breadcrumb items
@@ -137,6 +142,13 @@ function PracticeScreen({
         <Breadcrumb items={buildBreadcrumbItems()} />
         <div className="practice-header-controls">
           <button
+            className="progress-button"
+            onClick={() => setShowProgress(true)}
+            aria-label="Open progress stats"
+          >
+            📊
+          </button>
+          <button
             className="settings-button"
             onClick={() => setShowSettings(true)}
             aria-label="Open settings menu"
@@ -159,13 +171,16 @@ function PracticeScreen({
         onSpeechRateChange={setSpeechRate}
       />
 
+      <ProgressModal
+        isOpen={showProgress}
+        onClose={handleCloseProgress}
+        cards={cards}
+        progress={progress}
+        loading={progressLoading}
+      />
+
       {cards.length > 0 && (
         <div className="practice-content">
-          <ProgressStats
-            cards={cards}
-            progress={progress}
-            loading={progressLoading}
-          />
           <Flashcard
             word={cards[currentIndex]}
             languageDirection={languageDirection}
