@@ -12,6 +12,7 @@ import { useCategories } from './hooks/useCategories';
 import { useFlashcards } from './hooks/useFlashcards';
 import useUrlSync from './hooks/useUrlSync';
 import useFocusManagement from './hooks/useFocusManagement';
+import useLayoutHeights from './hooks/useLayoutHeights';
 
 function App() {
   // Stage management
@@ -46,6 +47,9 @@ function App() {
   });
 
   useFocusManagement(currentStage, selectedLevel, selectedCategory, selectedMode);
+
+  // Dynamically measure and update header/footer heights
+  useLayoutHeights();
 
   // Build vocabulary object for screens that still need it
   const vocabulary = buildVocabularyObject(levels, categories, selectedLevel);

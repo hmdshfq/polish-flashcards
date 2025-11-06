@@ -135,6 +135,10 @@
   --max-width-category-grid-md: 850px;
   --max-width-category-grid-lg: 900px;
 
+  /* Header and Footer Heights (dynamically calculated via useLayoutHeights hook) */
+  --header-height: 0px;
+  --footer-height: 0px;
+
   /* ============================================
      BREAKPOINTS (for reference in JS)
      ============================================ */

@@ -1,5 +1,5 @@
 .category-selection-screen {
-  min-height: 100vh;
+  min-height: calc(100dvh - var(--header-height) - var(--footer-height));
   padding: 2rem 1rem;
   max-width: 800px;
   margin: 0 auto;
