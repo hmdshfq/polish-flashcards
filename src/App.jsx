@@ -128,14 +128,19 @@ function App() {
 
         {currentStage === 'mode-selection' && (
           <div key="mode-selection">
-            <ModeSelectionScreen
-              selectedLevel={selectedLevel}
-              selectedCategory={selectedCategory}
-              onSelectMode={handleModeSelect}
-              onBack={handleBackToCategorySelection}
-              onBackToLevelSelection={handleBackToLevelSelection}
-              vocabulary={vocabulary}
-            />
+            {cardsLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <ModeSelectionScreen
+                selectedLevel={selectedLevel}
+                selectedCategory={selectedCategory}
+                onSelectMode={handleModeSelect}
+                onBack={handleBackToCategorySelection}
+                onBackToLevelSelection={handleBackToLevelSelection}
+                vocabulary={vocabulary}
+                cards={cards}
+              />
+            )}
           </div>
         )}
 

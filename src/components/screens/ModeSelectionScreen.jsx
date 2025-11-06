@@ -2,9 +2,11 @@ import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
-function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, vocabulary }) {
-  // Get the category data
-  const categoryData = vocabulary[selectedLevel]?.[selectedCategory] || {};
+function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, cards }) {
+  // Calculate counts from actual cards data (handle null/undefined)
+  const safeCards = cards || [];
+  const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
+  const grammarCount = safeCards.filter(card => card.mode === 'grammar').length;
 
   const modes = [
     {
@@ -12,14 +14,14 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
       icon: '📚',
       label: 'Vocabulary',
       description: 'Practice individual words',
-      count: categoryData.vocabulary?.length || 0
+      count: vocabularyCount
     },
     {
       id: 'grammar',
       icon: '✍️',
       label: 'Grammar',
       description: 'Practice phrases & sentences',
-      count: categoryData.grammar?.length || 0
+      count: grammarCount
     }
   ];
 

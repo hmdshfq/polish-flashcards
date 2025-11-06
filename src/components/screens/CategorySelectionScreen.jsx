@@ -1,10 +1,16 @@
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
+import { useCategories } from '../../hooks/useCategories';
+import { useCategoryCounts } from '../../hooks/useCategoryCounts';
 import './CategorySelectionScreen.css';
 
 function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, vocabulary }) {
-  // Get categories for the selected level
-  const categories = Object.keys(vocabulary[selectedLevel] || {});
+  // Fetch categories and their counts
+  const { data: categoriesData } = useCategories(selectedLevel);
+  const { counts } = useCategoryCounts(selectedLevel, categoriesData);
+
+  // Get category names from the data
+  const categories = categoriesData?.map(cat => cat.name) || [];
 
   // Category icons mapping
   const categoryIcons = {
@@ -17,13 +23,9 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
     'Food': '🍎'
   };
 
-  // Calculate word count for each category
+  // Get word count from counts map
   const getCategoryWordCount = (category) => {
-    const categoryData = vocabulary[selectedLevel][category];
-    if (categoryData.vocabulary) {
-      return categoryData.vocabulary.length;
-    }
-    return 0;
+    return counts[category] || 0;
   };
 
   // Get level description
