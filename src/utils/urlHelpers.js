@@ -117,8 +117,8 @@ export function parseUrl(pathname) {
  * Validate parsed URL state against available data
  * Corrects invalid states and returns updated state
  * @param {object} parsedState - State from parseUrl
- * @param {array} levels - Available levels from Supabase
- * @param {array} categories - Available categories from Supabase
+ * @param {array} levels - Available levels from database
+ * @param {array} categories - Available categories from database
  * @returns {{level: string|null, category: string|null, mode: string|null, stage: string}} Validated state
  */
 export function validateUrlState(parsedState, levels, categories) {

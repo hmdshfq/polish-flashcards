@@ -8,7 +8,6 @@
  * into Firestore with proper structure and denormalization.
  *
  * Prerequisites:
- * - Run `node scripts/export-supabase.js` first
  * - Have firebase-admin SDK installed
  * - Have a service account key file at ./serviceAccountKey.json
  *   (Download from Firebase Console → Project Settings → Service Accounts)
@@ -135,7 +134,6 @@ async function importData() {
     console.error('❌ Import failed:', error.message);
     console.error('\nTroubleshooting:');
     console.error('  • Ensure serviceAccountKey.json exists in the project root');
-    console.error('  • Run export-supabase.js first to create export files');
     console.error('  • Check that Firestore is enabled in your Firebase project');
     process.exit(1);
   }

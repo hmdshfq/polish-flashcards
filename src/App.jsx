@@ -23,7 +23,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedMode, setSelectedMode] = useState(null);
 
-  // Fetch data from Supabase
+  // Fetch data from Firebase
   const { data: levels, loading: levelsLoading, error: levelsError } = useLevels();
   const { data: categories, loading: categoriesLoading } = useCategories(selectedLevel);
   const { data: cards, loading: cardsLoading, error: cardsError } = useFlashcards(

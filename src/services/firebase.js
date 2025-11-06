@@ -70,7 +70,6 @@ enableIndexedDbPersistence(db, {
 /**
  * Initialize anonymous authentication
  * Creates a new anonymous session if none exists
- * This maintains the same behavior as Supabase anonymous auth
  */
 export async function initializeAuth() {
   try {

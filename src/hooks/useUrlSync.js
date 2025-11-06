@@ -18,8 +18,8 @@ import { buildUrl, parseUrl, validateUrlState } from '../utils/urlHelpers';
  * @param {function} props.setSelectedLevel - State setter for level
  * @param {function} props.setSelectedCategory - State setter for category
  * @param {function} props.setSelectedMode - State setter for mode
- * @param {array} props.levels - Available levels from Supabase
- * @param {array} props.categories - Available categories from Supabase
+ * @param {array} props.levels - Available levels from database
+ * @param {array} props.categories - Available categories from database
  * @returns {object} Navigation helper functions
  */
 export function useUrlSync({

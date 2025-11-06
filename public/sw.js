@@ -62,11 +62,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Skip Supabase API calls - let them go through normally
-  if (url.includes('supabase.co')) {
-    return;
-  }
-
   // Skip Chrome extensions and other non-http(s)
   if (!url.startsWith('http')) {
     return;
