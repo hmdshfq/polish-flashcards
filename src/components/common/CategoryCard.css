@@ -44,6 +44,9 @@
   margin-bottom: 0.5rem;
   line-height: 1;
   transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .category-card:hover .category-card__icon {

@@ -41,6 +41,9 @@
   margin-bottom: 1rem;
   line-height: 1;
   transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mode-card:hover .mode-card__icon {
