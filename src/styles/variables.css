@@ -5,41 +5,85 @@
 
 :root {
   /* ============================================
-     PRIMARY COLORS
+     PRIMARY COLOR SCALE (Green - Hue 150)
+     100 = lightest, 500 = brightest, 900 = darkest
+     Using OKLCH color system for perceptual consistency
      ============================================ */
-  --color-primary: #dc143c;
-  --color-primary-hover: #b91034;
-  --color-primary-light: rgba(220, 20, 60, 0.1);
-  --color-primary-shadow: rgba(220, 20, 60, 0.15);
+  --color-primary-100: oklch(96% 0.02 150);
+  --color-primary-200: oklch(92% 0.04 150);
+  --color-primary-300: oklch(84% 0.08 150);
+  --color-primary-400: oklch(76% 0.12 150);
+  --color-primary-500: oklch(68% 0.16 150);  /* Brightest */
+  --color-primary-600: oklch(60% 0.14 150);
+  --color-primary-700: oklch(52% 0.12 150);
+  --color-primary-800: oklch(44% 0.10 150);
+  --color-primary-900: oklch(36% 0.08 150);  /* Darkest */
+
+  /* Legacy primary references (using 600 as main) */
+  --color-primary: oklch(60% 0.14 150);
+  --color-primary-hover: oklch(52% 0.12 150);
+  --color-primary-light: oklch(96% 0.02 150);
+  --color-primary-shadow: oklch(60% 0.14 150 / 0.15);
+
+  /* ============================================
+     GRAY SCALE (Hue 150 with low saturation)
+     100 = lightest, 500 = mid, 900 = darkest
+     ============================================ */
+  --color-gray-100: oklch(98% 0.005 150);
+  --color-gray-200: oklch(94% 0.01 150);
+  --color-gray-300: oklch(88% 0.015 150);
+  --color-gray-400: oklch(80% 0.02 150);
+  --color-gray-500: oklch(68% 0.025 150);
+  --color-gray-600: oklch(56% 0.02 150);
+  --color-gray-700: oklch(44% 0.015 150);
+  --color-gray-800: oklch(32% 0.01 150);
+  --color-gray-900: oklch(20% 0.005 150);
 
   /* ============================================
      TEXT COLORS (WCAG AA Compliant)
      ============================================ */
-  --color-text-primary: #333333;      /* 12.6:1 contrast ratio */
-  --color-text-secondary: #666666;    /* 5.74:1 contrast ratio */
-  --color-text-tertiary: #767676;     /* 4.54:1 contrast ratio (updated from #999) */
-  --color-text-disabled: #999999;
+  --color-text-primary: oklch(20% 0.005 150);      /* 12.6:1 contrast ratio */
+  --color-text-secondary: oklch(44% 0.015 150);    /* 5.74:1 contrast ratio */
+  --color-text-tertiary: oklch(56% 0.02 150);      /* 4.54:1 contrast ratio */
+  --color-text-disabled: oklch(68% 0.025 150);
   --color-text-inverse: #ffffff;
 
   /* ============================================
      BACKGROUND COLORS
      ============================================ */
-  --color-bg-page: #f8f9fa;
+  --color-bg-page: oklch(98% 0.005 150);
   --color-bg-card: #ffffff;
-  --color-bg-hover: #fafafa;
-  --color-bg-badge: #f0f0f0;
+  --color-bg-hover: oklch(96% 0.01 150);
+  --color-bg-badge: oklch(94% 0.01 150);
   --color-bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* ============================================
      BORDER COLORS
      ============================================ */
-  --color-border-default: #e0e0e0;
-  --color-border-hover: #dc143c;
-  --color-border-focus: #dc143c;
+  --color-border-default: oklch(88% 0.015 150);
+  --color-border-hover: oklch(60% 0.14 150);
+  --color-border-focus: oklch(60% 0.14 150);
 
   /* ============================================
-     STATE COLORS
+     STATE COLORS (OKLCH System)
      ============================================ */
+  --color-success-light: oklch(94% 0.08 150);
+  --color-success: oklch(68% 0.16 150);
+  --color-success-dark: oklch(48% 0.12 150);
+
+  --color-warning-light: oklch(94% 0.10 85);
+  --color-warning: oklch(76% 0.18 85);
+  --color-warning-dark: oklch(56% 0.14 85);
+
+  --color-error-light: oklch(94% 0.10 25);
+  --color-error: oklch(64% 0.18 25);
+  --color-error-dark: oklch(44% 0.14 25);
+
+  --color-info-light: oklch(94% 0.08 240);
+  --color-info: oklch(64% 0.16 240);
+  --color-info-dark: oklch(44% 0.12 240);
+
+  /* Legacy color references for backward compatibility */
   --color-success: #28a745;
   --color-warning: #ffc107;
   --color-error: #dc3545;
@@ -51,9 +95,10 @@
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 6px 16px rgba(220, 20, 60, 0.15);
+  --shadow-lg: 0 6px 16px oklch(60% 0.14 150 / 0.15);  /* Green primary shadow */
   --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.2);
-  --shadow-focus: 0 4px 12px rgba(220, 20, 60, 0.2);
+  --shadow-focus: 0 4px 12px oklch(60% 0.14 150 / 0.2);  /* Green focus shadow */
+  --shadow-elevation: 0 12px 32px rgba(0, 0, 0, 0.12);   /* High elevation */
 
   /* ============================================
      TYPOGRAPHY
@@ -165,7 +210,7 @@
   /* Focus */
   --focus-outline-width: 3px;
   --focus-outline-offset: 2px;
-  --focus-outline-color: var(--color-primary);
+  --focus-outline-color: oklch(60% 0.14 150);  /* Green primary */
 }
 
 /* ============================================

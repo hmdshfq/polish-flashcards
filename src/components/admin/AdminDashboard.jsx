@@ -3,6 +3,7 @@ import { useLevels } from '../../hooks/useLevels';
 import { useAdminFlashcards } from '../../hooks/admin/useAdminFlashcards';
 import { useAdminCategories } from '../../hooks/admin/useAdminCategories';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { RecentActivity, mockActivities } from '../common/RecentActivity';
 import './AdminDashboard.css';
 
 /**
@@ -34,7 +35,7 @@ export function AdminDashboard() {
 
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon">📚</div>
+          <div className="stat-icon stat-icon-levels">LV</div>
           <div className="stat-content">
             <h3 className="stat-label">Levels</h3>
             <p className="stat-value">{levels?.length || 0}</p>
@@ -42,7 +43,7 @@ export function AdminDashboard() {
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">📝</div>
+          <div className="stat-icon stat-icon-flashcards">FC</div>
           <div className="stat-content">
             <h3 className="stat-label">Flashcards</h3>
             <p className="stat-value">{allFlashcards?.length || 0}</p>
@@ -50,7 +51,7 @@ export function AdminDashboard() {
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">📊</div>
+          <div className="stat-icon stat-icon-categories">CT</div>
           <div className="stat-content">
             <h3 className="stat-label">Categories</h3>
             <p className="stat-value">{totalCategories}</p>
@@ -59,7 +60,7 @@ export function AdminDashboard() {
       </div>
 
       <div className="dashboard-section">
-        <h2>Quick Links</h2>
+        <h2>Quick Actions</h2>
         <ul className="quick-links">
           <li>
             <button
@@ -89,6 +90,18 @@ export function AdminDashboard() {
             </button>
           </li>
         </ul>
+      </div>
+
+      <div className="dashboard-section">
+        <div className="section-header">
+          <h2>Recent Activity</h2>
+          <span className="section-subtitle">Last 5 changes</span>
+        </div>
+        <RecentActivity
+          activities={mockActivities}
+          maxItems={5}
+          onViewAll={() => navigate('/admin/activity')}
+        />
       </div>
     </div>
   );

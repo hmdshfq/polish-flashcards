@@ -27,10 +27,10 @@ export function AdminLayout() {
   };
 
   const navItems = [
-    { path: '/admin', label: 'Dashboard', icon: '📊' },
-    { path: '/admin/flashcards', label: 'Flashcards', icon: '📝' },
-    { path: '/admin/categories', label: 'Categories', icon: '🏷️' },
-    { path: '/admin/levels', label: 'Levels', icon: '📚' }
+    { path: '/admin', label: 'Dashboard', icon: 'DB' },
+    { path: '/admin/flashcards', label: 'Flashcards', icon: 'FC' },
+    { path: '/admin/categories', label: 'Categories', icon: 'CT' },
+    { path: '/admin/levels', label: 'Levels', icon: 'LV' }
   ];
 
   const isActive = (path) => {

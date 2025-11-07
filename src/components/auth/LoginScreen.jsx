@@ -11,6 +11,8 @@ export function LoginScreen() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [validationError, setValidationError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validateForm = () => {
     setValidationError('');
@@ -74,15 +76,29 @@ export function LoginScreen() {
 
   return (
     <div className="login-container">
+      <div className="login-background"></div>
+
       <div className="login-card">
-        <h1 className="login-title">Admin Login</h1>
-        <p className="login-subtitle">
-          {isSignUp ? 'Create a new admin account' : 'Sign in to the admin panel'}
+        <div className="login-header">
+          <div className="login-logo">
+            <span className="logo-text">PF</span>
+          </div>
+          <div className="login-branding">
+            <h1 className="login-title">Polish Flashcards</h1>
+            <p className="login-subtitle">Admin Portal</p>
+          </div>
+        </div>
+
+        <p className="login-description">
+          {isSignUp
+            ? 'Create a new administrator account to manage flashcards, categories, and learning content.'
+            : 'Manage and organize Polish learning content for your students.'}
         </p>
 
         {(error || validationError) && (
           <div className="login-error" role="alert">
-            {error || validationError}
+            <span className="error-icon">⚠</span>
+            <span>{error || validationError}</span>
           </div>
         )}
 
@@ -105,11 +121,22 @@ export function LoginScreen() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
+            <div className="password-label-wrapper">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                disabled={loading}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               className="form-input"
               value={password}
@@ -120,17 +147,28 @@ export function LoginScreen() {
               autoComplete={isSignUp ? 'new-password' : 'current-password'}
             />
             {isSignUp && (
-              <p className="password-hint">At least 6 characters</p>
+              <p className="form-help">At least 6 characters</p>
             )}
           </div>
 
           {isSignUp && (
             <div className="form-group">
-              <label htmlFor="confirmPassword" className="form-label">
-                Confirm Password
-              </label>
+              <div className="password-label-wrapper">
+                <label htmlFor="confirmPassword" className="form-label">
+                  Confirm Password
+                </label>
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                  disabled={loading}
+                >
+                  {showConfirmPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
               <input
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
                 id="confirmPassword"
                 className="form-input"
                 value={confirmPassword}
@@ -145,27 +183,40 @@ export function LoginScreen() {
 
           <button
             type="submit"
-            className="login-button"
+            className="btn-primary btn-login"
             disabled={loading}
             aria-busy={loading}
           >
-            {loading ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
+            {loading ? 'Signing in...' : isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
+        <div className="login-divider"></div>
+
         <div className="login-footer">
-          <p>
+          <p className="login-mode-toggle">
             {isSignUp ? 'Already have an account?' : "Don't have an account?"}
             <button
               type="button"
-              className="toggle-mode-button"
+              className="btn-tertiary btn-toggle"
               onClick={handleToggleMode}
               disabled={loading}
             >
-              {isSignUp ? 'Sign In' : 'Sign Up'}
+              {isSignUp ? 'Sign In instead' : 'Create account'}
             </button>
           </p>
+
+          <p className="login-support">
+            Need help?{' '}
+            <a href="mailto:support@polishflashcards.com" className="support-link">
+              Contact support
+            </a>
+          </p>
         </div>
+
+        <footer className="login-footer-bottom">
+          <p>© 2025 Polish Flashcards. Educational admin panel.</p>
+        </footer>
       </div>
     </div>
   );

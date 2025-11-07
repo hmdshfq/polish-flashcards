@@ -20,23 +20,48 @@
 .stat-card {
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border-default);
+  border-top: 4px solid var(--color-primary-500);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
   display: flex;
   gap: var(--spacing-lg);
   align-items: center;
   box-shadow: var(--shadow-sm);
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
 
 .stat-icon {
-  font-size: 2rem;
-  line-height: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-100);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.stat-icon-levels {
+  background-color: oklch(96% 0.02 150);
+  color: oklch(52% 0.12 150);
+}
+
+.stat-icon-flashcards {
+  background-color: oklch(96% 0.02 240);
+  color: oklch(64% 0.16 240);
+}
+
+.stat-icon-categories {
+  background-color: oklch(94% 0.10 85);
+  color: oklch(76% 0.18 85);
 }
 
 .stat-content {
@@ -45,18 +70,19 @@
 
 .stat-label {
   margin: 0;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.75px;
 }
 
 .stat-value {
-  margin: var(--spacing-xs) 0 0 0;
-  font-size: var(--font-size-2xl);
+  margin: var(--spacing-sm) 0 0 0;
+  font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
+  color: var(--color-text-primary);
+  line-height: 1;
 }
 
 .dashboard-section {
@@ -67,10 +93,29 @@
 }
 
 .dashboard-section h2 {
-  margin: 0 0 var(--spacing-lg) 0;
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .quick-links {

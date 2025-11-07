@@ -66,17 +66,35 @@
 }
 
 .nav-item.active {
-  background-color: var(--color-primary-light);
+  background-color: oklch(96% 0.02 150);
   color: var(--color-primary);
-  border-left: 4px solid var(--color-primary);
-  padding-left: calc(var(--spacing-lg) - 4px);
-  font-weight: var(--font-weight-medium);
+  border-left: 6px solid var(--color-primary);
+  padding-left: calc(var(--spacing-lg) - 6px);
+  font-weight: var(--font-weight-semibold);
 }
 
 .nav-icon {
-  font-size: var(--font-size-lg);
-  width: 24px;
-  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-gray-100);
+  color: var(--color-text-secondary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.nav-item:hover .nav-icon {
+  background-color: var(--color-gray-200);
+  color: var(--color-text-primary);
+}
+
+.nav-item.active .nav-icon {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .nav-label {
