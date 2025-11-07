@@ -129,9 +129,33 @@
   }
 }
 
+/* Pulse animation for language toggle on keyboard shortcut */
+.language-toggle.toggle-pulse {
+  animation: togglePulse 300ms ease-out;
+}
+
+@keyframes togglePulse {
+  0% {
+    transform: scale(1);
+    background: #f8f8f8;
+  }
+  50% {
+    transform: scale(1.05);
+    background: rgba(220, 20, 60, 0.1);
+  }
+  100% {
+    transform: scale(1);
+    background: #f8f8f8;
+  }
+}
+
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .control-btn.btn-active {
+    animation: none;
+  }
+
+  .language-toggle.toggle-pulse {
     animation: none;
   }
 }

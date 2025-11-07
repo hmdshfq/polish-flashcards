@@ -1,6 +1,6 @@
 import './FlashcardControls.css';
 
-function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, lastAction }) {
+function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, lastAction, lastKeyAction }) {
   return (
     <div className="flashcard-controls">
       <div className="progress-indicator">
@@ -32,11 +32,11 @@ function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalC
         </button>
       </div>
       <div className="language-toggle-container">
-        <div className="language-toggle">
+        <div className={`language-toggle ${lastKeyAction === 'direction' ? 'toggle-pulse' : ''}`}>
           <span className={`toggle-label ${languageDirection === 'pl-to-en' ? 'active' : ''}`}>
             PL → EN
           </span>
-          <div className="toggle-switch" onClick={onToggleLanguage}>
+          <div className="toggle-switch" onClick={onToggleLanguage} aria-label="Toggle language direction (/ key)">
             <div className={`toggle-slider ${languageDirection === 'en-to-pl' ? 'right' : ''}`}></div>
           </div>
           <span className={`toggle-label ${languageDirection === 'en-to-pl' ? 'active' : ''}`}>
