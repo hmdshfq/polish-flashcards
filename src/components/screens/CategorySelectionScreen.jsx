@@ -1,13 +1,11 @@
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
 import { useCategories } from '../../hooks/useCategories';
-import { useCategoryCounts } from '../../hooks/useCategoryCounts';
 import './CategorySelectionScreen.css';
 
 function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, vocabulary }) {
-  // Fetch categories and their counts
+  // Fetch categories
   const { data: categoriesData } = useCategories(selectedLevel);
-  const { counts } = useCategoryCounts(selectedLevel, categoriesData);
 
   // Get full category objects from the data, sorted by display_order
   const categories = categoriesData
@@ -35,11 +33,6 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
     'Hobbies & Leisure': '🎮',
     'Education & Learning': '📚',
     'Clothes & Fashion': '👗'
-  };
-
-  // Get word count from counts map
-  const getCategoryWordCount = (categoryName) => {
-    return counts[categoryName] || 0;
   };
 
   // Get level description
@@ -75,7 +68,6 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
               key={category.id}
               category={category}
               icon={categoryIcons[category.name] || '📚'}
-              wordCount={getCategoryWordCount(category.name)}
               onClick={onSelectCategory}
             />
           ))}
