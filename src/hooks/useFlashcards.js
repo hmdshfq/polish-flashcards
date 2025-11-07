@@ -32,6 +32,14 @@ export function useFlashcards(level, category = null, mode = null) {
   }, []);
 
   useEffect(() => {
+    // Skip fetching if no level is selected
+    if (!level) {
+      setLoading(false);
+      setData(null);
+      setError(null);
+      return;
+    }
+
     let isMounted = true;
 
     async function fetchFlashcards() {
