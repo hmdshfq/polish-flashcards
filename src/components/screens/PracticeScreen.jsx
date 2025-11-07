@@ -121,7 +121,7 @@ function PracticeScreen({
         setCurrentIndex((prevIndex) =>
           prevIndex < cards.length - 1 ? prevIndex + 1 : prevIndex
         );
-      }, 250);
+      }, 750);
     } catch (error) {
       console.error('Failed to update progress:', error);
       setIsRating(false);
