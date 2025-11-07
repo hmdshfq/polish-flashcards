@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
+import RatingControls from '../RatingControls';
 import SettingsMenu from '../common/SettingsMenu';
 import ProgressModal from '../common/ProgressModal';
 import Breadcrumb from '../common/Breadcrumb';
@@ -26,6 +27,7 @@ function PracticeScreen({
   const [showProgress, setShowProgress] = useState(false);
   const [isRating, setIsRating] = useState(false);
   const [nextReviewDate, setNextReviewDate] = useState(null);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   // Get current user for progress tracking
   const userId = getCurrentUser()?.uid;
@@ -224,9 +226,13 @@ function PracticeScreen({
             languageDirection={languageDirection}
             isMuted={isMuted}
             speechRate={speechRate}
+            onFlipChange={setIsFlipped}
+          />
+          <RatingControls
             onRate={handleRate}
             isRating={isRating}
             nextReviewDate={nextReviewDate}
+            isFlipped={isFlipped}
           />
           <FlashcardControls
             onPrevious={handlePrevious}
