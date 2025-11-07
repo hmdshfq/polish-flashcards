@@ -20,20 +20,48 @@ const QUALITY_THRESHOLD = 3; // Minimum quality to continue interval growth
  *
  * @param {number} easeFactor - Current ease factor (default 2.5)
  * @param {number} repetition - Number of repetitions (1-based)
+ * @param {number} quality - Quality rating (0-5)
  * @param {Date} [lastReviewDate] - Date of last review (defaults to now)
  * @returns {string} ISO string of next review date
  */
-export function calculateNextReview(easeFactor = 2.5, repetition = 1, lastReviewDate = new Date()) {
+export function calculateNextReview(easeFactor = 2.5, repetition = 1, quality = 3, lastReviewDate = new Date()) {
   let interval = 1; // days
 
-  // SM-2 algorithm intervals
+  // If quality < 3, reset the card and review soon (within 10 minutes)
+  if (quality < QUALITY_THRESHOLD) {
+    const nextReviewDate = new Date(lastReviewDate);
+    nextReviewDate.setMinutes(nextReviewDate.getMinutes() + 10);
+    return nextReviewDate.toISOString();
+  }
+
+  // SM-2 algorithm intervals with quality-based adjustments
   if (repetition === 1) {
-    interval = 1;
+    // First review: vary interval based on quality
+    // quality 3 (Hard): 1 day
+    // quality 4 (Good): 3 days
+    // quality 5 (Easy): 7 days
+    if (quality === 5) {
+      interval = 7;
+    } else if (quality === 4) {
+      interval = 3;
+    } else {
+      interval = 1;
+    }
   } else if (repetition === 2) {
-    interval = 3;
+    // Second review: vary based on quality
+    // quality 3 (Hard): 3 days
+    // quality 4 (Good): 7 days
+    // quality 5 (Easy): 14 days
+    if (quality === 5) {
+      interval = 14;
+    } else if (quality === 4) {
+      interval = 7;
+    } else {
+      interval = 3;
+    }
   } else {
     // I(n) = I(n-1) * EF
-    // For simplicity, we use a base interval that grows
+    // For later reviews, use the standard SM-2 formula
     interval = Math.ceil(3 * Math.pow(easeFactor, repetition - 2));
   }
 
