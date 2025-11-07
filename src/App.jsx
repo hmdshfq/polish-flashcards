@@ -191,7 +191,7 @@ function App() {
 
         {currentStage === 'mode-selection' && (
           <div key="mode-selection">
-            {cardsLoading ? (
+            {cardsLoading || !cards ? (
               <LoadingSpinner />
             ) : (
               <ModeSelectionScreen
@@ -209,7 +209,7 @@ function App() {
 
         {currentStage === 'practice' && (
           <div key="practice">
-            {cardsLoading ? (
+            {cardsLoading || !cards ? (
               <LoadingSpinner />
             ) : cardsError ? (
               <div style={{ padding: '2rem', textAlign: 'center' }}>
