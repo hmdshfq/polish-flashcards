@@ -1,3 +1,4 @@
+import { Inbox, Search, AlertTriangle } from 'lucide-react';
 import './EmptyState.css';
 
 /**
@@ -22,15 +23,18 @@ export function EmptyState({
   secondaryAction,
   variant = 'default',
 }) {
+  const iconSize = 48;
+  const iconColor = 'oklch(60% 0.14 150)';
+
   const getDefaultIcon = () => {
     switch (type) {
       case 'no-results':
-        return '🔍';
+        return <Search size={iconSize} color={iconColor} />;
       case 'error':
-        return '⚠';
+        return <AlertTriangle size={iconSize} color={iconColor} />;
       case 'no-data':
       default:
-        return '📋';
+        return <Inbox size={iconSize} color={iconColor} />;
     }
   };
 

@@ -81,12 +81,12 @@
 }
 
 .progress-close:hover {
-  color: #dc143c;
-  background: rgba(220, 20, 60, 0.1);
+  color: var(--color-primary);
+  background: color-mix(in oklch, var(--color-primary) 12%, transparent);
 }
 
 .progress-close:focus-visible {
-  outline: 2px solid #dc143c;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 

@@ -1,3 +1,4 @@
+import { BookOpen, PenTool } from 'lucide-react';
 import './CategorySelector.css';
 
 function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSelectLevel, onSelectCategory, onSelectMode, vocabulary }) {
@@ -55,7 +56,7 @@ function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSel
               className={`mode-button ${selectedMode === 'vocabulary' ? 'active' : ''}`}
               onClick={() => onSelectMode('vocabulary')}
             >
-              <span className="mode-icon">📚</span>
+              <span className="mode-icon"><BookOpen size={24} color="oklch(60% 0.14 150)" /></span>
               <span className="mode-label">Vocabulary</span>
               <span className="mode-desc">Practice individual words</span>
             </button>
@@ -63,7 +64,7 @@ function CategorySelector({ selectedLevel, selectedCategory, selectedMode, onSel
               className={`mode-button ${selectedMode === 'sentences' ? 'active' : ''}`}
               onClick={() => onSelectMode('sentences')}
             >
-              <span className="mode-icon">✍️</span>
+              <span className="mode-icon"><PenTool size={24} color="oklch(60% 0.14 150)" /></span>
               <span className="mode-label">Sentences</span>
               <span className="mode-desc">Practice phrases & sentences</span>
             </button>

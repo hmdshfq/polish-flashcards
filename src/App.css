@@ -74,7 +74,7 @@
 
 .app-header-brand h1 {
   font-size: 1.5rem;
-  color: #dc143c;
+  color: oklch(60% 0.14 150);
   margin: 0;
   font-weight: 700;
   line-height: 1.2;

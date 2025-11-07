@@ -1,4 +1,21 @@
 import { useEffect } from 'react';
+import {
+  HandshakeIcon,
+  Palette,
+  Globe,
+  Calculator,
+  Landmark,
+  Briefcase,
+  Apple,
+  Clock,
+  Plane,
+  ShoppingBag,
+  Users,
+  UtensilsCrossed,
+  Heart,
+  BookOpen,
+  Shirt
+} from 'lucide-react';
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
 import { useCategories } from '../../hooks/useCategories';
@@ -25,27 +42,30 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
     ? categoriesData.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
     : [];
 
+  const iconSize = 24;
+  const iconColor = 'oklch(60% 0.14 150)';
+  
   // Category icons mapping
   const categoryIcons = {
     // A1 categories
-    'Basics': '👋',
-    'Colors': '🎨',
-    'Countries': '🌍',
-    'Numbers': '🔢',
-    'City Landmarks': '🏛️',
-    'Professions': '👔',
-    'Food': '🍎',
+    'Basics': <HandshakeIcon size={iconSize} color={iconColor} />,
+    'Colors': <Palette size={iconSize} color={iconColor} />,
+    'Countries': <Globe size={iconSize} color={iconColor} />,
+    'Numbers': <Calculator size={iconSize} color={iconColor} />,
+    'City Landmarks': <Landmark size={iconSize} color={iconColor} />,
+    'Professions': <Briefcase size={iconSize} color={iconColor} />,
+    'Food': <Apple size={iconSize} color={iconColor} />,
     // A2 categories
-    'Daily Routines & Time Management': '⏰',
-    'Travel & Transportation': '✈️',
-    'Shopping & Services': '🛍️',
-    'Relationships & Social Interactions': '👥',
-    'Food & Dining Culture': '🍽️',
-    'Health & Body': '🏥',
-    'Work & Professions': '💼',
-    'Hobbies & Leisure': '🎮',
-    'Education & Learning': '📚',
-    'Clothes & Fashion': '👗'
+    'Daily Routines & Time Management': <Clock size={iconSize} color={iconColor} />,
+    'Travel & Transportation': <Plane size={iconSize} color={iconColor} />,
+    'Shopping & Services': <ShoppingBag size={iconSize} color={iconColor} />,
+    'Relationships & Social Interactions': <Users size={iconSize} color={iconColor} />,
+    'Food & Dining Culture': <UtensilsCrossed size={iconSize} color={iconColor} />,
+    'Health & Body': <Heart size={iconSize} color={iconColor} />,
+    'Work & Professions': <Briefcase size={iconSize} color={iconColor} />,
+    'Hobbies & Leisure': <BookOpen size={iconSize} color={iconColor} />,
+    'Education & Learning': <BookOpen size={iconSize} color={iconColor} />,
+    'Clothes & Fashion': <Shirt size={iconSize} color={iconColor} />
   };
 
   // Get level description
@@ -80,7 +100,7 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, voca
             <CategoryCard
               key={category.id}
               category={category}
-              icon={categoryIcons[category.name] || '📚'}
+              icon={categoryIcons[category.name] || <BookOpen size={iconSize} color={iconColor} />}
               onClick={onSelectCategory}
             />
           ))}

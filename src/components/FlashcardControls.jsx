@@ -1,3 +1,4 @@
+import { Shuffle } from 'lucide-react';
 import './FlashcardControls.css';
 
 function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, lastAction, lastKeyAction }) {
@@ -20,7 +21,8 @@ function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalC
           onClick={onShuffle}
           aria-label="Shuffle cards (Up or Down Arrow keys)"
         >
-          🔀 Shuffle
+          <Shuffle size={18} />
+          <span>Shuffle</span>
         </button>
         <button
           className={`control-btn ${lastAction === 'next' ? 'btn-active' : ''}`}

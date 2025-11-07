@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Check } from 'lucide-react';
+import { Check, XCircle, AlertCircle, CheckCircle, Zap } from 'lucide-react';
 import './RatingControls.css';
 import { formatNextReview } from '../utils/dateFormatter';
 
@@ -58,6 +58,9 @@ function RatingControls({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFlipped, isRating]);
 
+  const iconSize = 20;
+  const iconColor = 'currentColor';
+
   const ratings = [
     {
       id: 'again',
@@ -65,7 +68,7 @@ function RatingControls({
       quality: 1,
       hotkey: '1',
       description: "Didn't know",
-      icon: '😓'
+      icon: <XCircle size={iconSize} color={iconColor} />
     },
     {
       id: 'hard',
@@ -73,7 +76,7 @@ function RatingControls({
       quality: 3,
       hotkey: '2',
       description: 'Struggled',
-      icon: '🤔'
+      icon: <AlertCircle size={iconSize} color={iconColor} />
     },
     {
       id: 'good',
@@ -81,7 +84,7 @@ function RatingControls({
       quality: 4,
       hotkey: '3',
       description: 'Recalled',
-      icon: '🙂'
+      icon: <CheckCircle size={iconSize} color={iconColor} />
     },
     {
       id: 'easy',
@@ -89,7 +92,7 @@ function RatingControls({
       quality: 5,
       hotkey: '4',
       description: 'Knew easily',
-      icon: '😄'
+      icon: <Zap size={iconSize} color={iconColor} />
     }
   ];
 

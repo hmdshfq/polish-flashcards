@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useLevels } from '../../../hooks/useLevels';
 import { useCategories } from '../../../hooks/useCategories';
 import './FlashcardFilters.css';

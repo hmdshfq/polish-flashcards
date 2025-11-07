@@ -49,14 +49,14 @@
 
 .settings-button:hover,
 .progress-button:hover {
-  color: #dc143c;
-  border-color: #dc143c;
-  background: rgba(220, 20, 60, 0.05);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: color-mix(in oklch, var(--color-primary) 10%, transparent);
 }
 
 .settings-button:focus-visible,
 .progress-button:focus-visible {
-  outline: 2px solid #dc143c;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -128,8 +128,8 @@
 }
 
 .empty-state__button {
-  background: #dc143c;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   border: none;
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
@@ -141,13 +141,13 @@
 }
 
 .empty-state__button:hover {
-  background: #b91034;
+  background: var(--color-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--color-primary) 30%, transparent);
 }
 
 .empty-state__button:focus-visible {
-  outline: 2px solid #dc143c;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -254,7 +254,7 @@
   top: 80px;
   right: 24px;
   background: #fff;
-  border: 2px solid #dc143c;
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   width: 48px;
   height: 48px;

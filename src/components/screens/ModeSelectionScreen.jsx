@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BookOpen, PenTool } from 'lucide-react';
 import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
@@ -21,17 +22,20 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [onBack]);
 
+  const iconSize = 24;
+  const iconColor = 'oklch(60% 0.14 150)';
+
   const modes = [
     {
       id: 'vocabulary',
-      icon: '📚',
+      icon: <BookOpen size={iconSize} color={iconColor} />,
       label: 'Vocabulary',
       description: 'Practice individual words',
       count: vocabularyCount
     },
     {
       id: 'sentences',
-      icon: '✍️',
+      icon: <PenTool size={iconSize} color={iconColor} />,
       label: 'Sentences',
       description: 'Practice phrases & sentences',
       count: sentencesCount

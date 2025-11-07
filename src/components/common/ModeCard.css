@@ -14,8 +14,8 @@
 
 /* Hover effect */
 .mode-card:hover {
-  border-color: #dc143c;
-  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 16px color-mix(in oklch, var(--color-primary) 15%, transparent);
   transform: translateY(-2px);
 }
 
@@ -30,9 +30,9 @@
 }
 
 .mode-card:focus-visible {
-  outline: 3px solid #dc143c;
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
-  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.2);
+  box-shadow: 0 6px 16px color-mix(in oklch, var(--color-primary) 20%, transparent);
 }
 
 /* Card content */
@@ -50,7 +50,7 @@
 .mode-card__label {
   font-size: 1.75rem;
   font-weight: 600;
-  color: #dc143c;
+  color: var(--color-primary);
   margin-bottom: 1rem;
   line-height: 1.2;
 }
@@ -76,7 +76,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, transparent 60%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--color-primary) 5%, transparent) 0%,
+    transparent 60%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;

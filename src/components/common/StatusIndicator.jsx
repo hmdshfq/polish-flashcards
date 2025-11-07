@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { X, Database, RefreshCw, Signal, Folder, FileText, Trash2, Settings } from 'lucide-react';
 import './StatusIndicator.css';
 
 /**
@@ -136,7 +137,7 @@ function StatusIndicator() {
               onClick={() => setShowDetails(false)}
               aria-label="Close status details"
             >
-              ✕
+              <X size={20} />
             </button>
           </div>
 
@@ -172,15 +173,21 @@ function StatusIndicator() {
             {/* Features Indicator */}
             <div className="status-indicator__features">
               <div className="status-indicator__feature">
-                <span className="status-indicator__feature-icon">💾</span>
+                <span className="status-indicator__feature-icon">
+                  <Database size={18} />
+                </span>
                 <span className="status-indicator__feature-text">Offline storage: Firestore cache</span>
               </div>
               <div className="status-indicator__feature">
-                <span className="status-indicator__feature-icon">🔄</span>
+                <span className="status-indicator__feature-icon">
+                  <RefreshCw size={18} />
+                </span>
                 <span className="status-indicator__feature-text">Auto-sync: Enabled</span>
               </div>
               <div className="status-indicator__feature">
-                <span className="status-indicator__feature-icon">📡</span>
+                <span className="status-indicator__feature-icon">
+                  <Signal size={18} />
+                </span>
                 <span className="status-indicator__feature-text">Real-time updates: Active</span>
               </div>
             </div>
@@ -193,7 +200,8 @@ function StatusIndicator() {
                 aria-label={showAdvanced ? 'Hide advanced settings' : 'Show advanced settings'}
                 aria-expanded={showAdvanced}
               >
-                ⚙️ Advanced Settings {showAdvanced ? '▼' : '▶'}
+                <Settings size={18} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+                Advanced Settings {showAdvanced ? '▼' : '▶'}
               </button>
 
               {showAdvanced && (
@@ -205,7 +213,8 @@ function StatusIndicator() {
                       disabled={isSyncing}
                       title="Clear IndexedDB cache"
                     >
-                      🗂️ Clear IndexedDB
+                      <Folder size={16} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+                      Clear IndexedDB
                     </button>
                     <button
                       className="status-indicator__cache-btn status-indicator__cache-btn--storage"
@@ -213,7 +222,8 @@ function StatusIndicator() {
                       disabled={isSyncing}
                       title="Clear Local Storage cache metadata"
                     >
-                      📝 Clear Local Storage
+                      <FileText size={16} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+                      Clear Local Storage
                     </button>
                     <button
                       className="status-indicator__cache-btn status-indicator__cache-btn--all"
@@ -221,7 +231,8 @@ function StatusIndicator() {
                       disabled={isSyncing}
                       title="Clear all cache and reload"
                     >
-                      🧹 Clear All Cache
+                      <Trash2 size={16} style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+                      Clear All Cache
                     </button>
                   </div>
 

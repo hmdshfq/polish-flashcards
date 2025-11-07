@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Globe } from 'lucide-react';
 import './App.css';
 import LevelSelectionScreen from './components/screens/LevelSelectionScreen';
 import CategorySelectionScreen from './components/screens/CategorySelectionScreen';
@@ -18,7 +19,7 @@ import { LoginScreen } from './components/auth/LoginScreen';
 import { AdminRoute } from './components/auth/AdminRoute';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminDashboard } from './components/admin/AdminDashboard';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 /**
  * Learning app component (existing flashcard learning interface)
@@ -167,7 +168,10 @@ function LearningApp() {
           }}
           aria-label="Go to level selection"
         >
-          <h1>🇵🇱 Flashy Polish</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Globe size={32} color="oklch(60% 0.14 150)" />
+            <h1>Flashy Polish</h1>
+          </div>
           <p>Learn Polish at your own pace</p>
         </div>
         <StatusIndicator />

@@ -4,7 +4,7 @@
 }
 
 .category-selector h2 {
-  color: #dc143c;
+  color: var(--color-primary);
   margin-bottom: 2rem;
   font-size: 2rem;
 }
@@ -23,7 +23,7 @@
   gap: 0.5rem;
   padding: 1.5rem 2rem;
   background: white;
-  border: 3px solid #dc143c;
+  border: 3px solid var(--color-primary);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -32,12 +32,12 @@
 
 .level-button:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(220, 20, 60, 0.3);
+  box-shadow: 0 8px 16px color-mix(in oklch, var(--color-primary) 30%, transparent);
 }
 
 .level-button.active {
-  background: #dc143c;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .level-name {
@@ -51,7 +51,7 @@
 }
 
 .category-selector h3 {
-  color: #dc143c;
+  color: var(--color-primary);
   margin-top: 2.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
@@ -69,7 +69,7 @@
 .category-button {
   padding: 0.8rem 1.5rem;
   background: white;
-  border: 2px solid #dc143c;
+  border: 2px solid var(--color-primary);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -80,12 +80,12 @@
 
 .category-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.2);
+  box-shadow: 0 4px 12px color-mix(in oklch, var(--color-primary) 20%, transparent);
 }
 
 .category-button.active {
-  background: #dc143c;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .mode-buttons {
@@ -103,7 +103,7 @@
   gap: 0.5rem;
   padding: 1.5rem 2.5rem;
   background: white;
-  border: 3px solid #dc143c;
+  border: 3px solid var(--color-primary);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -112,12 +112,12 @@
 
 .mode-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(220, 20, 60, 0.25);
+  box-shadow: 0 6px 16px color-mix(in oklch, var(--color-primary) 25%, transparent);
 }
 
 .mode-button.active {
-  background: #dc143c;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .mode-icon {
