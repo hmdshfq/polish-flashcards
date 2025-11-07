@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { AdminDashboard } from './AdminDashboard';
 import { FlashcardManagementPage } from './flashcards/FlashcardManagementPage';
 import { CategoryManagementPage } from './categories/CategoryManagementPage';
+import { LevelManagementPage } from './levels/LevelManagementPage';
 import './AdminLayout.css';
 
 /**
@@ -125,7 +126,7 @@ export function AdminLayout() {
             <Route path="/" element={<AdminDashboard />} />
             <Route path="/flashcards" element={<FlashcardManagementPage />} />
             <Route path="/categories" element={<CategoryManagementPage />} />
-            <Route path="/levels" element={<div className="coming-soon">Levels Management (Coming Soon)</div>} />
+            <Route path="/levels" element={<LevelManagementPage />} />
           </Routes>
         </div>
       </main>
