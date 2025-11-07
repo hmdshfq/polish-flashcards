@@ -148,6 +148,21 @@ function SettingsMenu({
               </div>
 
               <div className="settings-info-item">
+                <kbd className="settings-kbd">/</kbd>
+                <span className="settings-info-desc">Toggle language</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">S</kbd>
+                <span className="settings-info-desc">Speak card</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">M</kbd>
+                <span className="settings-info-desc">Toggle mute</span>
+              </div>
+
+              <div className="settings-info-item">
                 <kbd className="settings-kbd">Esc</kbd>
                 <span className="settings-info-desc">Go back</span>
               </div>
