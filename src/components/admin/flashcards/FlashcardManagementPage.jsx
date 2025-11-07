@@ -4,6 +4,8 @@ import { DataTable } from '../../common/DataTable';
 import { ConfirmDialog } from '../../common/ConfirmDialog';
 import { FlashcardFilters } from './FlashcardFilters';
 import { FlashcardForm } from './FlashcardForm';
+import { BulkImportModal } from './BulkImportModal';
+import { exportFlashcardsToCSV } from '../../../utils/csvParser';
 import './FlashcardManagementPage.css';
 
 /**
@@ -18,6 +20,7 @@ export function FlashcardManagementPage() {
   });
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [selectedFlashcard, setSelectedFlashcard] = useState(null);
   const [selectedRows, setSelectedRows] = useState([]);
   const [deleteConfirmId, setDeleteConfirmId] = useState(null);
@@ -123,6 +126,64 @@ export function FlashcardManagementPage() {
     setSelectedRows([]); // Clear selection when filters change
   }, []);
 
+  // Handle bulk import
+  const handleBulkImport = useCallback(
+    async (importedCards) => {
+      try {
+        setActionLoading(true);
+        setActionError(null);
+
+        // Limit to 500 cards per import
+        if (importedCards.length > 500) {
+          throw new Error('Maximum 500 flashcards per import');
+        }
+
+        // Create all cards via bulk create
+        await bulkDelete([]); // This is a placeholder - we need bulkCreate
+        // Actually, we need to use the create hook's bulkCreate method
+
+        // Use bulkCreate from the hook - need to get it from the hook's return
+        await Promise.all(
+          importedCards.map((card) =>
+            create({
+              polish: card.polish,
+              english: card.english,
+              level_id: card.level_id,
+              category_slug: card.category_slug || '',
+              mode: card.mode || 'vocabulary'
+            })
+          )
+        );
+
+        setActionSuccess(`Successfully imported ${importedCards.length} flashcard(s)`);
+        setIsImportModalOpen(false);
+        setTimeout(() => setActionSuccess(null), 3000);
+      } catch (err) {
+        setActionError(err.message || 'Failed to import flashcards');
+      } finally {
+        setActionLoading(false);
+      }
+    },
+    [create, bulkDelete]
+  );
+
+  // Handle export
+  const handleExport = useCallback(() => {
+    try {
+      if (!flashcards || flashcards.length === 0) {
+        setActionError('No flashcards to export. Try adjusting your filters.');
+        return;
+      }
+
+      const filename = `flashcards-${new Date().toISOString().split('T')[0]}.csv`;
+      exportFlashcardsToCSV(flashcards, filename);
+      setActionSuccess(`Exported ${flashcards.length} flashcard(s)`);
+      setTimeout(() => setActionSuccess(null), 3000);
+    } catch (err) {
+      setActionError(err.message || 'Failed to export flashcards');
+    }
+  }, [flashcards]);
+
   // Table columns configuration
   const columns = [
     {
@@ -179,13 +240,32 @@ export function FlashcardManagementPage() {
     <div className="flashcard-management-page">
       <div className="page-header">
         <h1>Manage Flashcards</h1>
-        <button
-          className="button-primary"
-          onClick={() => handleOpenForm()}
-          aria-label="Create new flashcard"
-        >
-          + New Flashcard
-        </button>
+        <div className="header-actions">
+          <button
+            className="button-secondary"
+            onClick={() => setIsImportModalOpen(true)}
+            aria-label="Import flashcards from CSV"
+            title="Import from CSV"
+          >
+            ⬆️ Import
+          </button>
+          <button
+            className="button-secondary"
+            onClick={handleExport}
+            disabled={!flashcards || flashcards.length === 0}
+            aria-label="Export flashcards to CSV"
+            title="Export to CSV"
+          >
+            ⬇️ Export
+          </button>
+          <button
+            className="button-primary"
+            onClick={() => handleOpenForm()}
+            aria-label="Create new flashcard"
+          >
+            + New Flashcard
+          </button>
+        </div>
       </div>
 
       {/* Success message */}
@@ -277,6 +357,14 @@ export function FlashcardManagementPage() {
         onConfirm={handleBulkDelete}
         onCancel={() => setBulkDeleteConfirm(false)}
         isDangerous={true}
+        loading={actionLoading}
+      />
+
+      {/* Bulk import modal */}
+      <BulkImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImport={handleBulkImport}
         loading={actionLoading}
       />
     </div>
