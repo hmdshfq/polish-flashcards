@@ -49,7 +49,7 @@ export function useAdminAuth() {
     );
 
     return () => unsubscribe();
-  }, [user]);
+  }, [user?.uid]);
 
   return {
     isAdmin,
