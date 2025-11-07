@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Settings } from 'lucide-react';
 import './App.css';
 import LevelSelectionScreen from './components/screens/LevelSelectionScreen';
 import CategorySelectionScreen from './components/screens/CategorySelectionScreen';
 import ModeSelectionScreen from './components/screens/ModeSelectionScreen';
 import PracticeScreen from './components/screens/PracticeScreen';
 import Footer from './components/common/Footer';
-import StatusIndicator from './components/common/StatusIndicator';
 import LoadingSpinner from './components/common/LoadingSpinner';
+import AppSettingsModal from './components/common/AppSettingsModal';
 import { useLevels } from './hooks/useLevels';
 import { useCategories } from './hooks/useCategories';
 import { useFlashcards } from './hooks/useFlashcards';
@@ -30,6 +31,9 @@ function LearningApp() {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedMode, setSelectedMode] = useState(null);
+
+  // App settings modal state
+  const [showAppSettings, setShowAppSettings] = useState(false);
 
   // Fetch data from Firebase
   const { data: levels, loading: levelsLoading, error: levelsError } = useLevels();
@@ -171,8 +175,19 @@ function LearningApp() {
           </div>
           <p>Learn Polish at your own pace</p>
         </div>
-        <StatusIndicator />
+        <button
+          className="app-header-settings-btn"
+          onClick={() => setShowAppSettings(true)}
+          aria-label="Open app settings"
+          title="Settings"
+        >
+          <Settings size={24} />
+        </button>
       </header>
+      <AppSettingsModal
+        isOpen={showAppSettings}
+        onClose={() => setShowAppSettings(false)}
+      />
       <main id="main-content" className="app-content">
         {currentStage === 'level-selection' && (
           <div key="level-selection">

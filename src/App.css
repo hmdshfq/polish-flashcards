@@ -87,6 +87,35 @@
   line-height: 1.4;
 }
 
+.app-header-settings-btn {
+  background: none;
+  border: none;
+  padding: var(--space-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.app-header-settings-btn:hover {
+  color: var(--color-primary);
+  background: color-mix(in oklch, var(--color-primary) 10%, transparent);
+}
+
+.app-header-settings-btn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.app-header-settings-btn:active {
+  transform: scale(0.95);
+}
+
 /* Responsive adjustments for header */
 @media (max-width: 600px) {
   .app-header-brand h1 {

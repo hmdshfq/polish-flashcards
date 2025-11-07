@@ -1,0 +1,309 @@
+.connection-status-accordion {
+  margin-bottom: 1.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header */
+.connection-status-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.connection-status-header:hover {
+  background: color-mix(in oklch, var(--color-primary) 5%, #fafafa);
+  border-color: var(--color-primary);
+}
+
+.connection-status-header:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.connection-status-header.expanded {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.connection-status-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Status Indicator LED */
+.connection-status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #40c057;
+  box-shadow: 0 0 8px rgba(64, 192, 87, 0.6);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.connection-status-indicator.offline {
+  background: #fa5252;
+  box-shadow: 0 0 8px rgba(250, 82, 82, 0.6);
+}
+
+/* Chevron Animation */
+.connection-status-chevron {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Details Panel */
+.connection-status-details {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-top: 1px solid #e9ecef;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status Row */
+.connection-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.connection-status-row:last-child {
+  border-bottom: none;
+}
+
+.connection-status-label {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.connection-status-value {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+.connection-status-value.online {
+  color: #40c057;
+}
+
+.connection-status-value.offline {
+  color: #fa5252;
+}
+
+/* Notice */
+.connection-status-notice {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: color-mix(in oklch, #fa5252 10%, transparent);
+  border-left: 4px solid #fa5252;
+  border-radius: 4px;
+}
+
+.connection-status-notice strong {
+  color: #fa5252;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.connection-status-notice p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+/* Advanced Settings */
+.connection-status-advanced-section {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+}
+
+.connection-status-advanced-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.connection-status-advanced-toggle:hover {
+  background: color-mix(in oklch, var(--color-primary) 5%, transparent);
+  color: var(--color-primary);
+}
+
+.connection-status-advanced-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.connection-status-arrow {
+  margin-left: auto;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Advanced Panel */
+.connection-status-advanced-panel {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0;
+  animation: slideDown 0.3s ease;
+}
+
+.connection-status-cache-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Cache Buttons */
+.connection-status-cache-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.connection-status-cache-btn:hover {
+  border-color: currentColor;
+  background: color-mix(in oklch, currentColor 10%, transparent);
+  transform: translateX(2px);
+}
+
+.connection-status-cache-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.connection-status-cache-btn--indexeddb {
+  color: #1971c2;
+}
+
+.connection-status-cache-btn--storage {
+  color: #d9480f;
+}
+
+.connection-status-cache-btn--all {
+  color: #c92a2a;
+}
+
+/* Clear Message */
+.connection-status-clear-message {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: color-mix(in oklch, #40c057 10%, transparent);
+  border: 1px solid #40c057;
+  border-radius: 6px;
+  color: #40c057;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .connection-status-header {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .connection-status-details {
+    padding: 0.875rem;
+  }
+
+  .connection-status-row {
+    padding: 0.6rem 0;
+  }
+
+  .connection-status-label {
+    font-size: 0.9rem;
+  }
+
+  .connection-status-value {
+    font-size: 0.9rem;
+  }
+
+  .connection-status-advanced-toggle {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .connection-status-cache-btn {
+    padding: 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .connection-status-cache-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .connection-status-header,
+  .connection-status-indicator,
+  .connection-status-chevron,
+  .connection-status-details,
+  .connection-status-advanced-toggle,
+  .connection-status-cache-btn,
+  .connection-status-advanced-panel {
+    transition: none;
+  }
+
+  .connection-status-chevron,
+  .connection-status-arrow {
+    transform: none !important;
+  }
+
+  .connection-status-details,
+  .connection-status-advanced-panel,
+  .connection-status-clear-message {
+    animation: none;
+  }
+}

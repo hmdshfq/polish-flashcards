@@ -1,0 +1,200 @@
+/* App Settings Overlay */
+.app-settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.app-settings-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.app-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.app-settings-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.app-settings-close {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.app-settings-close:hover {
+  color: var(--color-primary);
+  background: color-mix(in oklch, var(--color-primary) 12%, transparent);
+}
+
+.app-settings-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Content */
+.app-settings-content {
+  padding: 1.5rem;
+}
+
+/* Sections */
+.app-settings-section {
+  margin-bottom: 1.5rem;
+}
+
+.app-settings-section:last-child {
+  margin-bottom: 0;
+}
+
+.app-settings-section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+/* Action Buttons */
+.app-settings-action-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.app-settings-action-btn:hover {
+  border-color: var(--color-primary);
+  background: color-mix(in oklch, var(--color-primary) 8%, #fafafa);
+  transform: translateX(2px);
+}
+
+.app-settings-action-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.app-settings-action-btn:active {
+  transform: translateX(2px) scale(0.98);
+}
+
+.app-settings-action-btn:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .app-settings-modal {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .app-settings-header {
+    padding: 1.25rem;
+  }
+
+  .app-settings-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .app-settings-content {
+    padding: 1.25rem;
+  }
+
+  .app-settings-action-btn {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .app-settings-section-title {
+    font-size: 0.85rem;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .app-settings-overlay,
+  .app-settings-modal,
+  .app-settings-action-btn {
+    animation: none;
+  }
+
+  .app-settings-action-btn:hover {
+    transform: none;
+  }
+
+  .app-settings-action-btn:active {
+    transform: scale(0.98);
+  }
+}
