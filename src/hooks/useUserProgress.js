@@ -96,14 +96,15 @@ export function useUserProgress(userId) {
             existingProgress.ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
           );
 
-          const newReviewCount = (existingProgress.review_count || 1) + 1;
+          // If quality < 3, reset the repetition count, otherwise increment
+          const newReviewCount = quality < 3 ? 1 : (existingProgress.review_count || 1) + 1;
 
           newProgress = {
             ease_factor: newEaseFactor,
             review_count: newReviewCount,
             last_reviewed_at: Timestamp.fromDate(now),
             next_review_at: Timestamp.fromDate(
-              new Date(calculateNextReview(newEaseFactor, newReviewCount))
+              new Date(calculateNextReview(newEaseFactor, newReviewCount, quality, now))
             )
           };
         } else {
@@ -113,7 +114,7 @@ export function useUserProgress(userId) {
             review_count: 1,
             last_reviewed_at: Timestamp.fromDate(now),
             next_review_at: Timestamp.fromDate(
-              new Date(calculateNextReview(2.5, 1))
+              new Date(calculateNextReview(2.5, 1, quality, now))
             )
           };
         }
