@@ -37,19 +37,14 @@
 }
 
 .flashcard-front {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary-500) 0%,
-    var(--color-primary-700) 100%
-  );
-  color: var(--color-text-inverse);
+  background: var(--color-primary-800);
+  color: var(--color-primary-100);
 }
 
 .flashcard-back {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  color: #333;
+  background: var(--color-primary-200);
+  color: var(--color-primary-900);
   transform: rotateY(180deg);
-  border: 3px solid var(--color-primary);
 }
 
 .language-label {
