@@ -123,6 +123,27 @@
   }
 }
 
+/* Disabled state */
+.mode-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+}
+
+.mode-card:disabled:hover {
+  border-color: #ccc;
+  box-shadow: none;
+  transform: none;
+}
+
+.mode-card:disabled:hover .mode-card__icon {
+  transform: none;
+}
+
+.mode-card:disabled::before {
+  opacity: 0 !important;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .mode-card,

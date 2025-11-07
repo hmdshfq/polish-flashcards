@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
 import { BookOpen, PenTool } from 'lucide-react';
+import { useFlashcards } from '../../hooks/useFlashcards';
 import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
 
-function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, onBack, onBackToLevelSelection, cards }) {
+function ModeSelectionScreen({ selectedLevel, onSelectMode, onBack }) {
+  const { data: cards } = useFlashcards(selectedLevel, null, null);
+
   // Calculate counts from actual cards data (handle null/undefined)
   const safeCards = cards || [];
   const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
   const sentencesCount = safeCards.filter(card => card.mode === 'sentences').length;
+
+  // Check if B1 level (only has vocabulary, no sentences)
+  const isBOneLevel = selectedLevel === 'B1';
 
   // Handle Escape key to go back
   useEffect(() => {
@@ -31,14 +37,16 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
       icon: <BookOpen size={iconSize} color={iconColor} />,
       label: 'Vocabulary',
       description: 'Practice individual words',
-      count: vocabularyCount
+      count: vocabularyCount,
+      disabled: false
     },
     {
       id: 'sentences',
       icon: <PenTool size={iconSize} color={iconColor} />,
       label: 'Sentences',
       description: 'Practice phrases & sentences',
-      count: sentencesCount
+      count: sentencesCount,
+      disabled: isBOneLevel
     }
   ];
 
@@ -58,16 +66,11 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
         {
           label: 'Levels',
           abbreviation: 'Levels',
-          onClick: onBackToLevelSelection
+          onClick: onBack
         },
         {
           label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
           abbreviation: selectedLevel,
-          onClick: onBack
-        },
-        {
-          label: selectedCategory?.name || selectedCategory,
-          abbreviation: selectedCategory?.name || selectedCategory,
           onClick: null
         }
       ]} />
@@ -84,6 +87,7 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
               description={mode.description}
               count={mode.count}
               onClick={onSelectMode}
+              disabled={mode.disabled}
             />
           ))}
         </div>

@@ -14,14 +14,15 @@ import {
   UtensilsCrossed,
   Heart,
   BookOpen,
-  Shirt
+  Shirt,
+  Library
 } from 'lucide-react';
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
 import { useCategories } from '../../hooks/useCategories';
 import './CategorySelectionScreen.css';
 
-function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack }) {
+function CategorySelectionScreen({ selectedLevel, selectedMode, onSelectCategory, onBack, onBackToLevelSelection }) {
   // Fetch categories
   const { data: categoriesData } = useCategories(selectedLevel);
 
@@ -37,16 +38,31 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack }) {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [onBack]);
 
+  // Create synthetic "All Categories" option for vocabulary mode
+  const allCategoriesOption = {
+    id: 'all',
+    name: 'All Categories',
+    slug: null,
+    display_order: -1
+  };
+
   // Get full category objects from the data, sorted by display_order
-  const categories = categoriesData
+  const baseCategories = categoriesData
     ? categoriesData.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
     : [];
 
+  // Add "All Categories" as first option only for vocabulary mode
+  const categories = selectedMode === 'vocabulary'
+    ? [allCategoriesOption, ...baseCategories]
+    : baseCategories;
+
   const iconSize = 24;
   const iconColor = 'oklch(60% 0.14 150)';
-  
+
   // Category icons mapping
   const categoryIcons = {
+    // Special category
+    'All Categories': <Library size={iconSize} color={iconColor} />,
     // A1 categories
     'Basics': <HandshakeIcon size={iconSize} color={iconColor} />,
     'Colors': <Palette size={iconSize} color={iconColor} />,
@@ -78,17 +94,31 @@ function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack }) {
     return descriptions[level] || '';
   };
 
+  // Get mode display label
+  const getModeLabel = (mode) => {
+    const labels = {
+      'vocabulary': 'Vocabulary',
+      'sentences': 'Sentences'
+    };
+    return labels[mode] || '';
+  };
+
   return (
     <div className="category-selection-screen">
       <Breadcrumb items={[
         {
           label: 'Levels',
           abbreviation: 'Levels',
-          onClick: onBack
+          onClick: onBackToLevelSelection
         },
         {
           label: `${selectedLevel} (${getLevelDescription(selectedLevel)})`,
           abbreviation: selectedLevel,
+          onClick: onBack
+        },
+        {
+          label: getModeLabel(selectedMode),
+          abbreviation: getModeLabel(selectedMode),
           onClick: null
         }
       ]} />

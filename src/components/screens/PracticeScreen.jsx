@@ -56,11 +56,15 @@ function PracticeScreen({
         event.preventDefault();
 
         // Determine which back function to call based on navigation context
-        if (selectedMode) {
-          onBackToModeSelection();
-        } else if (selectedCategory) {
+        // New flow: Level → Mode → (if Vocabulary: Category) → Practice
+        if (selectedCategory) {
+          // Has category, go back to category selection
           onBackToCategorySelection();
+        } else if (selectedMode) {
+          // No category but has mode (sentences), go back to mode selection
+          onBackToModeSelection();
         } else {
+          // No mode or category, go back to level selection
           onBackToLevelSelection();
         }
       }
@@ -322,6 +326,11 @@ function PracticeScreen({
       B1: { full: 'B1 (Intermediate)', abbr: 'B1' }
     };
 
+    const modeLabels = {
+      vocabulary: { full: 'Vocabulary', abbr: 'Vocab' },
+      sentences: { full: 'Sentences', abbr: 'Sentences' }
+    };
+
     // Add "Levels" as first item (always clickable)
     items.push({
       label: 'Levels',
@@ -329,53 +338,30 @@ function PracticeScreen({
       onClick: onBackToLevelSelection
     });
 
-    // Add level
-    if (selectedCategory) {
-      // For A1: level is clickable (goes to category selection)
-      items.push({
-        label: levelLabels[selectedLevel].full,
-        abbreviation: levelLabels[selectedLevel].abbr,
-        onClick: onBackToCategorySelection
-      });
-    } else {
-      // For A2/B1: level is not clickable (current context)
-      items.push({
-        label: levelLabels[selectedLevel].full,
-        abbreviation: levelLabels[selectedLevel].abbr,
-        onClick: null
-      });
-    }
+    // Add level (clickable, goes to mode selection)
+    items.push({
+      label: levelLabels[selectedLevel].full,
+      abbreviation: levelLabels[selectedLevel].abbr,
+      onClick: onBackToModeSelection
+    });
 
-    // Add category if exists (A1 only)
-    if (selectedCategory) {
-      const categoryName = selectedCategory?.name || selectedCategory;
-      if (selectedMode) {
-        // Category is clickable (goes to mode selection)
-        items.push({
-          label: categoryName,
-          abbreviation: categoryName,
-          onClick: onBackToModeSelection
-        });
-      } else {
-        // Category is not clickable (current context, shouldn't happen in practice screen)
-        items.push({
-          label: categoryName,
-          abbreviation: categoryName,
-          onClick: null
-        });
-      }
-    }
-
-    // Add mode if exists (A1 only)
+    // Add mode (clickable if category exists, not clickable otherwise)
     if (selectedMode) {
-      const modeLabels = {
-        vocabulary: { full: 'Vocabulary', abbr: 'Vocab' },
-        sentences: { full: 'Sentences', abbr: 'Sentences' }
-      };
-
       items.push({
         label: modeLabels[selectedMode].full,
         abbreviation: modeLabels[selectedMode].abbr,
+        onClick: selectedCategory ? onBackToCategorySelection : null
+      });
+    }
+
+    // Add category if exists (vocabulary mode with category)
+    if (selectedCategory) {
+      const categoryName = selectedCategory?.name || selectedCategory;
+      // Use shorter abbreviation for "All Categories"
+      const abbreviation = categoryName === 'All Categories' ? 'All' : categoryName;
+      items.push({
+        label: categoryName,
+        abbreviation: abbreviation,
         onClick: null // Last item, not clickable
       });
     }
@@ -443,9 +429,6 @@ function PracticeScreen({
           >
             <Settings size={20} />
           </button>
-          <div className="progress-indicator-header">
-            {currentIndex + 1} / {cards.length}
-          </div>
         </div>
       </div>
 

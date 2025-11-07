@@ -55,7 +55,10 @@ export function useFlashcards(level, category = null, mode = null) {
         let categorySlug = null;
         if (category) {
           categorySlug = typeof category === 'object' ? category.slug : category;
-          constraints.push(where('category_slug', '==', categorySlug));
+          // Only add category filter if slug is not null (null means "All Categories")
+          if (categorySlug) {
+            constraints.push(where('category_slug', '==', categorySlug));
+          }
         }
 
         // Add mode filter if provided

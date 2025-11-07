@@ -63,43 +63,36 @@ function LearningApp() {
   // Dynamically measure and update header/footer heights
   useLayoutHeights();
 
-  // Build vocabulary object for screens that still need it
-  const vocabulary = buildVocabularyObject(levels, categories, selectedLevel);
-
   // Navigation handlers
   const handleLevelSelect = (level) => {
-    // Check if level has categories (A1)
-    const levelData = levels?.find(l => l.id === level);
-    const hasCategories = levelData?.has_categories;
+    // All levels go to mode selection first
+    navigateToStage('mode-selection', {
+      level,
+      category: null,
+      mode: null
+    });
+  };
 
-    if (hasCategories) {
-      // A1 - go to category selection
+  const handleModeSelect = (mode) => {
+    // Fork based on mode selection
+    if (mode === 'vocabulary') {
+      // Go to category selection for vocabulary
       navigateToStage('category-selection', {
-        level,
-        category: null,
-        mode: null
+        mode
       });
     } else {
-      // A2 or B1 - go straight to practice
+      // Go directly to practice for sentences
       navigateToStage('practice', {
-        level,
-        category: null,
-        mode: null
+        mode
       });
     }
   };
 
   const handleCategorySelect = (categoryObj) => {
-    // Both A1 and A2 have vocabulary and sentences modes for each category
+    // From category selection, go to practice
     // categoryObj is now { id, name, ... } object
-    navigateToStage('mode-selection', {
-      category: categoryObj
-    });
-  };
-
-  const handleModeSelect = (mode) => {
     navigateToStage('practice', {
-      mode
+      category: categoryObj
     });
   };
 
@@ -111,16 +104,15 @@ function LearningApp() {
     });
   };
 
-  const handleBackToCategorySelection = () => {
-    navigateToStage('category-selection', {
-      category: null,
+  const handleBackToModeSelection = () => {
+    navigateToStage('mode-selection', {
       mode: null
     });
   };
 
-  const handleBackToModeSelection = () => {
-    navigateToStage('mode-selection', {
-      mode: null
+  const handleBackToCategorySelection = () => {
+    navigateToStage('category-selection', {
+      category: null
     });
   };
 
@@ -199,6 +191,20 @@ function LearningApp() {
           </div>
         )}
 
+        {currentStage === 'mode-selection' && (
+          <div key="mode-selection">
+            {levelsLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <ModeSelectionScreen
+                selectedLevel={selectedLevel}
+                onSelectMode={handleModeSelect}
+                onBack={handleBackToLevelSelection}
+              />
+            )}
+          </div>
+        )}
+
         {currentStage === 'category-selection' && (
           <div key="category-selection">
             {categoriesLoading ? (
@@ -206,27 +212,10 @@ function LearningApp() {
             ) : (
               <CategorySelectionScreen
                 selectedLevel={selectedLevel}
+                selectedMode={selectedMode}
                 onSelectCategory={handleCategorySelect}
-                onBack={handleBackToLevelSelection}
-                vocabulary={vocabulary}
-              />
-            )}
-          </div>
-        )}
-
-        {currentStage === 'mode-selection' && (
-          <div key="mode-selection">
-            {cardsLoading || !cards ? (
-              <LoadingSpinner />
-            ) : (
-              <ModeSelectionScreen
-                selectedLevel={selectedLevel}
-                selectedCategory={selectedCategory}
-                onSelectMode={handleModeSelect}
-                onBack={handleBackToCategorySelection}
+                onBack={handleBackToModeSelection}
                 onBackToLevelSelection={handleBackToLevelSelection}
-                vocabulary={vocabulary}
-                cards={cards}
               />
             )}
           </div>
@@ -259,34 +248,6 @@ function LearningApp() {
       <Footer />
     </div>
   );
-}
-
-/**
- * Build a vocabulary object compatible with existing screens
- * This allows minimal changes to other components
- */
-function buildVocabularyObject(levels, categories, selectedLevel) {
-  if (!levels) return {};
-
-  const vocab = {};
-  for (const level of levels) {
-    if (level.has_categories && level.id === selectedLevel && categories) {
-      // A1 with categories
-      vocab[level.id] = {};
-      for (const category of categories) {
-        // category is now an object with id, name, etc.
-        const categoryName = typeof category === 'string' ? category : category.name;
-        vocab[level.id][categoryName] = {
-          vocabulary: [],
-          sentences: []
-        };
-      }
-    } else if (!level.has_categories) {
-      // A2/B1 - just create empty array placeholder
-      vocab[level.id] = [];
-    }
-  }
-  return vocab;
 }
 
 /**

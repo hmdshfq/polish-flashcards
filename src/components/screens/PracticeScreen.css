@@ -66,15 +66,6 @@
   font-weight: 500;
 }
 
-.progress-indicator-header {
-  font-size: 1rem;
-  color: #666;
-  font-weight: 600;
-  background: #f0f0f0;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-}
-
 .practice-content {
   max-width: 900px;
   margin: 0 auto;
@@ -184,11 +175,6 @@
 
   .settings-button__text {
     display: none;
-  }
-
-  .progress-indicator-header {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.85rem;
   }
 
   .empty-state {
