@@ -1,19 +1,33 @@
 import './FlashcardControls.css';
 
-function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage }) {
+function FlashcardControls({ onPrevious, onNext, onShuffle, currentIndex, totalCards, languageDirection, onToggleLanguage, lastAction }) {
   return (
     <div className="flashcard-controls">
       <div className="progress-indicator">
         {currentIndex + 1} / {totalCards}
       </div>
       <div className="control-buttons">
-        <button className="control-btn" onClick={onPrevious} disabled={currentIndex === 0}>
+        <button
+          className={`control-btn ${lastAction === 'previous' ? 'btn-active' : ''}`}
+          onClick={onPrevious}
+          disabled={currentIndex === 0}
+          aria-label="Go to previous card (Left Arrow key)"
+        >
           ← Previous
         </button>
-        <button className="control-btn shuffle-btn" onClick={onShuffle}>
+        <button
+          className={`control-btn shuffle-btn ${lastAction === 'shuffle' ? 'btn-active' : ''}`}
+          onClick={onShuffle}
+          aria-label="Shuffle cards (Up or Down Arrow keys)"
+        >
           🔀 Shuffle
         </button>
-        <button className="control-btn" onClick={onNext} disabled={currentIndex === totalCards - 1}>
+        <button
+          className={`control-btn ${lastAction === 'next' ? 'btn-active' : ''}`}
+          onClick={onNext}
+          disabled={currentIndex === totalCards - 1}
+          aria-label="Go to next card (Right Arrow key)"
+        >
           Next →
         </button>
       </div>

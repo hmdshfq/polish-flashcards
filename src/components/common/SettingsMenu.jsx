@@ -122,6 +122,37 @@ function SettingsMenu({
               </select>
             </div>
           </div>
+
+          <div className="settings-section">
+            <h4 className="settings-section__title">Keyboard Shortcuts</h4>
+
+            <div className="settings-info-grid">
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">Space</kbd>
+                <span className="settings-info-desc">Flip card</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">←</kbd>
+                <span className="settings-info-desc">Previous card</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">→</kbd>
+                <span className="settings-info-desc">Next card</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">↑ / ↓</kbd>
+                <span className="settings-info-desc">Shuffle cards</span>
+              </div>
+
+              <div className="settings-info-item">
+                <kbd className="settings-kbd">Esc</kbd>
+                <span className="settings-info-desc">Go back</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

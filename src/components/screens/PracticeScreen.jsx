@@ -28,6 +28,7 @@ function PracticeScreen({
   const [isRating, setIsRating] = useState(false);
   const [nextReviewDate, setNextReviewDate] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [lastAction, setLastAction] = useState(null);
 
   // Get current user for progress tracking
   const userId = getCurrentUser()?.uid;
@@ -64,15 +65,65 @@ function PracticeScreen({
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [showSettings, showProgress, selectedMode, selectedCategory, onBackToModeSelection, onBackToCategorySelection, onBackToLevelSelection]);
 
+  // Handle arrow key navigation for flashcards
+  useEffect(() => {
+    const handleArrowKeys = (event) => {
+      // Don't handle arrow keys if modals are open
+      if (showSettings || showProgress) {
+        return;
+      }
+
+      // Don't interfere with native form controls or contenteditable elements
+      const activeElement = document.activeElement;
+      const isFormElement = activeElement && (
+        activeElement.tagName === 'INPUT' ||
+        activeElement.tagName === 'TEXTAREA' ||
+        activeElement.tagName === 'SELECT' ||
+        activeElement.isContentEditable
+      );
+
+      if (isFormElement) {
+        return;
+      }
+
+      // Handle arrow key navigation
+      switch (event.key) {
+        case 'ArrowRight':
+          event.preventDefault();
+          handleNext();
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          handlePrevious();
+          break;
+        case 'ArrowUp':
+        case 'ArrowDown':
+          event.preventDefault();
+          handleShuffle();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleArrowKeys);
+    return () => window.removeEventListener('keydown', handleArrowKeys);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showSettings, showProgress]);
+
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      setLastAction('next');
+      setTimeout(() => setLastAction(null), 300);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+      setLastAction('previous');
+      setTimeout(() => setLastAction(null), 300);
     }
   };
 
@@ -80,6 +131,8 @@ function PracticeScreen({
     const shuffled = [...cards].sort(() => Math.random() - 0.5);
     setCards(shuffled);
     setCurrentIndex(0);
+    setLastAction('shuffle');
+    setTimeout(() => setLastAction(null), 300);
   };
 
   const handleRestart = () => {
@@ -267,6 +320,7 @@ function PracticeScreen({
             totalCards={cards.length}
             languageDirection={languageDirection}
             onToggleLanguage={() => setLanguageDirection(languageDirection === 'pl-to-en' ? 'en-to-pl' : 'pl-to-en')}
+            lastAction={lastAction}
           />
         </div>
       )}

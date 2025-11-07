@@ -95,6 +95,20 @@ pnpm preview
    - Shuffle cards for random practice
    - Track your progress with the card counter
 
+### Keyboard Shortcuts
+
+Speed up your practice with these keyboard shortcuts:
+
+| Shortcut | Action |
+|----------|--------|
+| <kbd>Space</kbd> | Flip the current card |
+| <kbd>←</kbd> Left Arrow | Go to previous card |
+| <kbd>→</kbd> Right Arrow | Go to next card |
+| <kbd>↑</kbd> / <kbd>↓</kbd> Up/Down Arrows | Shuffle cards |
+| <kbd>Esc</kbd> Escape | Go back to previous screen |
+
+**Note:** Keyboard shortcuts are only active when practicing flashcards. They won't interfere with typing in input fields or using modals.
+
 ## Project Structure
 
 ```
