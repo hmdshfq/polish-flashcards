@@ -80,7 +80,13 @@ export function useFlashcards(level, category = null, mode = null) {
           }))
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
 
-        console.log(`[useFlashcards] Fetched ${cards.length} flashcards for level=${level}, categorySlug=${categorySlug}, mode=${mode}`);
+        // Shuffle cards using Fisher-Yates algorithm for random order
+        for (let i = cards.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+
+        console.log(`[useFlashcards] Fetched and randomized ${cards.length} flashcards for level=${level}, categorySlug=${categorySlug}, mode=${mode}`);
 
         if (isMounted) {
           setData(cards);
