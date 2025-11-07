@@ -123,10 +123,10 @@ export function AdminLayout() {
         {/* Page content */}
         <div className="admin-content">
           <Routes>
-            <Route path="/" element={<AdminDashboard />} />
-            <Route path="/flashcards" element={<FlashcardManagementPage />} />
-            <Route path="/categories" element={<CategoryManagementPage />} />
-            <Route path="/levels" element={<LevelManagementPage />} />
+            <Route path="" element={<AdminDashboard />} />
+            <Route path="flashcards" element={<FlashcardManagementPage />} />
+            <Route path="categories" element={<CategoryManagementPage />} />
+            <Route path="levels" element={<LevelManagementPage />} />
           </Routes>
         </div>
       </main>

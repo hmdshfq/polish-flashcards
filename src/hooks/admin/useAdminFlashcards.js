@@ -40,8 +40,11 @@ export function useAdminFlashcards(filters = {}) {
     }
 
     if (conditions.length > 0) {
-      q = query(q, ...conditions, orderBy('display_order'));
+      // When filtering, omit orderBy to avoid needing composite indexes
+      // Client-side sorting will handle ordering
+      q = query(q, ...conditions);
     } else {
+      // Only orderBy when no filters to avoid composite index requirement
       q = query(q, orderBy('display_order'));
     }
 

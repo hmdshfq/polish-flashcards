@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './DataTable.css';
 
 /**
@@ -28,7 +28,7 @@ export function DataTable({
   };
 
   // Attach resize listener
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

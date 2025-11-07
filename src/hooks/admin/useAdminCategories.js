@@ -33,10 +33,11 @@ export function useAdminCategories(levelId) {
     setLoading(true);
     setError(null);
 
+    // Note: Omit orderBy with filters to avoid composite index requirement
+    // Client-side sorting in DataTable will handle ordering
     const q = query(
       collection(db, 'categories'),
-      where('level_id', '==', levelId),
-      orderBy('display_order')
+      where('level_id', '==', levelId)
     );
 
     const unsubscribe = onSnapshot(

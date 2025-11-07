@@ -93,9 +93,17 @@
   font-weight: var(--font-weight-medium);
   text-align: center;
   transition: background-color 150ms ease, border-color 150ms ease;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
 }
 
 .quick-link:hover {
   background-color: var(--color-primary-light);
   border-color: var(--color-primary);
+}
+
+.quick-link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

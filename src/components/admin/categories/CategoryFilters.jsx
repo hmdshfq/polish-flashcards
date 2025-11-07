@@ -4,13 +4,10 @@ import './CategoryFilters.css';
 
 /**
  * Filters for category management
- * Allows filtering by level (only A1 has categories)
+ * Allows filtering by level
  */
 export function CategoryFilters({ selectedLevel, onFiltersChange }) {
   const { data: levels, loading: levelsLoading } = useLevels();
-
-  // Only A1 has categories
-  const levelWithCategories = levels?.find((l) => l.has_categories);
 
   const handleLevelChange = useCallback(
     (e) => {
@@ -58,12 +55,6 @@ export function CategoryFilters({ selectedLevel, onFiltersChange }) {
           </button>
         )}
       </div>
-
-      {!selectedLevel && (
-        <div className="filter-info">
-          <p>ℹ️ Only {levelWithCategories?.name || 'A1'} level has categories.</p>
-        </div>
-      )}
     </div>
   );
 }
