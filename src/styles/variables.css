@@ -70,15 +70,15 @@
      ============================================ */
 
   /* Accent-Info (Teal/Cyan - Hue 180) */
-  --color-accent-info-100: oklch(96% 0.06 180);
-  --color-accent-info-200: oklch(88% 0.10 180);
-  --color-accent-info-300: oklch(80% 0.12 180);
-  --color-accent-info-400: oklch(72% 0.14 180);
-  --color-accent-info-500: oklch(64% 0.16 180);  /* Brightest */
-  --color-accent-info-600: oklch(56% 0.15 180);
-  --color-accent-info-700: oklch(48% 0.13 180);
-  --color-accent-info-800: oklch(40% 0.10 180);
-  --color-accent-info-900: oklch(32% 0.08 180);  /* Darkest */
+  --color-accent-info-100: oklch(98% 0.02 186);
+  --color-accent-info-200: oklch(88% 0.04 186);
+  --color-accent-info-300: oklch(80% 0.06 186);
+  --color-accent-info-400: oklch(72% 0.08 186);
+  --color-accent-info-500: oklch(68% 0.11 186);  /* Brightest */
+  --color-accent-info-600: oklch(56% 0.13 186);
+  --color-accent-info-700: oklch(48% 0.11 186);
+  --color-accent-info-800: oklch(40% 0.09 186);
+  --color-accent-info-900: oklch(36% 0.08 186);  /* Darkest */
 
   /* Accent-Danger (Red - Hue 10) */
   --color-accent-danger-100: oklch(96% 0.08 10);
