@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useNavigate, useLocation, Routes, Route } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthContext';
 import { AdminDashboard } from './AdminDashboard';
 import { FlashcardManagementPage } from './flashcards/FlashcardManagementPage';
 import { CategoryManagementPage } from './categories/CategoryManagementPage';

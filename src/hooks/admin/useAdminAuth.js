@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
-import { useAuth } from '../useAuth';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * Hook for checking admin authorization

@@ -18,6 +18,7 @@ import { LoginScreen } from './components/auth/LoginScreen';
 import { AdminRoute } from './components/auth/AdminRoute';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AuthProvider } from './context/AuthContext';
 
 /**
  * Learning app component (existing flashcard learning interface)
@@ -279,21 +280,23 @@ function buildVocabularyObject(levels, categories, selectedLevel) {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Admin routes */}
-        <Route path="/admin/login" element={<LoginScreen />} />
-        <Route
-          path="/admin/*"
-          element={
-            <AdminRoute>
-              <AdminLayout />
-            </AdminRoute>
-          }
-        />
+      <AuthProvider>
+        <Routes>
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<LoginScreen />} />
+          <Route
+            path="/admin/*"
+            element={
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
+            }
+          />
 
-        {/* Learning app routes (catch-all for backward compatibility) */}
-        <Route path="*" element={<LearningApp />} />
-      </Routes>
+          {/* Learning app routes (catch-all for backward compatibility) */}
+          <Route path="*" element={<LearningApp />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
