@@ -10,14 +10,22 @@ registerServiceWorker().catch(err => {
   console.warn('Failed to register service worker:', err);
 });
 
-// Initialize Firebase authentication
+// Initialize Firebase authentication and render app
 // Creates anonymous session if none exists
-initializeAuth().catch(err => {
-  console.error('Failed to initialize authentication:', err);
-});
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+initializeAuth()
+  .then(() => {
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <App />
+      </StrictMode>,
+    );
+  })
+  .catch(err => {
+    console.error('Failed to initialize authentication:', err);
+    // Still render app even if auth fails, some features will be unavailable
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <App />
+      </StrictMode>,
+    );
+  });

@@ -24,10 +24,12 @@ function PracticeScreen({
   const [speechRate, setSpeechRate] = useState(1.0);
   const [showSettings, setShowSettings] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+  const [isRating, setIsRating] = useState(false);
+  const [nextReviewDate, setNextReviewDate] = useState(null);
 
   // Get current user for progress tracking
   const userId = getCurrentUser()?.uid;
-  const { progress, loading: progressLoading } = useUserProgress(userId);
+  const { progress, loading: progressLoading, updateProgress } = useUserProgress(userId);
 
   // Update cards when initialCards changes
   useEffect(() => {
@@ -64,6 +66,40 @@ function PracticeScreen({
 
   const handleCloseProgress = () => {
     setShowProgress(false);
+  };
+
+  const handleRate = async (quality) => {
+    if (!userId || isRating) return;
+
+    const currentCard = cards[currentIndex];
+    if (!currentCard || !currentCard.id) {
+      console.warn('Current card or card ID not found');
+      return;
+    }
+
+    setIsRating(true);
+
+    try {
+      const result = await updateProgress(currentCard.id, quality);
+
+      // Display next review date from the result
+      if (result?.next_review_at) {
+        setNextReviewDate(result.next_review_at);
+      }
+
+      // Auto-advance to next card after a delay (1500ms for feedback visibility)
+      setTimeout(() => {
+        setIsRating(false);
+        setNextReviewDate(null);
+        setCurrentIndex((prevIndex) =>
+          prevIndex < cards.length - 1 ? prevIndex + 1 : prevIndex
+        );
+      }, 1500);
+    } catch (error) {
+      console.error('Failed to update progress:', error);
+      setIsRating(false);
+      setNextReviewDate(null);
+    }
   };
 
   // Build breadcrumb items
@@ -183,10 +219,14 @@ function PracticeScreen({
       {cards.length > 0 && (
         <div className="practice-content">
           <Flashcard
+            key={`${currentIndex}-${cards[currentIndex]?.id || cards[currentIndex]?.polish}`}
             word={cards[currentIndex]}
             languageDirection={languageDirection}
             isMuted={isMuted}
             speechRate={speechRate}
+            onRate={handleRate}
+            isRating={isRating}
+            nextReviewDate={nextReviewDate}
           />
           <FlashcardControls
             onPrevious={handlePrevious}
