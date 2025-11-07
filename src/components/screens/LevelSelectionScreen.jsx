@@ -1,4 +1,5 @@
 import LevelCard from '../common/LevelCard';
+import ProgressTip from '../common/ProgressTip';
 import './LevelSelectionScreen.css';
 
 function LevelSelectionScreen({ onSelectLevel }) {
@@ -27,6 +28,7 @@ function LevelSelectionScreen({ onSelectLevel }) {
     <div className="level-selection-screen">
       <section className="level-selection-content">
         <h2>Choose Your Learning Level</h2>
+        <ProgressTip />
         <div className="level-cards">
           {levels.map((level) => (
             <LevelCard

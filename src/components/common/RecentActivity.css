@@ -36,7 +36,7 @@
 }
 
 .activity-item.activity-delete {
-  border-left-color: var(--color-error);
+  border-left-color: var(--color-accent-danger-900);
 }
 
 .activity-item.activity-import {
@@ -65,7 +65,7 @@
 }
 
 .activity-item.activity-delete .activity-icon {
-  background-color: var(--color-error);
+  background-color: var(--color-accent-danger-900);
 }
 
 .activity-item.activity-import .activity-icon {

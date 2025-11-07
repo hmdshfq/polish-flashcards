@@ -86,9 +86,9 @@
 /* Error State */
 .login-error {
   background-color: oklch(94% 0.10 25);
-  border: 2px solid var(--color-error);
+  border: 2px solid var(--color-accent-danger-500);
   border-radius: var(--radius-md);
-  color: var(--color-error);
+  color: var(--color-accent-danger-900);
   padding: var(--space-md);
   margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);

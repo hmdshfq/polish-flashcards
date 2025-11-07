@@ -65,29 +65,53 @@
   --color-border-focus: oklch(60% 0.14 150);
 
   /* ============================================
-     STATE COLORS (OKLCH System)
+     ACCENT COLOR PALETTES (full 9-level scales)
+     100 = lightest, 500 = brightest, 900 = darkest
      ============================================ */
-  --color-success-light: oklch(94% 0.08 150);
-  --color-success: oklch(68% 0.16 150);
-  --color-success-dark: oklch(48% 0.12 150);
 
-  --color-warning-light: oklch(94% 0.10 85);
-  --color-warning: oklch(76% 0.18 85);
-  --color-warning-dark: oklch(56% 0.14 85);
+  /* Accent-Info (Teal/Cyan - Hue 180) */
+  --color-accent-info-100: oklch(96% 0.06 180);
+  --color-accent-info-200: oklch(88% 0.10 180);
+  --color-accent-info-300: oklch(80% 0.12 180);
+  --color-accent-info-400: oklch(72% 0.14 180);
+  --color-accent-info-500: oklch(64% 0.16 180);  /* Brightest */
+  --color-accent-info-600: oklch(56% 0.15 180);
+  --color-accent-info-700: oklch(48% 0.13 180);
+  --color-accent-info-800: oklch(40% 0.10 180);
+  --color-accent-info-900: oklch(32% 0.08 180);  /* Darkest */
 
-  --color-error-light: oklch(94% 0.10 25);
-  --color-error: oklch(64% 0.18 25);
-  --color-error-dark: oklch(44% 0.14 25);
+  /* Accent-Danger (Red - Hue 10) */
+  --color-accent-danger-100: oklch(96% 0.08 10);
+  --color-accent-danger-200: oklch(88% 0.12 10);
+  --color-accent-danger-300: oklch(80% 0.14 10);
+  --color-accent-danger-400: oklch(72% 0.16 10);
+  --color-accent-danger-500: oklch(64% 0.18 10);  /* Brightest */
+  --color-accent-danger-600: oklch(56% 0.16 10);
+  --color-accent-danger-700: oklch(48% 0.14 10);
+  --color-accent-danger-800: oklch(40% 0.12 10);
+  --color-accent-danger-900: oklch(32% 0.10 10);  /* Darkest */
 
-  --color-info-light: oklch(94% 0.08 240);
-  --color-info: oklch(64% 0.16 240);
-  --color-info-dark: oklch(44% 0.12 240);
+  /* Accent-Warning (Yellow - Hue 55) */
+  --color-accent-warning-100: oklch(96% 0.08 55);
+  --color-accent-warning-200: oklch(88% 0.12 55);
+  --color-accent-warning-300: oklch(80% 0.14 55);
+  --color-accent-warning-400: oklch(72% 0.16 55);
+  --color-accent-warning-500: oklch(64% 0.18 55);  /* Brightest */
+  --color-accent-warning-600: oklch(56% 0.16 55);
+  --color-accent-warning-700: oklch(48% 0.14 55);
+  --color-accent-warning-800: oklch(40% 0.12 55);
+  --color-accent-warning-900: oklch(32% 0.10 55);  /* Darkest */
 
-  /* Legacy color references for backward compatibility */
-  --color-success: #28a745;
-  --color-warning: #ffc107;
-  --color-error: #dc3545;
-  --color-info: #17a2b8;
+  /* Accent-Success (Green - Hue 130) */
+  --color-accent-success-100: oklch(96% 0.08 130);
+  --color-accent-success-200: oklch(88% 0.10 130);
+  --color-accent-success-300: oklch(80% 0.12 130);
+  --color-accent-success-400: oklch(72% 0.14 130);
+  --color-accent-success-500: oklch(64% 0.16 130);  /* Brightest */
+  --color-accent-success-600: oklch(56% 0.15 130);
+  --color-accent-success-700: oklch(48% 0.13 130);
+  --color-accent-success-800: oklch(40% 0.10 130);
+  --color-accent-success-900: oklch(32% 0.08 130);  /* Darkest */
 
   /* ============================================
      SHADOWS

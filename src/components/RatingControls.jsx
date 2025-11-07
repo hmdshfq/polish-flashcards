@@ -133,9 +133,6 @@ function RatingControls({
               <span className="rating-controls__button-description">{rating.description}</span>
             </span>
             <span className="rating-controls__button-hotkey">{rating.hotkey}</span>
-            {ratedButtonId === rating.id && (
-              <Check size={16} className="rating-controls__checkmark" />
-            )}
           </button>
         ))}
       </div>

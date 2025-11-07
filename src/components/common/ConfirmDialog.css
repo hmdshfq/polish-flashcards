@@ -16,7 +16,7 @@
 }
 
 .button-primary.button-danger {
-  background-color: var(--color-error);
+  background-color: var(--color-accent-danger-900);
 }
 
 .button-primary.button-danger:hover:not(:disabled) {

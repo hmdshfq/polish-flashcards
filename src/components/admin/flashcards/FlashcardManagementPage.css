@@ -94,10 +94,10 @@
 
 /* Alert messages */
 .success-alert {
-  background-color: var(--color-success-light);
-  border: 1px solid var(--color-success);
+  background-color: var(--color-accent-success-100);
+  border: 1px solid var(--color-accent-success-500);
   border-radius: var(--radius-md);
-  color: var(--color-success-dark);
+  color: var(--color-accent-success-900);
   padding: var(--space-md) var(--space-lg);
   margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);
@@ -106,10 +106,10 @@
 }
 
 .error-alert {
-  background-color: var(--color-error-light);
-  border: 1px solid var(--color-error);
+  background-color: var(--color-accent-danger-100);
+  border: 1px solid var(--color-accent-danger-500);
   border-radius: var(--radius-md);
-  color: var(--color-error-dark);
+  color: var(--color-accent-danger-900);
   padding: var(--space-md) var(--space-lg);
   margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);
@@ -133,8 +133,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
-  background-color: var(--color-success-light);
-  border: 1px solid var(--color-success);
+  background-color: var(--color-accent-success-100);
+  border: 1px solid var(--color-accent-success-500);
   border-radius: var(--radius-md);
   padding: var(--space-md) var(--space-lg);
   margin-bottom: var(--space-lg);
@@ -148,7 +148,7 @@
 }
 
 .button-danger {
-  background-color: var(--color-error);
+  background-color: var(--color-accent-danger-900);
   color: var(--color-text-inverse);
   border: none;
   padding: var(--space-md) var(--space-lg);
@@ -162,12 +162,12 @@
 }
 
 .button-danger:hover {
-  background-color: var(--color-error-dark);
+  background-color: var(--color-accent-danger-900);
   box-shadow: var(--shadow-md);
 }
 
 .button-danger:focus {
-  outline: 2px solid var(--color-error);
+  outline: 2px solid var(--color-accent-danger-500);
   outline-offset: 2px;
 }
 
@@ -228,7 +228,7 @@
 }
 
 .action-button.delete {
-  color: var(--color-error);
+  color: var(--color-accent-danger-900);
 }
 
 /* Mobile responsive */

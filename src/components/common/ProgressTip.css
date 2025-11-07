@@ -1,0 +1,95 @@
+.progress-tip {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-accent-info-100);
+  border: 1px solid var(--color-accent-info-300);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+  color: var(--color-accent-info-900);
+  animation: slideDown 300ms ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.progress-tip-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.progress-tip-icon {
+  color: var(--color-accent-info-900);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.progress-tip-content p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-accent-info-900);
+}
+
+.progress-tip-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-info-900);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.progress-tip-close:hover {
+  background: var(--color-accent-info-200);
+  color: var(--color-accent-info-900);
+}
+
+.progress-tip-close:focus {
+  outline: 3px solid var(--color-accent-info-500);
+  outline-offset: 2px;
+}
+
+.progress-tip-close:active {
+  transform: scale(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-tip {
+    animation: none;
+  }
+
+  .progress-tip-close {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .progress-tip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-tip-close {
+    align-self: flex-end;
+  }
+}

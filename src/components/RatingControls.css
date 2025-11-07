@@ -301,31 +301,6 @@
   opacity: 0.8;
 }
 
-/* Checkmark for selected button */
-.rating-controls__checkmark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  animation: checkmarkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 2;
-}
-
-@keyframes checkmarkPop {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.3);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
 /* Disabled state */
 .rating-controls__button:disabled {
   cursor: not-allowed;

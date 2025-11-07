@@ -158,9 +158,9 @@
 .data-table-error {
   padding: var(--space-lg);
   background-color: oklch(94% 0.10 25);
-  border: 2px solid var(--color-error);
+  border: 2px solid var(--color-accent-danger-500);
   border-radius: var(--radius-md);
-  color: var(--color-error);
+  color: var(--color-accent-danger-900);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   display: flex;

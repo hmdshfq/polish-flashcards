@@ -151,7 +151,7 @@
 .logout-button {
   width: 100%;
   padding: var(--space-md);
-  background-color: var(--color-error);
+  background-color: var(--color-accent-danger-900);
   border: none;
   color: var(--color-text-inverse);
   border-radius: var(--radius-md);
@@ -164,7 +164,7 @@
 }
 
 .logout-button:hover {
-  background-color: var(--color-error-dark);
+  background-color: var(--color-accent-danger-900);
   box-shadow: var(--shadow-lg);
 }
 

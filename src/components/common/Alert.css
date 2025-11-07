@@ -127,52 +127,52 @@
 
 /* Success */
 .alert-success {
-  background-color: oklch(94% 0.08 150);
-  color: oklch(48% 0.12 150);
-  border-left: 4px solid oklch(68% 0.16 150);
+  background-color: var(--color-accent-success-100);
+  color: var(--color-accent-success-900);
+  border-left: 4px solid var(--color-accent-success-500);
 }
 
 .alert-icon-success {
-  background-color: oklch(68% 0.16 150);
+  background-color: var(--color-accent-success-500);
   color: white;
   border-radius: 50%;
 }
 
 /* Warning */
 .alert-warning {
-  background-color: oklch(94% 0.10 85);
-  color: oklch(56% 0.14 85);
-  border-left: 4px solid oklch(76% 0.18 85);
+  background-color: var(--color-accent-warning-100);
+  color: var(--color-accent-warning-900);
+  border-left: 4px solid var(--color-accent-warning-500);
 }
 
 .alert-icon-warning {
-  background-color: oklch(76% 0.18 85);
+  background-color: var(--color-accent-warning-500);
   color: white;
   border-radius: 50%;
 }
 
 /* Error */
 .alert-error {
-  background-color: oklch(94% 0.10 25);
-  color: oklch(44% 0.14 25);
-  border-left: 4px solid var(--color-error);
+  background-color: var(--color-accent-danger-100);
+  color: var(--color-accent-danger-900);
+  border-left: 4px solid var(--color-accent-danger-500);
 }
 
 .alert-icon-error {
-  background-color: var(--color-error);
+  background-color: var(--color-accent-danger-500);
   color: white;
   border-radius: 50%;
 }
 
 /* Info */
 .alert-info {
-  background-color: oklch(94% 0.08 240);
-  color: oklch(44% 0.12 240);
-  border-left: 4px solid oklch(64% 0.16 240);
+  background-color: var(--color-accent-info-100);
+  color: var(--color-accent-info-900);
+  border-left: 4px solid var(--color-accent-info-500);
 }
 
 .alert-icon-info {
-  background-color: oklch(64% 0.16 240);
+  background-color: var(--color-accent-info-500);
   color: white;
   border-radius: 50%;
 }
