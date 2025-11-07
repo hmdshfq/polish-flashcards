@@ -1,12 +1,7 @@
-/* Import design system variables */
-/* Tailwind CSS */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
-
-/* Import design system variables */
 @import './styles/variables.css';
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
