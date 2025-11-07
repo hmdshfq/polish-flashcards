@@ -1,18 +1,19 @@
 .form-error-alert {
-  background-color: #fee;
+  background-color: var(--color-error-light);
   border: 1px solid var(--color-error);
-  border-radius: var(--border-radius-md);
-  color: var(--color-error);
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  color: var(--color-error-dark);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-lg);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
 }
 
 .form-group:last-child {
@@ -21,7 +22,7 @@
 
 .form-label {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
 
@@ -30,20 +31,20 @@
 }
 
 .form-input {
-  padding: var(--spacing-md);
+  padding: var(--space-md);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   background-color: var(--color-bg-card);
   font-family: inherit;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-light);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
 }
 
 .form-input:disabled {
@@ -57,12 +58,12 @@
 }
 
 .form-input.error:focus {
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 0 3px var(--color-error-light);
 }
 
 .form-textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 120px;
   line-height: 1.5;
 }
 
@@ -75,25 +76,26 @@
 .form-hint {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  margin-top: var(--spacing-xs);
+  margin-top: var(--space-xs);
   font-style: italic;
 }
 
 .error-message {
   font-size: var(--font-size-xs);
   color: var(--color-error);
-  margin-top: var(--spacing-xs);
+  margin-top: var(--space-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 /* Checkbox group */
 .checkbox-group {
-  gap: var(--spacing-sm);
+  gap: var(--space-sm);
 }
 
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--space-sm);
   cursor: pointer;
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
@@ -118,16 +120,18 @@
   background-color: var(--color-primary);
   color: var(--color-text-inverse);
   border: none;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--border-radius-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
   font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  transition: background-color 150ms ease;
-  min-height: 40px;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 44px;
 }
 
 .button-primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .button-primary:focus {
@@ -135,25 +139,31 @@
   outline-offset: 2px;
 }
 
+.button-primary:active:not(:disabled) {
+  box-shadow: var(--shadow-sm);
+}
+
 .button-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .button-secondary {
-  background-color: transparent;
+  background-color: var(--color-bg-hover);
   color: var(--color-text-primary);
   border: 1px solid var(--color-border-default);
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--border-radius-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
   font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  transition: background-color 150ms ease;
-  min-height: 40px;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  min-height: 44px;
 }
 
 .button-secondary:hover:not(:disabled) {
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-bg-card);
+  border-color: var(--color-primary);
 }
 
 .button-secondary:focus {
@@ -162,6 +172,6 @@
 }
 
 .button-secondary:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }

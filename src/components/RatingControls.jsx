@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Check } from 'lucide-react';
 import './RatingControls.css';
 import { formatNextReview } from '../utils/dateFormatter';
 
@@ -103,7 +104,7 @@ function RatingControls({
         <h3 className="rating-controls__title">How well did you know this?</h3>
         {showFeedback && nextReviewDate && (
           <div className="rating-controls__feedback">
-            <span className="rating-controls__feedback-icon">✓</span>
+            <Check size={18} className="rating-controls__feedback-icon" />
             <span className="rating-controls__feedback-text">
               {formatNextReview(nextReviewDate)}
             </span>
@@ -130,7 +131,7 @@ function RatingControls({
             </span>
             <span className="rating-controls__button-hotkey">{rating.hotkey}</span>
             {ratedButtonId === rating.id && (
-              <span className="rating-controls__checkmark">✓</span>
+              <Check size={16} className="rating-controls__checkmark" />
             )}
           </button>
         ))}

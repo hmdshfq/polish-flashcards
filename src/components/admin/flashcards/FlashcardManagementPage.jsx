@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Edit, Trash2, Upload, Download } from 'lucide-react';
 import { useAdminFlashcards } from '../../../hooks/admin/useAdminFlashcards';
 import { DataTable } from '../../common/DataTable';
 import { ConfirmDialog } from '../../common/ConfirmDialog';
@@ -221,7 +222,7 @@ export function FlashcardManagementPage() {
             title="Edit"
             aria-label={`Edit flashcard: ${row.polish}`}
           >
-            ✏️
+            <Edit size={18} />
           </button>
           <button
             className="action-button delete"
@@ -229,7 +230,7 @@ export function FlashcardManagementPage() {
             title="Delete"
             aria-label={`Delete flashcard: ${row.polish}`}
           >
-            🗑️
+            <Trash2 size={18} />
           </button>
         </div>
       )
@@ -247,7 +248,8 @@ export function FlashcardManagementPage() {
             aria-label="Import flashcards from CSV"
             title="Import from CSV"
           >
-            ⬆️ Import
+            <Upload size={18} style={{ display: 'inline', marginRight: '6px' }} />
+            Import
           </button>
           <button
             className="button-secondary"
@@ -256,7 +258,8 @@ export function FlashcardManagementPage() {
             aria-label="Export flashcards to CSV"
             title="Export to CSV"
           >
-            ⬇️ Export
+            <Download size={18} style={{ display: 'inline', marginRight: '6px' }} />
+            Export
           </button>
           <button
             className="button-primary"

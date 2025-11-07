@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Download } from 'lucide-react';
 import { Modal, ModalBody, ModalFooter } from '../../common/Modal';
 import { parseFlashcardsCSV, downloadFlashcardTemplate } from '../../../utils/csvParser';
 import './BulkImportModal.css';
@@ -178,7 +179,8 @@ export function BulkImportModal({
                 onClick={downloadFlashcardTemplate}
                 aria-label="Download CSV template"
               >
-                ⬇️ Download Template
+                <Download size={18} style={{ display: 'inline', marginRight: '6px' }} />
+                Download Template
               </button>
             </div>
 

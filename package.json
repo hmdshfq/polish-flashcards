@@ -14,12 +14,15 @@
     "sync": "pnpm export && pnpm import"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
     "firebase": "^12.5.0",
     "idb": "^8.0.3",
+    "lucide-react": "^0.553.0",
     "papaparse": "^5.5.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.5",
+    "tailwindcss": "^4.1.17",
     "workbox-window": "^7.3.0",
     "zod": "^4.1.12"
   },

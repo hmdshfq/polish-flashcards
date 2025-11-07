@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Edit, Trash2, ArrowRight } from 'lucide-react';
 import { useAdminCategories } from '../../../hooks/admin/useAdminCategories';
 import { useLevels } from '../../../hooks/useLevels';
 import { DataTable } from '../../common/DataTable';
@@ -120,7 +121,7 @@ export function CategoryManagementPage() {
       label: 'Slug',
       sortable: false,
       render: (value) => (
-        <span className="cell-code">{value}</span>
+        <span className="cell-badge">{value}</span>
       )
     },
     {
@@ -134,7 +135,7 @@ export function CategoryManagementPage() {
             title="Edit"
             aria-label={`Edit category: ${row.name}`}
           >
-            ✏️
+            <Edit size={18} />
           </button>
           <button
             className="action-button delete"
@@ -142,7 +143,7 @@ export function CategoryManagementPage() {
             title="Delete"
             aria-label={`Delete category: ${row.name}`}
           >
-            🗑️
+            <Trash2 size={18} />
           </button>
         </div>
       )
@@ -204,7 +205,10 @@ export function CategoryManagementPage() {
         />
       ) : (
         <div className="no-level-selected">
-          <p>👉 Select a level above to view and manage categories</p>
+          <p className="flex items-center">
+            <ArrowRight size={20} style={{ display: 'inline', marginRight: '8px' }} />
+            Select a level above to view and manage categories
+          </p>
         </div>
       )}
 

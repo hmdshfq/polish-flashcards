@@ -1,13 +1,16 @@
 .level-management-page {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-lg);
-  gap: var(--spacing-lg);
+  margin-bottom: var(--space-2xl);
+  gap: var(--space-lg);
+  flex-wrap: wrap;
 }
 
 .page-header h1 {
@@ -15,28 +18,31 @@
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
+  flex: 0 0 auto;
 }
 
 /* Alert messages */
 .success-alert {
-  background-color: #f0f9f6;
-  border: 1px solid #28a745;
-  border-radius: var(--border-radius-md);
-  color: #1e5631;
-  padding: var(--spacing-md) var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  background-color: var(--color-success-light);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-md);
+  color: var(--color-success-dark);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   animation: slideDown 200ms ease;
 }
 
 .error-alert {
-  background-color: #fee;
+  background-color: var(--color-error-light);
   border: 1px solid var(--color-error);
-  border-radius: var(--border-radius-md);
-  color: var(--color-error);
-  padding: var(--spacing-md) var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  color: var(--color-error-dark);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   animation: slideDown 200ms ease;
 }
 
@@ -53,16 +59,17 @@
 
 /* Info banner */
 .info-banner {
-  background-color: #f0f8ff;
-  border-left: 4px solid #17a2b8;
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-lg);
+  background-color: var(--color-info-light);
+  border: 1px solid var(--color-info);
+  border-left: 4px solid var(--color-info);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
 }
 
 .info-banner p {
   margin: 0;
-  color: #0c5460;
+  color: var(--color-info-dark);
   font-size: var(--font-size-sm);
 }
 
@@ -88,8 +95,8 @@
   display: inline-block;
   background-color: var(--color-bg-hover);
   color: var(--color-text-primary);
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--border-radius-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
   font-weight: var(--font-weight-semibold);
   text-align: center;
   min-width: 30px;
@@ -97,27 +104,27 @@
 
 .cell-badge {
   display: inline-block;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--border-radius-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .cell-badge.has {
-  background-color: #d4edda;
-  color: #1e5631;
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
 }
 
 .cell-badge.none {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: var(--color-error-light);
+  color: var(--color-error-dark);
 }
 
 .cell-actions {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--space-sm);
 }
 
 .action-button {
@@ -125,11 +132,11 @@
   border: none;
   cursor: pointer;
   font-size: var(--font-size-lg);
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  transition: background-color 150ms ease;
-  min-width: 32px;
-  min-height: 32px;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  min-width: 36px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,7 +152,7 @@
 }
 
 .action-button.edit {
-  color: #0066cc;
+  color: var(--color-primary);
 }
 
 /* Mobile responsive */
@@ -153,6 +160,7 @@
   .page-header {
     flex-direction: column;
     align-items: stretch;
+    margin-bottom: var(--space-xl);
   }
 
   .page-header h1 {
@@ -160,7 +168,7 @@
   }
 
   .info-banner {
-    padding: var(--spacing-md);
+    padding: var(--space-md);
   }
 
   .info-banner p {

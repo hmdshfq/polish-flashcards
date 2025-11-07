@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Edit, CheckCircle, XCircle } from 'lucide-react';
 import { useAdminLevels } from '../../../hooks/admin/useAdminLevels';
 import { DataTable } from '../../common/DataTable';
 import { ConfirmDialog } from '../../common/ConfirmDialog';
@@ -83,8 +84,18 @@ export function LevelManagementPage() {
       label: 'Categories',
       sortable: false,
       render: (value) => (
-        <span className={`cell-badge ${value ? 'has' : 'none'}`}>
-          {value ? '✓ Yes' : '✗ No'}
+        <span className={`cell-badge ${value ? 'has' : 'none'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          {value ? (
+            <>
+              <CheckCircle size={14} />
+              Yes
+            </>
+          ) : (
+            <>
+              <XCircle size={14} />
+              No
+            </>
+          )}
         </span>
       )
     },
@@ -99,7 +110,7 @@ export function LevelManagementPage() {
             title="Edit"
             aria-label={`Edit level: ${row.name}`}
           >
-            ✏️
+            <Edit size={18} />
           </button>
         </div>
       )

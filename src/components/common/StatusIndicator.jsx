@@ -79,10 +79,10 @@ function StatusIndicator() {
       for (const db of dbs) {
         indexedDB.deleteDatabase(db.name);
       }
-      setClearMessage('✓ IndexedDB cleared');
+      setClearMessage('IndexedDB cleared successfully');
       setTimeout(() => setClearMessage(null), 3000);
     } catch (err) {
-      setClearMessage('✗ Failed to clear IndexedDB');
+      setClearMessage('Failed to clear IndexedDB');
       setTimeout(() => setClearMessage(null), 3000);
     }
   };
@@ -96,10 +96,10 @@ function StatusIndicator() {
           localStorage.removeItem(key);
         }
       }
-      setClearMessage('✓ Local Storage cache cleared');
+      setClearMessage('Local Storage cache cleared successfully');
       setTimeout(() => setClearMessage(null), 3000);
     } catch (err) {
-      setClearMessage('✗ Failed to clear Local Storage');
+      setClearMessage('Failed to clear Local Storage');
       setTimeout(() => setClearMessage(null), 3000);
     }
   };
@@ -108,7 +108,7 @@ function StatusIndicator() {
   const clearAllCache = async () => {
     await clearIndexedDB();
     clearLocalStorage();
-    setClearMessage('✓ All cache cleared. Reload page to fetch fresh data.');
+    setClearMessage('All cache cleared. Reload page to fetch fresh data.');
     setTimeout(() => setClearMessage(null), 4000);
   };
 

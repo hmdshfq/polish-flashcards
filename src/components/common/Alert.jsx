@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 import './Alert.css';
 
 /**
@@ -45,14 +46,14 @@ export function Alert({ type = 'info', message, onClose, duration = 5000, id }) 
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return '✓';
+        return <CheckCircle size={20} />;
       case 'warning':
-        return '⚠';
+        return <AlertTriangle size={20} />;
       case 'error':
-        return '✕';
+        return <AlertCircle size={20} />;
       case 'info':
       default:
-        return 'ℹ';
+        return <Info size={20} />;
     }
   };
 
