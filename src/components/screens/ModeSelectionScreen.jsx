@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Breadcrumb from '../common/Breadcrumb';
 import ModeCard from '../common/ModeCard';
 import './ModeSelectionScreen.css';
@@ -7,6 +8,18 @@ function ModeSelectionScreen({ selectedLevel, selectedCategory, onSelectMode, on
   const safeCards = cards || [];
   const vocabularyCount = safeCards.filter(card => card.mode === 'vocabulary').length;
   const sentencesCount = safeCards.filter(card => card.mode === 'sentences').length;
+
+  // Handle Escape key to go back
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onBack();
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [onBack]);
 
   const modes = [
     {

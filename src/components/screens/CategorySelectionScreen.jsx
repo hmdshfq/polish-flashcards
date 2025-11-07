@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Breadcrumb from '../common/Breadcrumb';
 import CategoryCard from '../common/CategoryCard';
 import { useCategories } from '../../hooks/useCategories';
@@ -6,6 +7,18 @@ import './CategorySelectionScreen.css';
 function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, vocabulary }) {
   // Fetch categories
   const { data: categoriesData } = useCategories(selectedLevel);
+
+  // Handle Escape key to go back
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onBack();
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [onBack]);
 
   // Get full category objects from the data, sorted by display_order
   const categories = categoriesData

@@ -39,6 +39,31 @@ function PracticeScreen({
     setCurrentIndex(0);
   }, [initialCards]);
 
+  // Handle Escape key to go back (only if modals are closed)
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        // Don't handle navigation if modals are open (let modal handlers take priority)
+        if (showSettings || showProgress) {
+          return;
+        }
+
+        event.preventDefault();
+
+        // Determine which back function to call based on navigation context
+        if (selectedMode) {
+          onBackToModeSelection();
+        } else if (selectedCategory) {
+          onBackToCategorySelection();
+        } else {
+          onBackToLevelSelection();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showSettings, showProgress, selectedMode, selectedCategory, onBackToModeSelection, onBackToCategorySelection, onBackToLevelSelection]);
+
   const handleNext = () => {
     if (currentIndex < cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
