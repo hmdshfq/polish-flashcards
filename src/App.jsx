@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 import LevelSelectionScreen from './components/screens/LevelSelectionScreen';
@@ -13,8 +14,15 @@ import { useFlashcards } from './hooks/useFlashcards';
 import useUrlSync from './hooks/useUrlSync';
 import useFocusManagement from './hooks/useFocusManagement';
 import useLayoutHeights from './hooks/useLayoutHeights';
+import { LoginScreen } from './components/auth/LoginScreen';
+import { AdminRoute } from './components/auth/AdminRoute';
+import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 
-function App() {
+/**
+ * Learning app component (existing flashcard learning interface)
+ */
+function LearningApp() {
   // Stage management
   const [currentStage, setCurrentStage] = useState('level-selection');
 
@@ -262,6 +270,32 @@ function buildVocabularyObject(levels, categories, selectedLevel) {
     }
   }
   return vocab;
+}
+
+/**
+ * Root app component with routing
+ * Handles both learning app and admin panel routes
+ */
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Admin routes */}
+        <Route path="/admin/login" element={<LoginScreen />} />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        />
+
+        {/* Learning app routes (catch-all for backward compatibility) */}
+        <Route path="*" element={<LearningApp />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

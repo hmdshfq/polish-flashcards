@@ -8,8 +8,13 @@ import {
 import {
   getAuth,
   signInAnonymously,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
-  connectAuthEmulator
+  connectAuthEmulator,
+  setPersistence,
+  browserLocalPersistence,
+  signOut as firebaseSignOut
 } from 'firebase/auth';
 
 // Firebase configuration from environment variables
@@ -108,9 +113,37 @@ export function onAuthChange(callback) {
  */
 export async function signOut() {
   try {
-    await auth.signOut();
+    await firebaseSignOut(auth);
   } catch (error) {
     console.error('Failed to sign out:', error);
+    throw error;
+  }
+}
+
+/**
+ * Sign up with email and password
+ * Creates a new user account
+ */
+export async function signUpWithEmail(email, password) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error('Sign up failed:', error.message);
+    throw error;
+  }
+}
+
+/**
+ * Sign in with email and password
+ * Returns the user if successful
+ */
+export async function signInWithEmail(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error('Sign in failed:', error.message);
     throw error;
   }
 }

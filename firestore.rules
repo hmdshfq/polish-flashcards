@@ -3,23 +3,39 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // ===== HELPER FUNCTION =====
+    // Check if current user is an admin
+    function isAdmin() {
+      return request.auth != null
+             && exists(/databases/$(database)/documents/user_roles/$(request.auth.uid))
+             && get(/databases/$(database)/documents/user_roles/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ===== ADMIN ROLES =====
+    // Admins are identified by entries in this collection
+    // Only admins can create/read their own role document
+    match /user_roles/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false; // Managed via admin SDK or backend only
+    }
+
     // ===== PUBLIC READ-ONLY VOCABULARY DATA =====
     // All users can read vocabulary data (levels, categories, flashcards)
-    // No one can write to these collections (managed via admin SDK only)
+    // Only admins can write
 
     match /levels/{levelId} {
       allow read: if true;
-      allow write: if false;
+      allow create, update, delete: if isAdmin();
     }
 
     match /categories/{categoryId} {
       allow read: if true;
-      allow write: if false;
+      allow create, update, delete: if isAdmin();
     }
 
     match /flashcards/{flashcardId} {
       allow read: if true;
-      allow write: if false;
+      allow create, update, delete: if isAdmin();
     }
 
     // ===== USER PROGRESS - ISOLATED PER USER =====
