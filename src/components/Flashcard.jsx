@@ -23,6 +23,27 @@ function Flashcard({
     }
   }, [isFlipped, onFlipChange]);
 
+  // Handle spacebar key press to flip card
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      // Check if spacebar was pressed (key code 32 or key name 'Space' or ' ')
+      if (event.code === 'Space' || event.key === ' ' || event.keyCode === 32) {
+        // Prevent default spacebar behavior (scrolling)
+        event.preventDefault();
+        // Use functional state update to avoid stale closure
+        setIsFlipped((prev) => !prev);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []); // Empty dependency array since we use functional state update
+
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
