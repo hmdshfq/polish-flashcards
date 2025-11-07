@@ -3,6 +3,7 @@ import { Outlet, useNavigate, useLocation, Routes, Route } from 'react-router-do
 import { useAuth } from '../../hooks/useAuth';
 import { AdminDashboard } from './AdminDashboard';
 import { FlashcardManagementPage } from './flashcards/FlashcardManagementPage';
+import { CategoryManagementPage } from './categories/CategoryManagementPage';
 import './AdminLayout.css';
 
 /**
@@ -123,7 +124,7 @@ export function AdminLayout() {
           <Routes>
             <Route path="/" element={<AdminDashboard />} />
             <Route path="/flashcards" element={<FlashcardManagementPage />} />
-            <Route path="/categories" element={<div className="coming-soon">Categories Management (Coming Soon)</div>} />
+            <Route path="/categories" element={<CategoryManagementPage />} />
             <Route path="/levels" element={<div className="coming-soon">Levels Management (Coming Soon)</div>} />
           </Routes>
         </div>
