@@ -1,7 +1,7 @@
 .breadcrumb {
   background: var(--color-bg-badge);
   border-radius: var(--radius-2xl);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-md) var(--space-lg);
   color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: var(--line-height-normal);
@@ -24,7 +24,8 @@
 
 .breadcrumb__separator {
   color: var(--color-text-disabled);
-  margin: 0 var(--space-xs);
+  margin: 0 var(--space-sm);
+  opacity: 0.6;
 }
 
 .breadcrumb__link {
@@ -58,8 +59,11 @@
 }
 
 .breadcrumb__current {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklch, var(--color-primary) 8%, transparent);
 }
 
 .breadcrumb__text {
@@ -79,7 +83,7 @@
 @media (max-width: 640px) {
   .breadcrumb {
     font-size: var(--font-size-sm);
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
   }
 
   .breadcrumb__text--full {

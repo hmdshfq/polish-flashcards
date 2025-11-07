@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 import './Flashcard.css';
 import { speakText } from '../utils/speechSynthesis';
 
@@ -75,7 +76,7 @@ function Flashcard({
             disabled={isMuted}
             title={isMuted ? 'Audio is muted' : 'Click to hear pronunciation'}
           >
-            {isMuted ? '🔇' : '🔊'}
+            {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
           </button>
           <div className="hint">Click to reveal</div>
         </div>
@@ -88,7 +89,7 @@ function Flashcard({
             disabled={isMuted}
             title={isMuted ? 'Audio is muted' : 'Click to hear pronunciation'}
           >
-            {isMuted ? '🔇' : '🔊'}
+            {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
           </button>
           <div className="hint">Click to go back</div>
         </div>

@@ -80,6 +80,10 @@
   transition: all 0.2s ease;
 }
 
+.settings-close {
+  color: var(--color-text-secondary);
+}
+
 .settings-close:hover {
   color: var(--color-primary);
   background: color-mix(in oklch, var(--color-primary) 12%, transparent);
@@ -127,10 +131,13 @@
 }
 
 .settings-option__icon {
-  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
   line-height: 1;
-  min-width: 24px;
-  text-align: center;
+  flex-shrink: 0;
+  color: var(--color-primary);
 }
 
 .settings-option__label {
@@ -188,8 +195,12 @@
 }
 
 .settings-control__icon {
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 
 .settings-control__select {
@@ -283,7 +294,7 @@
   }
 
   .settings-option__icon {
-    font-size: 1.1rem;
+    min-width: 28px;
   }
 
   .settings-info-grid {

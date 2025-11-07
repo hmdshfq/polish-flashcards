@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { RotateCw, Volume2, VolumeX, Zap, X } from 'lucide-react';
 import './SettingsMenu.css';
 
 function SettingsMenu({
@@ -78,13 +79,15 @@ function SettingsMenu({
             onClick={onClose}
             aria-label="Close settings"
           >
-            ✕
+            <X size={24} />
           </button>
         </div>
 
         <div className="settings-menu__content">
           <button className="settings-option" onClick={onRestart}>
-            <span className="settings-option__icon">🔄</span>
+            <span className="settings-option__icon">
+              <RotateCw size={24} />
+            </span>
             <span className="settings-option__label">Restart Current</span>
             <span className="settings-option__subtitle">Go back to the first card</span>
           </button>
@@ -93,7 +96,9 @@ function SettingsMenu({
             <h4 className="settings-section__title">Audio Settings</h4>
 
             <button className="settings-option" onClick={onToggleMute}>
-              <span className="settings-option__icon">{isMuted ? '🔇' : '🔊'}</span>
+              <span className="settings-option__icon">
+                {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+              </span>
               <span className="settings-option__label">
                 {isMuted ? 'Unmute Audio' : 'Mute Audio'}
                 <span className="settings-option__subtitle">
@@ -104,7 +109,9 @@ function SettingsMenu({
 
             <div className="settings-control">
               <label htmlFor="speech-rate" className="settings-control__label">
-                <span className="settings-control__icon">⚡</span>
+                <span className="settings-control__icon">
+                  <Zap size={20} />
+                </span>
                 Speech Rate
               </label>
               <select

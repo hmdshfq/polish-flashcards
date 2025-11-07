@@ -7,9 +7,14 @@
 }
 
 .progress-indicator {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-badge);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-2xl);
+  min-width: 120px;
+  text-align: center;
 }
 
 .control-buttons {

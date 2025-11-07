@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { BarChart3, Settings, RotateCw, Volume2, VolumeX } from 'lucide-react';
 import Flashcard from '../Flashcard';
 import FlashcardControls from '../FlashcardControls';
 import RatingControls from '../RatingControls';
@@ -398,11 +399,22 @@ function PracticeScreen({
       {lastKeyAction && (
         <div className="keyboard-action-toast" role="status" aria-hidden="true">
           {lastKeyAction === 'direction' && (
-            <span>🔄 {languageDirection === 'pl-to-en' ? 'PL → EN' : 'EN → PL'}</span>
+            <span className="toast-content">
+              <RotateCw size={18} />
+              {languageDirection === 'pl-to-en' ? 'PL → EN' : 'EN → PL'}
+            </span>
           )}
-          {lastKeyAction === 'speak' && <span>🔊 Speaking...</span>}
+          {lastKeyAction === 'speak' && (
+            <span className="toast-content">
+              <Volume2 size={18} />
+              Speaking...
+            </span>
+          )}
           {lastKeyAction === 'mute' && (
-            <span>{isMuted ? '🔇 Muted' : '🔊 Unmuted'}</span>
+            <span className="toast-content">
+              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              {isMuted ? 'Muted' : 'Unmuted'}
+            </span>
           )}
         </div>
       )}
@@ -410,7 +422,7 @@ function PracticeScreen({
       {/* Mute status badge */}
       {isMuted && (
         <div className="mute-status-badge" title="Audio is muted">
-          🔇
+          <VolumeX size={24} />
         </div>
       )}
 
@@ -422,14 +434,14 @@ function PracticeScreen({
             onClick={() => setShowProgress(true)}
             aria-label="Open progress stats"
           >
-            📊
+            <BarChart3 size={20} />
           </button>
           <button
             className="settings-button"
             onClick={() => setShowSettings(true)}
             aria-label="Open settings menu"
           >
-            ⚙️
+            <Settings size={20} />
           </button>
           <div className="progress-indicator-header">
             {currentIndex + 1} / {cards.length}
