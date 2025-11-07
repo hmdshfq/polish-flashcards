@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, useNavigate, useLocation, Routes, Route } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { AdminDashboard } from './AdminDashboard';
+import { FlashcardManagementPage } from './flashcards/FlashcardManagementPage';
 import './AdminLayout.css';
 
 /**
@@ -121,9 +122,9 @@ export function AdminLayout() {
         <div className="admin-content">
           <Routes>
             <Route path="/" element={<AdminDashboard />} />
-            <Route path="/flashcards" element={<div>Flashcards Page (Coming Soon)</div>} />
-            <Route path="/categories" element={<div>Categories Page (Coming Soon)</div>} />
-            <Route path="/levels" element={<div>Levels Page (Coming Soon)</div>} />
+            <Route path="/flashcards" element={<FlashcardManagementPage />} />
+            <Route path="/categories" element={<div className="coming-soon">Categories Management (Coming Soon)</div>} />
+            <Route path="/levels" element={<div className="coming-soon">Levels Management (Coming Soon)</div>} />
           </Routes>
         </div>
       </main>

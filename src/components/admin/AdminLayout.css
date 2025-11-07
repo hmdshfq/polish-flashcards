@@ -249,3 +249,13 @@
     font-size: var(--font-size-base);
   }
 }
+
+/* Coming soon placeholder */
+.coming-soon {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  background-color: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+}
