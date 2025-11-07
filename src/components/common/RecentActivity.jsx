@@ -108,6 +108,7 @@ export function RecentActivity({ activities = [], maxItems = 5, onViewAll }) {
 /**
  * Mock activity data generator for development
  */
+/* eslint-disable react-refresh/only-export-components */
 export const mockActivities = [
   {
     id: 1,

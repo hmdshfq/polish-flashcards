@@ -11,7 +11,7 @@ import './StatusIndicator.css';
  */
 function StatusIndicator() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const [isSyncing, setIsSyncing] = useState(false);
+  const [isSyncing] = useState(false);
   const [lastSyncTime, setLastSyncTime] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -82,7 +82,7 @@ function StatusIndicator() {
       }
       setClearMessage('IndexedDB cleared successfully');
       setTimeout(() => setClearMessage(null), 3000);
-    } catch (err) {
+    } catch {
       setClearMessage('Failed to clear IndexedDB');
       setTimeout(() => setClearMessage(null), 3000);
     }
@@ -99,7 +99,7 @@ function StatusIndicator() {
       }
       setClearMessage('Local Storage cache cleared successfully');
       setTimeout(() => setClearMessage(null), 3000);
-    } catch (err) {
+    } catch {
       setClearMessage('Failed to clear Local Storage');
       setTimeout(() => setClearMessage(null), 3000);
     }

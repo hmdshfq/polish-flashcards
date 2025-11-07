@@ -19,7 +19,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const serviceAccountPath = path.join(__dirname, '..', 'serviceAccountKey.json');
 if (!fs.existsSync(serviceAccountPath)) {
   console.error('❌ Service account key not found at', serviceAccountPath);
-  process.exit(1);
+  // process is not defined when using ES modules unless imported or available globally (which it's not in ES modules by default).
+  // To fix, import process from 'process' or avoid using process.exit here.
+  // One solution:
+  import('process').then(({ exit }) => exit(1));
 }
 
 // Initialize Firebase Admin SDK
@@ -57,8 +60,10 @@ async function clearCollections() {
 
   } catch (error) {
     console.error('❌ Clear failed:', error.message);
-    process.exit(1);
+    import('process').then(({ exit }) => exit(1));
   }
 }
 
-clearCollections().then(() => process.exit(0));
+clearCollections().then(() => {
+  import('process').then(({ exit }) => exit(0));
+});

@@ -22,7 +22,7 @@ export function CategoryManagementPage() {
   const [actionSuccess, setActionSuccess] = useState(null);
 
   const { data: levels } = useLevels();
-  const { categories, loading, error, create, update, delete: deleteCategory, reorder } =
+  const { categories, loading, error, create, update, delete: deleteCategory } =
     useAdminCategories(selectedLevel);
 
   // Handle form submission (create or update)

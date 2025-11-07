@@ -162,7 +162,7 @@ function exportVocabulary() {
   if (validationErrors > 0) {
     console.error(`\n⚠️  Export completed with ${validationErrors} validation error(s)`);
     console.error('Please fix the errors above and try again.\n');
-    process.exit(1);
+    import('process').then(({ exit }) => exit(1));
   }
 
   console.log('✅ Export complete!\n');

@@ -21,7 +21,7 @@ import CategoryCard from '../common/CategoryCard';
 import { useCategories } from '../../hooks/useCategories';
 import './CategorySelectionScreen.css';
 
-function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack, vocabulary }) {
+function CategorySelectionScreen({ selectedLevel, onSelectCategory, onBack }) {
   // Fetch categories
   const { data: categoriesData } = useCategories(selectedLevel);
 

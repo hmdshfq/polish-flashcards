@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 import './Alert.css';
 
@@ -13,9 +13,17 @@ import './Alert.css';
  * @param {number} props.duration - Duration in ms before auto-dismiss (0 = no auto-dismiss)
  * @param {string} props.id - Unique identifier for the alert
  */
-export function Alert({ type = 'info', message, onClose, duration = 5000, id }) {
+export function Alert({ type = 'info', message, onClose, duration = 5000 }) {
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(100);
+
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    if (onClose) {
+      // Delay callback to allow animation to complete
+      setTimeout(onClose, 300);
+    }
+  }, [onClose]);
 
   useEffect(() => {
     if (duration === 0) return;
@@ -33,15 +41,7 @@ export function Alert({ type = 'info', message, onClose, duration = 5000, id }) 
     }, 50);
 
     return () => clearInterval(interval);
-  }, [duration]);
-
-  const handleClose = () => {
-    setIsVisible(false);
-    if (onClose) {
-      // Delay callback to allow animation to complete
-      setTimeout(onClose, 300);
-    }
-  };
+  }, [duration, handleClose]);
 
   const getIcon = () => {
     switch (type) {
@@ -78,8 +78,6 @@ export function Alert({ type = 'info', message, onClose, duration = 5000, id }) 
  * Usage: Wrap your app with <AlertProvider>, then use useAlert() in components
  */
 
-import { createContext, useContext, useState, useCallback } from 'react';
-
 const AlertContext = createContext();
 
 export function AlertProvider({ children }) {
@@ -108,7 +106,6 @@ export function AlertProvider({ children }) {
         {alerts.map((alert) => (
           <Alert
             key={alert.id}
-            id={alert.id}
             type={alert.type}
             message={alert.message}
             duration={alert.duration}
@@ -124,6 +121,7 @@ export function AlertProvider({ children }) {
  * Hook to use alerts
  * @returns {Object} Alert methods: success(), warning(), error(), info()
  */
+/* eslint-disable react-refresh/only-export-components */
 export function useAlert() {
   const context = useContext(AlertContext);
   if (!context) {

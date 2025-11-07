@@ -1,6 +1,6 @@
 import './CategoryCard.css';
 
-function CategoryCard({ category, icon, wordCount, onClick }) {
+function CategoryCard({ category, icon, onClick }) {
   return (
     <button
       className="category-card"

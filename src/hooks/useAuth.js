@@ -3,7 +3,6 @@ import {
   signUpWithEmail,
   signInWithEmail,
   signOut,
-  getCurrentUser,
   onAuthChange
 } from '../services/firebase';
 

@@ -8,8 +8,7 @@ import {
   updateDoc,
   deleteDoc,
   doc,
-  writeBatch,
-  orderBy
+  writeBatch
 } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 

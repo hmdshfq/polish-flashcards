@@ -13,7 +13,7 @@ export function BulkImportModal({
   onImport = null,
   loading = false
 }) {
-  const [file, setFile] = useState(null);
+  const [setFile] = useState(null);
   const [parsedData, setParsedData] = useState(null);
   const [parseErrors, setParseErrors] = useState([]);
   const [importStep, setImportStep] = useState('upload'); // 'upload' | 'preview' | 'importing'

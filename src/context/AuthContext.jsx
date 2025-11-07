@@ -5,6 +5,7 @@ import { useAuth as useAuthHook } from '../hooks/useAuth';
  * Auth context to ensure a single instance of useAuth across the entire app
  * This prevents multiple onAuthStateChanged listeners and state inconsistencies
  */
+/* eslint-disable react-refresh/only-export-components */
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {

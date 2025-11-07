@@ -11,7 +11,6 @@ export function DataTable({
   loading = false,
   error = null,
   onSort = null,
-  onFilter = null,
   selectable = false,
   onSelectionChange = null,
   emptyMessage = 'No data available',
