@@ -9,7 +9,7 @@
      100 = lightest, 500 = brightest, 900 = darkest
      Using OKLCH color system for perceptual consistency
      ============================================ */
-  --color-primary-100: oklch(96% 0.02 150);
+  --color-primary-100: oklch(98% 0.02 150);
   --color-primary-200: oklch(92% 0.04 150);
   --color-primary-300: oklch(84% 0.08 150);
   --color-primary-400: oklch(76% 0.12 150);
@@ -129,6 +129,7 @@
      ============================================ */
   /* Font Family */
   --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-family-heading: 'Poltawski Nowy', serif;
 
   /* Font Sizes */
   --font-size-xs: 0.75rem;     /* 12px */

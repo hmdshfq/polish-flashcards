@@ -45,7 +45,7 @@ export function AdminLayout() {
       {/* Sidebar */}
       <aside className={`admin-sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
-          <h1 className="sidebar-title">Polish Admin</h1>
+          <h1 className="sidebar-title">Flashy Polish</h1>
           <button
             className="sidebar-close"
             onClick={() => setSidebarOpen(false)}
